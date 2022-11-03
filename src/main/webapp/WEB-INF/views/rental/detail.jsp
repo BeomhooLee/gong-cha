@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/rental.css" />
@@ -50,7 +52,7 @@ function showmap() {
 $(document).ready(function(){
 	togglemap = $('#toggleMap'); //버튼 아이디 변수 선언
 	map = $('#map'); //레이어 아이디 변수 선언
-    btn.click(function(){
+	btn.click(function(){
        map.toggle(
          function(){map.addClass('show')}, //클릭하면 show클래스 적용되서 보이기
          function(){map.addClass('hide')} //한 번 더 클릭하면 hide클래스가 숨기기
@@ -149,11 +151,11 @@ $(function(){
 		</div>
 		<div class="clear"></div>
 	</div>
-
+	
 	<div id="stadium_profile">
-		<p id="name">HM풋살파크 안산 고잔점</p>
+		<p id="name">${stadium_name}</p>
 		<div id="wtgTool">
-			<span id="txt1">경기 안산시 단원구 광덕대로 175</span> <span id="copy-url1"
+			<span id="txt1">${stadium.address}</span> <span id="copy-url1"
 				class="txt2" onclick="clipBoard()">주소 복사</span> <span id="toggleMap"
 				class="txt2" onclick="showmap()">지도 보기</span>
 		</div>
@@ -186,38 +188,37 @@ $(function(){
 		<div class="tab-content" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-home"
 				role="tabpanel" aria-labelledby="pills-home-tab">
-				<div id="stadium_info">
-					<p id="info_title">1개의 구장</p>
-					<div id="stadium_img">
-						<ul>
-							<li>
-								<div id="stm_wrap">
-									<div id="stm_img">
-										<div id="dots">
-											<button type="button" class="btn btn-primary"
-												data-bs-toggle="modal" data-bs-target="#exampleModal">
-												<span id="plus"></span>
-											</button>
-										</div>
-									</div>
-								</div>
-								<p>B구장</p> <span>40x20m·실외·인조잔디</span>
-							</li>
-						</ul>
-					</div>
+				<div id="stadium_info">					
+					<span>${stadium.stadium_size}·실외·인조잔디</span>		
 					<div id="info_list_wrap">
 						<ul>
 							<li class="info_list">
 								<i class="bi bi-car-front" style="font-size: 1.5rem;"></i>
 								<div class="li_di">
-									<p>주차</p>
+								<p>
+								<c:if test="${stadium.parking_lot == 1 }">
+									무료주차
+								</c:if>
+								<c:if test="${stadium.parking_lot == 0 }">
+									유료주차
+								</c:if>	
+								</p>
 								</div>
 							</li>
 							<li class="info_list">
+								<c:if test="${stadium.parking_lot == 1 }">
+								<img src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg" style="font-size: 1.5rem;">
+								<div class="li_di">
+									<p >샤워실</p>
+								</c:if>
+							<c:if test="${stadium.parking_lot == 0 }">
 								<img class="no_icon" src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg" style="font-size: 1.5rem;">
 								<div class="li_di">
-									<p class="title_line">샤워실
+									<p class="title_line">샤워실</p>
 								</div>
+								</div>
+							</c:if>	
+									
 							</li>
 							<li class="info_list">
 								<i class="fa-solid fa-restroom" style="font-size: 1.2rem;"></i>
@@ -295,16 +296,6 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				
-					<div id="rental_boxWrap">
-						<div id="rental_box">
-							<p class="futsalName">B구장</p>
-							<p class="futsalSize">
-								40x20m <span class="futsalSize">실외, </span> <span
-									class="futsalSize">인조잔디</span>
-							</p>
-						</div>
-					</div>
 
 					<div id="rentalChoice">
 						<ul style="padding-left: 0rem;">
@@ -394,7 +385,6 @@ $(function(){
 				  </div>
 				</div>
 			</div>
-			
 			
 <!-- 			<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 				aria-labelledby="pills-contact-tab">
@@ -561,32 +551,7 @@ $(function(){
 
 	</div>
 	<div class="clear"></div>
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<ul>
-						<li class="ma"><img class="ma_img"
-							src="/resources/images/rental/as_hm1.jpg" alt="..." /></li>
-						<li class="ma"><img class="ma_img"
-							src="/resources/images/rental/as_hm2.jpg" alt="..." /></li>
-						<li class="ma"><img class="ma_img"
-							src="/resources/images/rental/as_hm3.jpg" alt="..." /></li>
-						<li class="ma"><img class="ma_img"
-							src="/resources/images/rental/as_hm4.jpg" alt="..." /></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 </article>
 
 <!-- 카카오맵 api -->
@@ -596,14 +561,14 @@ $(function(){
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(37.31180981633277, 126.8289844683709), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.498096349937015, 127.0294336536626), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // 마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(37.31180981633277, 126.8289844683709); 
+var markerPosition  = new kakao.maps.LatLng(37.498096349937015, 127.0294336536626); 
 
 // 마커를 생성합니다
 var marker = new kakao.maps.Marker({

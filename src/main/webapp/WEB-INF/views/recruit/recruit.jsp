@@ -182,7 +182,7 @@
 								<h3>${t.title}</h3>
 							</div>
 							<div class="option">
-								<span class="isMix" id="stadium_name">${t.stadium_name}</span><span>${t.start_time} ~ ${t.end_time }</span>
+								<span class="isMix" id="city">${t.stadium_name}</span><span>${t.start_time} ~ ${t.end_time }</span>
 								<span>
 								<c:if test="${t.match_level == 1}">실력 하</c:if>
 								<c:if test="${t.match_level == 2}">실력 중</c:if>
