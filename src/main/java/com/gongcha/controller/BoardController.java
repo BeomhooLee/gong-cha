@@ -52,7 +52,7 @@ public class BoardController {
 		}else {
 
 			List<BoardDTO> g=boardService.getMatch(id);
-
+			
 			if(g.isEmpty()) {
 				out.println("<script>");
 				out.println("alert('예약하신 구장이 없습니다!');");
@@ -61,7 +61,7 @@ public class BoardController {
 			}else {
 				ModelAndView f=new ModelAndView();
 
-				f.addObject("li",g);
+				f.addObject("li",g.stream().distinct());
 
 				f.setViewName("/recruit/recruit_regi");
 

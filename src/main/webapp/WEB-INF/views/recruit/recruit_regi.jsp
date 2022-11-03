@@ -8,14 +8,15 @@
 <script type="text/javascript">
 
 function check(){
-	 if($.trim($("#city").val())=="none"){
-			alert("지역을 선택해주세요!");		
-			return false;
-		}
-	    if($.trim($("#stadium_match_no").val())=="none"){
+	 if($.trim($("#stadium_name").val())=="none"){
 			alert("경기장을 선택해주세요!");		
 			return false;
 		}
+	    if($.trim($("#start_time").val())=="none"){
+			alert("시간을 선택해주세요!");		
+			return false;
+		}
+	    
 	    if($.trim($("#match_level").val())=="none"){
 			alert("실력을 선택해주세요!");		
 			return false;
@@ -64,8 +65,8 @@ function check(){
 		<form action="recruit_regi_ok" method="post"
 			onsubmit="return check();">
 			<div id="select_contain">
-				<span>내 경기 선택</span>&nbsp;&nbsp; <select name="city" id="city">
-					<option value="none">지역 선택</option>
+				<span>내 경기 선택</span>&nbsp;&nbsp; <select name="stadium" id="stadium">
+					<option value="none">경기장 선택</option>
 					<option value="서울특별시">서울특별시</option>
 					<option value="경기도">경기도</option>
 					<option value="부산광역시">부산광역시</option>

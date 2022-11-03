@@ -13,7 +13,9 @@
 
 	<!-- 용병 모집 목록 -->
 	<select id="get_list" resultType="board">
-  		select * from recruit r join stadium_match s on r.stadium_match_no = s.stadium_match_no order by recruit_no desc
+		select a.recruit_no, a.stadium_name, a.title, a.recruit_content, a.mem_id ,a.regdate, a.match_level, b.stadium_match_no,
+		 b.match_date, b.price, b.start_time, b.end_time, c.address from recruit a, stadium_match b, stadium c 
+		 where a.stadium_match_no = b.stadium_match_no and b.stadium_name = c.stadium_name order by recruit_no desc
 	</select>
 
 	<!-- 게시글 보기 -->
@@ -21,9 +23,9 @@
 		 select * from recruit a join stadium_match b on a.stadium_match_no = b.stadium_match_no where a.recruit_no=#{recruit_no}
 	</select>
 	
-	<!-- 글쓰기에서 내가 예약한 구장 보기-->
+	<!-- 글쓰기에서 구장보기-->
 	<select id="get_match" resultType="board">
-		select * from stadium_match where mem_id=#{mem_id,jdbcType=VARCHAR}
+		select stadium_name from stadium_match where mem_id=#{mem_id,jdbcType=VARCHAR}
 	</select>
 
 	<!-- 글보기에서 내 아이디 값 확인 -->

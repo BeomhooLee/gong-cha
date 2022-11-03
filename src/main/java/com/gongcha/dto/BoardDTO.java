@@ -21,4 +21,7 @@ public class BoardDTO {
 	private String start_time;
 	private String end_time;
 	
+	//stadium
+	private String address;
+	
 }
