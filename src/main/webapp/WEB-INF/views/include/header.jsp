@@ -30,11 +30,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"/>
 	
 <script type="text/javascript">
-	$(function(){	
-		$('.up').on('click',function(e){
-			e.preventDefault();
-			$('html,body').animate({scrollTop:0},1000);
-		});
+	$('.up').on('click',function(){
+		$('html').scrollTop(0);
 	});
 </script>
 	

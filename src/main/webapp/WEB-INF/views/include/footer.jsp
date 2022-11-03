@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 	
 		<footer>
-			<div onclick="up()" id="up" class="up">
+			<div id="up" class="up">
 				<img src="/resources/images/arrow-up-circle.svg" width="40" height="40">
 			</div>
 			<div id="f_logo">

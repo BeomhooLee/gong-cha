@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -278,19 +279,19 @@
 		</div>
 		<div id="social_container_right">
 			<div id="social_right_top">
-				<div class="title">${fn:substring(sm_dto.match_date,5,7)}월 ${fn:substring(sm_dto.match_date,5,7)}일 월요일 17:00</div>
+				<div class="title">${fn:substring(sm_dto.match_date,5,7)}월 ${fn:substring(sm_dto.match_date,8,10)}일 ${dayofweek}요일 ${fn:substring(sm_dto.match_date,10,16)}</div>
 				<div id="per_ground">
-					<a href="#">서울 영등포 더에프 필드 B구장</a> 
+					<a href="#">${sm_dto.stadium_name}</a> 
 				</div>
 				<div id="address">
-					<a href="#">서울특별시 영등포구 선유로 138</a>
+					<a href="#">${stadium.address}</a>
 				</div>
 				<div id="map">
 					<a href="#">지도보기</a>
 				</div>
 				<div id="cost">
-					<span>10,000원</span>
-					<p>&nbsp;/ 2시간</p>
+					<span><fmt:formatNumber value="${sm_dto.price}" pattern="#,###"/>원</span>
+					<p>&nbsp;/&nbsp;${sm_dto.match_time}</p>
 				</div>
 			</div>
 			<div id="social_right_bottom">
