@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,6 @@
 			$('#shoes_text').attr('class', 'disable')
 		}
 		if('${stadium.vest_rental}' == 0){
-			$('#vest_img').attr('class', 'icon_no')
 			$('#vest_text').attr('class', 'disable')
 		}
 		
@@ -135,7 +134,7 @@
 						<img alt="프로필" src="/resources/images/social/default_profile.png">
 					</div>
 					<div id="manager_desc">
-						<p>홍길동 매니저가 진행해요<p>
+						<p>${sm_dto.manager} 매니저가 진행해요<p>
 					</div>
 				</div>
 			</div>
@@ -212,13 +211,6 @@
 							<li>친구끼리 와도 팀 실력이 맞지 않으면 다른 팀이 될 수 있어요</li>
 						</ul>
 						<ul class="matchRule">
-							<h4>알아두면 좋아요</h4>
-							<li>서로 존중하고 격려하며 함께 즐겨요</li>
-							<li>플랩 평균 레벨은 아마추어2예요</li>
-							<li>플랩에서는 하루 평균 180경기가 진행되고 있어요</li>
-							<li>매일 3,000여명이 팀 없이도 풋살을 즐기고 있어요</li>
-						</ul>
-						<ul class="matchRule">
 							<h4>일반 취소 규정</h4>
 							<li>매치 시작 1시간 30분 전까지 최소 인원(10명) 미달 시 매치가 취소 됩니다. 취소 시 카카오톡을
 								통해 안내드리며 캐시는 전액 환급됩니다.</li>
@@ -251,32 +243,28 @@
 					<div class="stadInner section__body" style="border: none;">
 						<ul class="matchRule">
 							<h4>신청 취소 시 환불 기준</h4>
-							<!-- <table>
-								<colgroup>
-									<col width="50%">
-									<col width="50%">
-								</colgroup>
-								<tbody>
-									<tr>
-										<td>매치 2일 전</td>
-										<td>무료 취소</td>
-									</tr>
-									<tr>
-										<td>매치 1일 전</td>
-										<td>80% 환급</td>
-									</tr>
-									<tr>
-										<td>매치 시작 90분 전까지</td>
-										<td>20% 환급</td>
-									</tr>
-									<tr>
-										<td>매치 시작 90분 이내</td>
-										<td>0% (환급 불가)</td>
-									</tr>
-								</tbody>
-							</table> -->
-							<img src="/resources/images/table.PNG" width="550" height="120">
-						</ul>
+							<table class="table">
+							  <tbody style="font-size: 14px; margin-top: 10px;">
+							    <tr>
+							      <td scope="row">매치 2일 전</td>
+							      <td>무료 취소</td>
+							    </tr>
+							    <tr>
+							      <td scope="row">매치 1일 전</td>
+							      <td>80% 환급</td>
+							    </tr>
+							    <tr>
+							      <td scope="row">매치 시작 90분 전까지</td>
+							      <td>20% 환급</td>
+							    </tr>
+							    <tr>
+							      <td scope="row">매치 시작 90분 이내</td>
+							      <td>0% (환급 불가)</td>
+							    </tr>
+							  </tbody>
+							</table>
+<!-- 							<img src="/resources/images/table.PNG" width="550" height="120">
+ -->						</ul>
 						<ul class="matchRule">
 							<h4>그 외 취소 기준</h4>
 							<li>기상악화 매치매치 시작 90분 전까지 무료취소 가능 (기상악화로 설정되어 메시지가 발송된 매치만
@@ -290,7 +278,7 @@
 		</div>
 		<div id="social_container_right">
 			<div id="social_right_top">
-				<div class="title">10월 3일 월요일 17:00</div>
+				<div class="title">${fn:substring(sm_dto.match_date,5,7)}월 ${fn:substring(sm_dto.match_date,5,7)}일 월요일 17:00</div>
 				<div id="per_ground">
 					<a href="#">서울 영등포 더에프 필드 B구장</a> 
 				</div>

@@ -1,8 +1,7 @@
 @charset "EUC-KR";
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
-    border: 0;
     vertical-align: baseline;
 }
 
@@ -17,14 +16,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     outline: none;
 }
 
-table {
-    display: table;
-    border-collapse: separate;
-    box-sizing: border-box;
-    text-indent: initial;
-    border-spacing: 2px;
-    border-color: grey;
-}	
 
 ul {
     display: block;
@@ -208,10 +199,6 @@ footer{
     color: #C1CCD6;
 }
 
-.info_info_cont_grey img{
-	filter: invert(66%) sepia(3%) saturate(385%) hue-rotate(187deg) brightness(100%) contrast(98%);
-}
-
 .info_info_cont #judge{
 	filter: invert(95%) sepia(8%) saturate(115%) hue-rotate(165deg) brightness(98%) contrast(93%);
 }
@@ -250,7 +237,7 @@ footer{
 #rule{
 	display: flex;
 	flex-flow: column;
-	width: 633.75px;bootstrap
+	width: 633.75px;
 	padding: 30px 20px;
 	border-bottom-style: solid;
 	border-bottom-color: #fafafa;
@@ -320,23 +307,31 @@ footer{
 	border-bottom-width: 20px;
 }
 
-.stadInner .matchRule table {
+
+/* table {
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}	 */
+
+/* table {
     border-radius: 6px;
-    border-style: hidden;
     box-shadow: 0 0 0 1px #9fb1bd;
     width: 100%;
     margin-top: 10px;
-}
+} */
 
-.stadInner .matchRule table, th, td {
+/* table, th, td {
     border: 0px solid #9FB1BD;
     border-collapse: separate;
     font-size: 14px;
-}
+} */
 
-colgroup {
+/* colgroup {
     display: table-column-group;
-}
+} */
 
 #social_container_right{
 	display: flex;

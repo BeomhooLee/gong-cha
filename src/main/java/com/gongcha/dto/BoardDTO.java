@@ -7,7 +7,7 @@ public class BoardDTO {
 	
 	//recruit 테이블
 	private int recruit_no;
-	private String city;
+	private String stdium_name;
 	private String title;
 	private String recruit_content;
 	private String mem_id;

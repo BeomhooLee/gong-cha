@@ -138,18 +138,12 @@
 			data : JSON.stringify(sendData),
 			contentType : 'application/json; charset=UTF-8',
 			dataTye : "html",
-			success : function(resp) {
-				console.log('hi')
+			success : function(data) {
+				$('#ajax_result').html(data);
 			}
 		});
 
 	};
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		$('li').not('li[data-date=' + '${today}' + ']').hide()
-	});
 </script>
 <script type="text/javascript">
 	var selected_date = $(this).children('p').text().replace('일', '')
@@ -367,9 +361,9 @@
 			</div>
 
 			<div id="list">
-				<ul>
+				<ul id="ajax_result">
 					<c:forEach items="${social_match}" var="sm" varStatus="status">
-						<li class="item"><a href="/social"
+						<li class="item""><a href="/social?match_no=${sm.match_no}"
 							style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
 								<div class="time">
 									<p>${fn:substring(sm.match_date,11,16)}</p>
@@ -377,7 +371,6 @@
 								<div class="info">
 									<div class="title">
 										<h3>${sm.stadium_name}</h3>
-										<span class="new">N</span>
 									</div>
 									<div class="option">
 										<c:if test="${sm.gender == 1}">
@@ -386,7 +379,9 @@
 										<c:if test="${sm.gender == 2}">
 											<span class="isMix">여자</span>
 										</c:if>
-										<span>${sm.versus_num}</span> <span>${sm.match_type}</span> <span>${sm.match_level}</span>
+										<span>${sm.versus_num}</span> 
+										<span>${sm.match_type}</span> 
+										<span>${sm.match_level}</span>
 									</div>
 								</div>
 
@@ -412,7 +407,7 @@
 								</div>
 
 						</a></li>
-					</c:forEach>
+					</c:forEach>	
 				</ul>
 			</div>
 			</article>

@@ -81,7 +81,7 @@
 	<select id="socialjoin_list" resultType="social_match"
 		resultMap="smmap">
 		select
-		s.city,sm.match_date,sm.versus_num,sm.match_type,sm.stadium_name,sm.gender,sm.player_num,sm.match_level,sm.current_count
+		sm.match_no,s.city,sm.match_date,sm.versus_num,sm.match_type,sm.stadium_name,sm.gender,sm.player_num,sm.match_level,sm.current_count
 		from social_match sm left outer join stadium s on sm.stadium_name =
 		s.stadium_name
 		<where>
@@ -101,7 +101,7 @@
 			<if test="vs=='6vs6' || vs=='7vs7'">
 				and sm.versus_num = #{vs}
 			</if>
-				and sm.match_date = #{date}
+				and to_char(sm.match_date, 'YYYY-MM-DD') = #{date}
 		</where>
 		order by sm.match_date
 	</select>

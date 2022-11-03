@@ -105,8 +105,9 @@ public class MatchController {
 		m.addAttribute("dayofweek_list", dayofweek_list); // 요일들
 		
 		// 소셜매치 리스트 뽑기
-		 List<Social_matchDTO> social_matchList = this.matchservice.getSocial_list(sm);
-		// System.out.println("그냥"+social_matchList);
+		sm.setDate(dates.get(0));
+		
+		List<Social_matchDTO> social_matchList = matchservice.getJoin_list(sm);
 		
 		m.addAttribute("social_match", social_matchList);
 
@@ -115,9 +116,8 @@ public class MatchController {
 	}
 	
 	
-	@ResponseBody
 	@RequestMapping(value = "/filter", method=RequestMethod.POST)
-	public void filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm) throws IOException, ParseException {
+	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm, Model m) throws IOException, ParseException {
 		
 		String level = map.get("level");
 		String type = map.get("type");
@@ -133,7 +133,9 @@ public class MatchController {
 		
 		List<Social_matchDTO> joinsocial_list = matchservice.getJoin_list(sm);
 		
-		joinsocial_list.get(0).
+		m.addAttribute("sm_list", joinsocial_list);
+		
+		return "filtered";
 
 	}
 	
@@ -190,14 +192,10 @@ public class MatchController {
 		int month = now.getMonthValue(); // 달
 
 		int date = now.getDayOfMonth(); // 일
-
-		
-		
 		
 		// 처음 나타날 가로 달력
 
 		List<String> dates = new ArrayList<>(); // 처음 띄울 8개 날짜 모임
-		//dates.add(date); // 오늘 날짜 일단 추가
 		dates.add(st_now);
 
 		List<String> dayofweek_list = new ArrayList<String>(); // 위 8개 날짜에 맞는 요일들
@@ -235,8 +233,6 @@ public class MatchController {
 
 			dayofweek_list.add(dayofweek);
 		}
-		
-		//System.out.println("st_now :"+st_now);
 		
 		model.addAttribute("today", date); // 오늘
 		
