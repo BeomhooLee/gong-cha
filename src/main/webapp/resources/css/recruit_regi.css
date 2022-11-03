@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+p{
+	color: #3E5463;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 150%;
+}
+
+span{
+	color: #3E5463;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 150%;
+}
+
+#regi_form{
+	border-top: solid 2px;
+	padding-top: 20px;
+}
+
+#btn_contain{
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+button {
+    background-color: #25316D;
+    border-radius: 12px;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    font-size: 16px;
+    color: white;
+}
+
+#btn_list{
+	margin-right: 7px;
+	background-color: #C1CCD6;
+}
+
+#select_contain{
+	margin-bottom: 20px;
+}
+
+select{
+	padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    outline: none;
+    color: #222836;
+    background-color: #fafafa;
+    font-size: 15px;
+    appearance: none;
+    box-sizing: border-box;
+}

@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+.play_list_container{
+	margin-top: 20px;
+	margin:0 auto;
+	width:1024px;
+}
+.section{
+	padding: 40px;
+	margin-bottom: 20px;
+    background-color: white;
+}
+.section_title{
+	display:flex;
+	margin-bottom:20px;
+}
+.nav-pills .nav-link.active{
+	color:black !important;
+	background-color: white !important;
+	font-weight: 700 !important;
+}
+.nav-link{
+	font-size: 15px;
+    margin-right: 20px;
+    color: #9FB1BD !important;
+    font-weight: 400 !important;
+    padding: 0px !important;
+}
+.play_list{
+	margin-bottom: 20px;
+	padding-left: 0rem;
+}
+.match_list{
+	display:flex;
+}
+.match_title{
+	font-size: 18px;
+    padding-bottom: 20px;
+    font-weight: 700;
+}
+.no_schedule{
+	margin-bottom: 10px;
+	display: flex;
+    justify-content: center;
+}
+.no_box{
+	padding: 20px;
+    border-radius: 16px;
+    background-color: #F2F5F7;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width:50%;
+    justify-content: center;
+}
+.box_p{
+	font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 1px;
+    margin-left: 20px;
+}
+.injoy{
+	background-color: rgb(242, 245, 247);
+    color: rgb(34, 40, 54);
+    margin: 20px 10px;
+    padding: 30px;
+    border-radius: 30px;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0 auto;
+}
+.injoy{
+	text-decoration:none;
+}
+.injoy:hover{
+	color:black;
+}
+.injoy_h{
+	margin-top: 12px;
+}
+.injoy_h h4{
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 0px;
+}
+.injoy_h p{
+	
+}
+.set{
+	width: 45%;
+}
+.reserv_option{
+	width: 25%;
+	display: flex;
+}
+.st_info{
+	color: white;
+    background-color: #25316d;
+	width: 100%;
+    text-align: center;
+    padding: 8px 5px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+.cancel{
+	color: white;
+    background-color: #FF4D37;
+	width: 100%;
+    text-align: center;
+    padding: 8px 5px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.section_body{
+	
+}
+.empty_state{
+	margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+}
+.empty_state p{
+	font-size: 15px;
+    margin: 20px 0;
+    color: #9FB1BD;
+}
+.empty_state a:hover{
+	color:white;
+}
+.empty_btn{
+	padding: 15px 10px;
+    display: block;
+    margin: 0 auto;
+    color: #fff;
+	background-color: #25316d;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+}
+.change{
+	color: white;
+    background-color: #1570FF;
+	width: 100%;
+    text-align: center;
+    padding: 8px 5px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-left: 10px;
+}

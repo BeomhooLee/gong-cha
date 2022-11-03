@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="match">
+
+	<resultMap type="stadium" id="smap">
+		<result property="stadium_name" column="stadium_name" />
+		<result property="address" column="address" />
+		<result property="city" column="city" />
+		<result property="stadium_size" column="stadium_size" />
+		<result property="shower" column="shower" />
+		<result property="parking_lot" column="parking_lot" />
+		<result property="shoes_rental" column="shoes_rental" />
+		<result property="vest_rental" column="vest_rental" />
+		<result property="etc" column="etc" />
+	</resultMap>
+
+	<resultMap type="social_match" id="smmap">
+		<id property="match_no" column="match_no" />
+		<result property="price" column="price" />
+		<result property="match_date" column="match_date" />
+		<result property="versus_num" column="versus_num" />
+		<result property="match_type" column="match_type" />
+		<result property="stadium_name" column="stadium_name" />
+		<result property="gender" column="gender" />
+		<result property="shoes" column="shoes" />
+		<result property="player_num" column="player_num" />
+		<result property="match_time" column="match_time" />
+		<result property="match_level" column="match_level" />
+		<result property="current_count" column="current_count" />
+		<collection property="stadiumDTO" resultMap="smap"></collection>
+
+	</resultMap>
+
+	<select id="getSocial_list" resultType="social_match"
+		parameterType="social_match">
+		select * from social_match
+		<where>
+			<if test="skill=='' || skill=='전체'"></if><!-- 검색 전 -->
+			<if test="skill=='초보' || skill =='중급' || skill=='고급'">
+				match_level = #{skill}
+			</if>
+			<if test="type=='' || type=='전체'"></if>
+			<if test="type=='2파전' || type=='3파전'">
+				and match_type = #{type}
+			</if>
+			<if test="vs=='' || vs=='전체'"></if>
+			<if test="vs=='6vs6' || vs=='7vs7'">
+				and versus_num = #{vs}
+			</if>
+		</where>
+		order by match_date
+	</select>
+
+	<select id="social_count" resultType="int"
+		parameterType="social_match">
+		select count(sm.match_date) from social_match sm left outer join
+		stadium s on sm.stadium_name = s.stadium_name
+		<where>
+			<if test="region=='' || region=='%전체%'"></if>
+			<if test="region=='%서울%' || region=='%경기도%' || region=='%부산%'">
+				s.city like #{region}
+			</if>
+			<if test="skill=='' || skill=='전체'"></if>
+			<if test="skill=='초보' || skill =='중급' || skill=='고급'">
+				and sm.match_level = #{skill}
+			</if>
+			<if test="type=='' || type=='전체'"></if>
+			<if test="type=='2파전' || type=='3파전'">
+				and sm.match_type = #{type}
+			</if>
+			<if test="vs=='' || vs=='전체'"></if>
+			<if test="vs=='6vs6' || vs=='7vs7'">
+				and sm.versus_num = #{vs}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="socialjoin_list" resultType="social_match"
+		resultMap="smmap">
+		select
+		s.city,sm.match_date,sm.versus_num,sm.match_type,sm.stadium_name,sm.gender,sm.player_num,sm.match_level,sm.current_count
+		from social_match sm left outer join stadium s on sm.stadium_name =
+		s.stadium_name
+		<where>
+			<if test="region=='' || region=='%전체%'"></if>
+			<if test="region=='%서울%' || region=='%경기도%' || region=='%부산%'">
+				s.city like #{region}
+			</if>
+			<if test="skill=='' || skill=='전체'"></if>
+			<if test="skill=='초보' || skill =='중급' || skill=='고급'">
+				and sm.match_level = #{skill}
+			</if>
+			<if test="type=='' || type=='전체'"></if>
+			<if test="type=='2파전' || type=='3파전'">
+				and sm.match_type = #{type}
+			</if>
+			<if test="vs=='' || vs=='전체'"></if>
+			<if test="vs=='6vs6' || vs=='7vs7'">
+				and sm.versus_num = #{vs}
+			</if>
+				and sm.match_date = #{date}
+		</where>
+		order by sm.match_date
+	</select>
+
+	<select id="get_sm_list" resultType="stadium_match">
+		select * from stadium_match
+	</select>
+
+	<select id="getStadiumList" resultType="stadium">
+		select * from stadium
+	</select>
+
+	<select id="getStadium" resultType="stadium">
+		select * from stadium where
+		stadium_name = #{stadium_name}
+	</select>
+
+	<select id="getSocialDTO" resultType="social_match">
+		select * from social_match
+		where match_no=#{match_no}
+	</select>
+
+	<select id="getEtcs" resultType="string">
+		select etc1, etc2, etc3, etc4,
+		etc5, etc6, etc7, etc8, etc9, etc10 from
+		stadium where
+		stadium_name=#{stadium_name}
+	</select>
+
+</mapper>

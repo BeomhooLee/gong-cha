@@ -1,0 +1,136 @@
+@charset "UTF-8";
+
+article{
+	max-width:1024px;
+	width: 100%;
+	margin: auto;
+}
+#notice_t{
+	margin:20px;
+    padding: 15px 30px;
+    border-radius: 100px 100px 100px 0;
+    background-color: #25316D;
+    color: white;
+    width: 100%;
+    
+}
+#notice_title {
+	display: block;
+ 	font-size: 32px;
+    font-weight: bolder;
+	padding: 10px 0;
+	width: 100%;
+}
+
+#notice_list{
+	margin: 20px;
+}
+
+#notice_name{
+    font-size: 16px;
+    display: block;
+    padding: 12px 3px;;
+    word-break: keep-all;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+#notice_name h4 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+}
+#notice_name:hover {
+    color: #25316D;
+    text-decoration: underline;
+}
+
+#qAnda_t{
+	display:flex;
+	align-items: center;
+	justify-content:space-between;
+	margin:20px;
+    padding: 15px 30px;
+    border-radius: 100px 100px 100px 0;
+    background-color: #25316D;
+    color: white;
+  	height:120px;
+  	width: 100%;
+}
+#qAnda_title{
+	display: flex;
+ 	font-size: 32px;
+    font-weight: bolder;
+	padding: 10px 0;
+}
+.helpSearch{
+	display:flex;
+	max-width: 700px;
+	width:100%;
+	margin: 3px 0 3px 15px; 
+}
+.helpSearch input{
+	width:100%;
+	padding: 15px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    outline: none;
+    background-color: #fafafa;
+    appearance: none;
+    font-size: 16px;
+    color: #222836;
+}
+#qAnda_menu{
+	width:100%;
+	padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+}
+#qAnda_menu h3{
+	font-size: 20px;
+	text-align:center;
+	padding-top: 10px;
+	color: white;
+    margin-bottom: 10px;
+   	background-color: #25316D;
+   	border-radius:100px 100px 100px 0;
+    display: inline-block;
+    width: 95px;
+    height: 40px; 
+}
+#qAnda_menu ul{
+	display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+#qAnda_menu ul li{
+	width: 30%;
+}
+#qAnda_menu ul li a{
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 5px 0;
+    padding: 6px 0;
+    display: block;
+}
+
+#qAnda_menu ul li a:hover{
+	text-decoration: none;
+	color: #25316D;
+	font-weight: bold;
+	border: 1px solid #25316D;
+}
+#notice_list h3{
+	font-size: 20px;
+	text-align:center;
+	padding-top: 10px;
+	color: white;
+    margin-bottom: 10px;
+   	background-color: #25316D;
+   	border-radius:100px 100px 100px 0;
+    display: inline-block;
+    width: 145px;
+    height: 40px; 
+}

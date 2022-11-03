@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<!-- 아이디 중복 검사 -->
+	<select id="id_check" resultType="member">
+		select * from member where mem_id=#{id}
+	</select>
+	
+	<!--회원 저장 -->
+	<insert id="member_in">
+	  insert into member 
+	  (  MEM_ID
+	   , MEM_PWD
+	   , MEM_NAME
+	   , EMAIL_ID
+	   , EMAIL_DOMAIN
+	   , MEM_BIRTH
+	   , MEM_GENDER
+	   , PHONE01
+	   , PHONE02
+	   , POSTCODE
+	   , ROADADDRESS
+	   , JIBUNADDRESS
+	   , EXTRAADDRESS
+	  ) 
+	  values
+	  (
+	     #{mem_id}
+	   , #{mem_pwd}
+	   , #{mem_name}
+	   , #{email_id}
+	   , #{email_domain}
+	   , #{mem_birth}
+	   , #{mem_gender} 
+	   , #{phone01}
+	   , #{phone02}
+	   , #{postcode}
+	   , #{roadAddress}
+	   , #{jibunAddress}
+	   , #{extraAddress}
+	  )
+	</insert>
+	
+  <!-- 로그인 인증 -->
+  <select id="login_check" resultType="member">
+    select * from member where mem_id=#{mem_id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 회원정보 보기 -->
+  <select id="get_mem" resultType="member">
+    select * from member where mem_id=#{id}
+  </select>
+  
+   <!-- 회원정보 수정완료 -->
+  <update id="edit_ok">
+    update member set 
+    	mem_name=#{mem_name},
+    	email_id=#{email_id},
+    	email_domain=#{email_domain},
+		mem_birth=#{mem_birth},
+		mem_gender=#{mem_gender},
+		phone02=#{phone02},
+		postcode=#{postcode},
+		roadaddress=#{roadAddress},
+		jibunaddress=#{jibunAddress},
+		extraaddress=#{extraAddress},
+		bank_code=#{bank_code},
+		bank_num=#{bank_num},
+		bank_owner=#{bank_owner}    	
+		where mem_id=#{mem_id}
+  </update>
+  
+  <!-- 비밀번호 변경에서 회원 아이디 검색 -->
+  <select id="find_id" resultType="member">
+    select * from member where mem_id=#{mem_id,jdbcType=VARCHAR}
+    
+  </select>
+  
+  <!-- 비밀번호 수정-->
+  <update id="pwd_change">
+    update member set mem_pwd=#{mem_pwd,jdbcType=VARCHAR} where mem_id=#{mem_id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 회원 탈퇴 -->
+  <delete id="del_mem">
+    delete from member where mem_id=#{mem_id}
+  </delete>
+  
+  <!-- 아이디 찾기 -->
+  <select id="f_id" resultType="member">
+    select * from member where mem_name=#{mem_name} and phone02=#{phone02}
+  </select>
+  
+  <!-- 비밀번호 찾기 -->
+  <select id="f_pwd" resultType="member">
+    select * from member where mem_name=#{mem_name} and mem_id=#{mem_id}
+  </select>
+</mapper>

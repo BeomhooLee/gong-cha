@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+article{
+	max-width: 1024px;
+	width: 100%;
+	margin-top: 20px;
+	margin: auto;
+}
+.content{
+	max-width: 1024px;
+	width: 100%;
+	margin: 20px auto;
+}
+.content h3{
+	font-size: 23px;
+	font-weight: bold;
+}
+.innerBox{
+	padding :15px;
+}
+.cashcontainer{
+	background-color: #F2F5F7;
+    border-radius: 20px;
+    padding: 20px;
+}
+.cashBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.right p{
+	margin:0;
+	padding:0;
+}
+.cashCharge{
+	font-size: 14px;
+    border-radius: 6px;
+    padding: 10px 10px;
+    background-color: #25316D;
+    color: white;
+}
+.chargelsit li p{
+	font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    min-height: 300px;
+    line-height: 300px;
+}
+.chargelsit p{
+	font-size: 18px;
+    font-weight: bold;
+}	
+.cashHistory{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #c7c7c7;
+    padding: 8px 5px;
+}
+.cash span{
+	color:#25316D;
+	font-size: 18px;
+	font-weight: bold;
+}
+.totalCash{
+	display:flex;
+	justify-content:flex-end;
+	font-size: 19px;
+	font-weight: bold;
+}
