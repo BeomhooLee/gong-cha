@@ -7,7 +7,7 @@ public class BoardDTO {
 	
 	//recruit 테이블
 	private int recruit_no;
-	private String city;
+	private String stadium_name;
 	private String title;
 	private String recruit_content;
 	private String mem_id;
@@ -17,7 +17,6 @@ public class BoardDTO {
 	
 	//stadium_match join
 	private String match_date;
-	private String stadium_name;
 	private int price;
 	private String start_time;
 	private String end_time;

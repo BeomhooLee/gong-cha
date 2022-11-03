@@ -107,7 +107,7 @@ public class BoardController {
 		String id=(String)session.getAttribute("id");
 
 		o=this.boardService.getCont(recruit_no);
-		System.out.println(o);
+		
 		String cont=o.getRecruit_content().replace("\n","<br/>");
 
 		o.setMem_id(id);
@@ -128,7 +128,7 @@ public class BoardController {
 
 	//게시글 수정
 	@RequestMapping("/recruit_edit")
-	public ModelAndView recruit_(HttpServletResponse response,HttpSession session,BoardDTO i,int recruit_no) throws Exception {
+	public ModelAndView recruit_(HttpServletResponse response,HttpSession session,BoardDTO i,@RequestParam int recruit_no) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
 
@@ -143,8 +143,13 @@ public class BoardController {
 			i.setMem_id(id);
 			i.setRecruit_no(recruit_no);
 			BoardDTO id_check=boardService.idCheck(i);
-			System.out.println("아이디 "+id_check);
-			if(!id_check.getMem_id().equals(id)) {
+			
+//			String qs="recruit_detail?recruit_no="+i.getRecruit_no();
+//			String qs=Integer.toString(recruit_no);
+			i=boardService.getRegi(recruit_no);
+//			System.out.println("컨트 : "+recruit_no+" 맵 : "+i.getRecruit_no());
+//			String no= Integer.toBinaryString(i.getRecruit_no());
+			if(id_check == null || !(recruit_no == i.getRecruit_no()) ) {
 				out.println("<script>");
 				out.println("alert('잘못된 접근입니다!');");
 				out.println("history.back();");
@@ -180,7 +185,7 @@ public class BoardController {
 
 	//게시글 수정 완료
 	@RequestMapping("/recruit_edit_ok")
-	public String recruit_edit_ok(HttpSession session,HttpServletResponse response,BoardDTO j) throws Exception {
+	public String recruit_edit_ok(HttpSession session,HttpServletResponse response,@ModelAttribute BoardDTO j) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
 
@@ -193,8 +198,9 @@ public class BoardController {
 			out.println("</script>");
 		}else {
 			boardService.edit(j);
-
+			System.out.println("확인요 "+j);
 			return "redirect:/recruit_detail?recruit_no="+j.getRecruit_no();
+
 		}
 		return null;
 	}

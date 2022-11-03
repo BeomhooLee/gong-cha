@@ -133,7 +133,7 @@ public class MatchController {
 		
 		List<Social_matchDTO> joinsocial_list = matchservice.getJoin_list(sm);
 		
-		joinsocial_list.get(0).
+		joinsocial_list.get(0);
 
 	}
 	

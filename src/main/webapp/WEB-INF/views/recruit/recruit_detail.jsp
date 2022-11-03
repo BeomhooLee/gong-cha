@@ -9,7 +9,7 @@
 
 	<div id="body">
 		<div id="map"></div>
-<%-- 			<c:forEach var="r" items="${r}"> --%>
+
 				<div class="contents-box">
 				  <div class="conten">
 					<div class="date">${fn:substring(o.match_date,0,16)} ~ ${o.end_time }</div>
@@ -22,7 +22,7 @@
 					
 					
 					<div class="location">${o.stadium_name}</div>
-					<div class="address"><span>${o.city}</span>
+					<div class="address">
 					<span> 
 					 	<c:if test="${o.match_level == 1}">실력 하</c:if>
 						<c:if test="${o.match_level == 2}">실력 중</c:if>

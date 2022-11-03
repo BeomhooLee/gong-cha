@@ -44,11 +44,13 @@
 	<!-- 글수정 완료 -->
 	<update id="edit">
 		update recruit set city=#{city}, title=#{title}, recruit_content=#{recruit_content},
-		stadium_match_no=#{stadium_match_no}, match_level=#{match_level}
+		stadium_match_no=#{stadium_match_no}, match_level=#{match_level} where recruit_no=#{recruit_no} and mem_id=#{mem_id,jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 글수정에서 아이디 확인 -->
 	<select id="id_ck" resultType="board">
 		select * from recruit where recruit_no=#{recruit_no} and mem_id=#{mem_id,jdbcType=VARCHAR}
 	</select>
+	
+
 </mapper>

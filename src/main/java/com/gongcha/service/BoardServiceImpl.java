@@ -60,6 +60,7 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.idCheck(i);
 	}
 
+
 }
 
 

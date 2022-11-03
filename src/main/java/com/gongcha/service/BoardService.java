@@ -23,5 +23,6 @@ public interface BoardService {
 	void edit(BoardDTO j);
 
 	BoardDTO idCheck(BoardDTO i);
+
 	
 }
