@@ -295,9 +295,21 @@
 				</div>
 			</div>
 			<div id="social_right_bottom">
-				<div id="pay_btn_disabled">
-					<p>끝난 매치입니다.</p>
-				</div>
+				<c:if test="${(sm_dto.player_num - sm_dto.current_count) <= 0}">
+					<div id="pay_btn_disabled">
+						<p>끝난 매치입니다</p>
+					</div>
+				</c:if>
+				<c:if test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
+					<div id="pay_btn_available">
+						<p>신청가능</p>
+					</div>
+				</c:if>
+				<c:if test="${((sm.player_num-sm.current_count) <= 3) && ((sm.player_num-sm.current_count)>0)}">
+					<div id="pay_btn_almost">
+						<p>마감임박!!</p>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

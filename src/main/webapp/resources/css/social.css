@@ -401,7 +401,7 @@ footer{
 	background: #eeeeee !important;
 	width: 340px;
 	height: 60px;
-	border-radius: 6px;
+	border-radius: 15px;
 }
 
 #pay_btn_disabled p{
@@ -412,3 +412,37 @@ footer{
 	font-size: 18px;
 	color: grey;
 }
+
+#pay_btn_available{
+	background: #1570FF !important;
+	width: 340px;
+	height: 60px;
+	border-radius: 15px;
+}
+
+#pay_btn_available p{
+	margin: 20px;
+	text-align: center;
+	background: #1570FF !important;
+	font-family: sans-serif;
+	font-size: 18px;
+	color: white;
+}
+
+#pay_btn_almost{
+	background: #FF4D37 !important;
+	width: 340px;
+	height: 60px;
+	border-radius: 15px;
+}
+
+#pay_btn_almost p{
+	margin: 20px;
+	text-align: center;
+	background: #FF4D37 !important;
+	font-family: sans-serif;
+	font-size: 18px;
+	color: white;
+}
+
+

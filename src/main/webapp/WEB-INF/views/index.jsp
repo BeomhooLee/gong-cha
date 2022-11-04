@@ -66,7 +66,7 @@
 
 						last_date_var = resp.plused_date
 
-						var div = "<button type='button' class='b_cal' onclick='filter()'><p>"
+						var div = "<button type='button' class='b_cal'><p>"
 								+ resp.last_date + "일</p><span>"
 								+ resp.dayofweek + "</span></button>"
 						$('.nav2').slick('slickAdd', div);
@@ -285,7 +285,7 @@
 					<div id="calendar_wrap">
 						<div class="nav2" style="display: flex;">
 							<c:forEach var="item" items="${dates}" varStatus="status">
-								<button type="button" class="b_cal" >
+								<button type="button" class="b_cal">
 									<p data-caldate="${item}">${fn:substring(item,8,10)}일</p>
 									<span>${dayofweek_list[status.index]}</span>
 								</button>

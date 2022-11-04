@@ -40,13 +40,17 @@ public class MatchController {
 	private MatchService matchservice;
 
 	@RequestMapping("/")
-	public String index(HttpServletResponse response, Model m, HttpServletRequest request, Social_matchDTO sm)
-			throws Exception {
+	public String index(HttpServletResponse response, Model m, HttpServletRequest request, Social_matchDTO sm) throws Exception {
 
 		date(m);
+		
+		LocalDate now = LocalDate.now(); // YYYY-MM-DD
+		String st_now = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // String으로
+		
+		sm.setDate(st_now);
 
 		// 소셜매치 리스트 뽑기
-		List<Social_matchDTO> social_matchList = this.matchservice.getSocial_list(sm);
+		List<Social_matchDTO> social_matchList = matchservice.getJoin_list(sm);
 		// System.out.println("그냥"+social_matchList);
 
 		m.addAttribute("social_match", social_matchList);
@@ -54,11 +58,11 @@ public class MatchController {
 		return "index";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/filter", method = RequestMethod.POST)
-	public void filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm)
-			throws IOException, ParseException {
+	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm, Model m)throws Exception {
 
+		date(m);
+		
 		String level = map.get("level");
 		String type = map.get("type");
 		String vs = map.get("vs");
@@ -72,9 +76,10 @@ public class MatchController {
 		sm.setDate(selectedDate);
 
 		List<Social_matchDTO> joinsocial_list = matchservice.getJoin_list(sm);
-
-		joinsocial_list.get(0);
-
+		
+		m.addAttribute("sm_list", joinsocial_list);
+		
+		return "filtered";
 	}
 
 	@RequestMapping(value = "/social")
