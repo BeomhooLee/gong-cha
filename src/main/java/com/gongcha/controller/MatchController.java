@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +57,8 @@ public class MatchController {
 
 	@ResponseBody
 	@RequestMapping(value = "/filter", method = RequestMethod.POST)
-	public void filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm)
-			throws IOException, ParseException {
+	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm,Model m)
+			throws Exception {
 
 		String level = map.get("level");
 		String type = map.get("type");
@@ -73,8 +74,10 @@ public class MatchController {
 
 		List<Social_matchDTO> joinsocial_list = matchservice.getJoin_list(sm);
 
-		joinsocial_list.get(0);
-
+		m.addAttribute("sm_lsit", joinsocial_list);
+		
+		return "filtered";
+		
 	}
 
 	@RequestMapping(value = "/social")
@@ -235,23 +238,60 @@ public class MatchController {
 		return "/rental/order";
 	}
 
-	@RequestMapping("/rental/detail")
+	@GetMapping("/rental/detail")
 	public String detail(@RequestParam("stadium") String stadium, HttpServletRequest request, Model m,
 			@ModelAttribute StadiumDTO stadiumDTO) throws Exception {
-
+	
 		date(m);
-		
+	
 		// 스타디움 정보
-		stadiumDTO = this.matchservice.getStadium(stadium);
-		System.out.println(stadium);
-		System.out.println(stadiumDTO);
+		stadiumDTO = this.matchservice.getStadium(stadium);	
+		List<String> etcs = new ArrayList<String>();
 
+		etcs.add(stadiumDTO.getEtc1());
+		etcs.add(stadiumDTO.getEtc2());
+		etcs.add(stadiumDTO.getEtc3());
+		etcs.add(stadiumDTO.getEtc4());
+		etcs.add(stadiumDTO.getEtc5());
+		etcs.add(stadiumDTO.getEtc6());
+		etcs.add(stadiumDTO.getEtc7());
+		etcs.add(stadiumDTO.getEtc8());
+		etcs.add(stadiumDTO.getEtc9());
+		etcs.add(stadiumDTO.getEtc10());
+
+		boolean flag= true;
+		while (flag) {
+			flag = etcs.remove(null);
+		}
+		
+		List<Stadium_matchDTO> list = this.matchservice.getStadiumMatch(stadium);
+	
+		m.addAttribute("etcs", etcs);
 		m.addAttribute("stadium", stadiumDTO);
-		m.addAttribute("stadium_name", stadium);
+		m.addAttribute("sm_list", list);
 
 		return "/rental/detail";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="detailDate", method=RequestMethod.POST)
+	public String detailDate(HttpServletRequest request,Stadium_matchDTO sm,@RequestBody Map<String, String> map, Model m) {
+		
+		String stadium = map.get("stadium");
+		String selectedDate = map.get("selectedDate");		
+		sm.setSelectdate(selectedDate);
+		sm.setStadium(stadium);
+	//	System.out.println(stadium);
+		//System.out.println(selectedDate);
+		
+		List<Stadium_matchDTO> sm_list = this.matchservice.getStadium_matchList(sm);
+		//System.out.println(sm_list);
+		
+		m.addAttribute("s_list", sm_list);
+		
+		return "/rental/detailDate";	
+	}
+	
 	public static void date(Model m) throws Exception {
 		//		날짜 관련
 

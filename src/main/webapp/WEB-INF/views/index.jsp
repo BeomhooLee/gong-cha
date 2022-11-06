@@ -363,7 +363,7 @@
 			<div id="list">
 				<ul id="ajax_result">
 					<c:forEach items="${social_match}" var="sm" varStatus="status">
-						<li class="item""><a href="/social?match_no=${sm.match_no}"
+						<li class="item"><a href="/social?match_no=${sm.match_no}"
 							style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
 								<div class="time">
 									<p>${fn:substring(sm.match_date,11,16)}</p>

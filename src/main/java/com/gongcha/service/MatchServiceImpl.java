@@ -58,4 +58,14 @@ public class MatchServiceImpl implements MatchService {
 		return matchDAO.getJoin_list(sm);
 	}
 
+	@Override
+	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm) {
+		return this.matchDAO.getStadium_matchList(sm);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getStadiumMatch(String stadium) {
+		return this.matchDAO.getStadiumMatch(stadium);
+	}
+
 }

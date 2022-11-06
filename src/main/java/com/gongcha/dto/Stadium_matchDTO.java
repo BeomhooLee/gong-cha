@@ -12,4 +12,7 @@ public class Stadium_matchDTO {
 	private int price;
 	private String start_time;
 	private String end_time;
+	
+	private String selectdate;
+	private String stadium;
 }

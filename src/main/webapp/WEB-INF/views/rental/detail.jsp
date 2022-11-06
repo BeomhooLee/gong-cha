@@ -115,7 +115,30 @@ $(function(){
 		}
 	});
 });
+$(document).on("click", 'button[type="button"][id="cal"]',function() {
+	var selectedDate = document.querySelector('button[class="b_cal"]');
+	$('input[type="hidden"][id="date"]').attr("value",$(this).children('p').data('caldate'));
 	
+	check();
+});
+
+function check(){
+	$('input[type="hidden"][id="date"]').attr("value",$(this).children('p').data('caldate'));
+	var selectedDate = $('input[type="hidden"][id="date"]').attr("value");
+	var stadium = $('p[id="name"]').text();
+	var sendData = {"stadium" : stadium,"selectedDate" : selectedDate}
+	
+	$.ajax({
+		url : "/detailDate",
+		method : 'POST',
+		data : JSON.stringify(sendData),
+		contentType : 'application/json; charset=UTF-8',
+		dataTye : "html",
+		success : function(data) {
+			$('#timelist').html(data);
+		}
+	});
+}
 </script>
 <article>
 	<div id="contentWrap">
@@ -176,7 +199,7 @@ $(function(){
 	</div>
 
 	<div id="stadium_profile">
-		<p id="name">${stadium_name}</p>
+		<p id="name">${stadium.stadium_name}</p>
 		<div id="wtgTool">
 			<span id="txt1">${stadium.address}</span> <span id="copy-url1"
 				class="txt2" onclick="clipBoard()">주소 복사</span> <span id="toggleMap"
@@ -195,6 +218,7 @@ $(function(){
 						role="tab" aria-controls="pills-home" aria-selected="true">시설</button>
 				</li>
 				<li class="nav-item" role="presentation">
+					<!-- <button class="nav-link">구장 예약</button> -->
 					<button class="nav-link" id="pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-profile"
 						type="button" role="tab" aria-controls="pills-profile"
@@ -264,8 +288,7 @@ $(function(){
 										<p class="title_line">풋살화 대여</p>
 									</div>
 								</c:if></li>
-							<li class="info_list"><c:if
-									test="${stadium.vest_rental==1}">
+							<li class="info_list"><c:if test="${stadium.vest_rental==1}">
 									<img id="vest_img"
 										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_wear.svg"
 										class="icon">
@@ -284,9 +307,11 @@ $(function(){
 					</div>
 				</div>
 				<div id="info_container">
-					<p class="info_p">공지사항</p>
+					<p class="info_p">구장 특이사항</p>
 					<pre class="txt3">
-						
+						<c:forEach var="item" items="${etcs}">
+							■${item}
+						</c:forEach>
 				  	</pre>
 				</div>
 				<div id="order_wrap">
@@ -301,7 +326,7 @@ $(function(){
 				</div>
 			</div>
 			<div class="clear"></div>
-
+<form>
 			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 				aria-labelledby="pills-profile-tab">
 				<div id="info_container2">
@@ -309,7 +334,7 @@ $(function(){
 						<div id="calendar_wrap">
 							<div class="nav2" style="display: flex;">
 								<c:forEach var="item" items="${dates}" varStatus="status">
-									<button type="button" class="b_cal">
+									<button type="button" class="b_cal" id="cal">
 										<p data-caldate="${item}">${fn:substring(item,8,10)}일</p>
 										<span>${dayofweek_list[status.index]}</span>
 									</button>
@@ -319,78 +344,34 @@ $(function(){
 					</div>
 					<div id="rFilter">
 						<div id="filter_wrapper">
-
 							<div class="filterBtn" id="reserv" style="margin-bottom: 15px;">
 								<span>예약가능</span>
 							</div>
 						</div>
 					</div>
-
+					<input type="hidden" id="date" name="date" value="${today}">
 					<div id="rentalChoice">
-						<ul style="padding-left: 0rem;">
-							<li class="rental soldout">
-								<p class="rTime">
-									09:00~<br>10:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									10:00~<br>11:00
-								</p>
-							</li>
-							<li class="rental"><a class="bl" href="order"><p
-										class="rTime">
-										11:00~<br>12:00
-									</p></a></li>
-							<li class="rental soldout">
-								<p class="rTime">
-									12:00~<br>13:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									13:00~<br>14:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									14:00~<br>15:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									15:00~<br>16:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									16:00~<br>17:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									17:00~<br>18:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									18:00~<br>19:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									19:00~<br>20:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									20:00~<br>21:00
-								</p>
-							</li>
+						<ul style="padding-left: 0rem;" id="timelist">
+							<c:forEach var="s" items="${sm_list }">
+								<c:if test="${s.available == 1}">
+									<li class="rental">
+										<p class="rTime">
+											${s.start_time }~<br>${s.end_time}
+										</p>
+									</li>
+								</c:if>
+								<c:if test="${s.available == 0}">
+									<li class="rental soldout">
+										<p class="rTime">
+											${s.start_time }~<br>${s.end_time}
+										</p>
+									</li>
+								</c:if>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
-
+</form>
 				<div id="st_info">
 					<p class="info_p">취소/환급</p>
 					<div id="stadInner">
@@ -417,171 +398,8 @@ $(function(){
 						</ul>
 					</div>
 				</div>
-			</div>
 
-			<!-- 			<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-				aria-labelledby="pills-contact-tab">
-			
-			<div id="info_container3">
-			
-				<div id="filter_wrap">
-					<div id="calendar_wrap">
-						<div class="nav2" style="display:flex;">
-							<div class="b_cal">
-								<p>1일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>2일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>3일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>4일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>5일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>6일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>7일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>8일</p>
-								<span>목</span>
-							</div>
-							<div class="b_cal">
-								<p>9일</p>
-								<span>금</span>
-							</div>
-							<div class="b_cal">
-								<p>10일</p>
-								<span>토</span>
-							</div>
-							<div class="b_cal">
-								<p>11일</p>
-								<span>일</span>
-							</div>
-							<div class="b_cal">
-								<p>12일</p>
-								<span>월</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				
-				<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>10:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 A구장 *주차16자리*</h3>									
-								</div>
-								<div class="option">
-									<span class="isMix">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="Hurry">
-									<p style="margin: 0px;">마감임박!</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>	
-				
-			<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>17:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 B구장 *주차16자리*</h3>									
-								</div>
-								<div class="option">
-									<span class="isMan">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="isOpen">
-									<p style="margin: 0px;">신청가능</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
 			</div>
-			
-			<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>19:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 ㅠ구장 *주차16자리*</h3>								
-								</div>
-								<div class="option">
-									<span class="isMix">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="isFull">
-									<p style="margin: 0px;">마감</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>		
-				
-				
-			</div>
-		</div> -->
-
 		</div>
 		<div class="clear"></div>
 </article>
@@ -592,15 +410,16 @@ $(function(){
 
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-var markerPosition = new kakao.maps.LatLng(37.498096349937015, 127.0294336536626);// 마커가 표시될 위치입니다 
 
-mapOption = { 
-        center: markerPosition, // 지도의 중심좌표
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.498096349937015, 127.0294336536626), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
-};
+    };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+// 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(37.498096349937015, 127.0294336536626); 
 
 // 마커를 생성합니다
 var marker = new kakao.maps.Marker({

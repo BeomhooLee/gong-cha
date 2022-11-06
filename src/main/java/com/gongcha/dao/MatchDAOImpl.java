@@ -58,4 +58,14 @@ public class MatchDAOImpl implements MatchDAO {
 		return sqlSession.selectList("getEtcs", stadium_name);
 	}
 
+	@Override
+	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm) {
+		return sqlSession.selectList("match.stadium_matchList",sm);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getStadiumMatch(String st) {
+		return sqlSession.selectList("match.getStadiumMatch", st);
+	}
+
 }
