@@ -177,5 +177,21 @@
 	<select id="getcash" resultType="cash">
 		select * from cash where mem_id=#{id}
 	</select>
+	
+	<select id="getmember" resultType="member">
+		select * from member where mem_id=#{id}
+	</select>
+	
+	<update id="edit_sm">
+		update stadium_match set mem_id=#{mem_id}, available=0 where stadium_match_no = #{stadium_match_no}
+	</update>
+	
+	<update id="edit_mem">
+		update member set cash=cash-#{payment} where mem_id=#{mem_id}
+	</update>
+	
+	<insert id="insert_mcash">
+		insert into cash values(cash_no_seq.nextval,#{mem_id},null,#{payment},sysdate)
+	</insert>
 
 </mapper>

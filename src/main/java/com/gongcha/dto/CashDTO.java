@@ -10,4 +10,7 @@ public class CashDTO {
 	private int p_cash;
 	private int m_cash;
 	private String redate;
+	
+	private int stadium_match_no;
+	private int payment;
 }

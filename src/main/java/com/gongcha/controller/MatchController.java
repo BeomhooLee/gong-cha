@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gongcha.dto.CashDTO;
+import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -229,10 +230,11 @@ public class MatchController {
 		} else {
 			sm = this.matchservice.getStadiummatchList(no);
 			CashDTO cash = this.matchservice.getCash(id);
-			System.out.println(cash);
+			MemberDTO member = this.matchservice.getMember(id);
 
 			m.addAttribute("s", sm);
 			m.addAttribute("c", cash);
+			m.addAttribute("m", member);
 					
 			return "/rental/order";
 		}
@@ -245,8 +247,6 @@ public class MatchController {
 			HttpServletRequest request, Model m, @ModelAttribute StadiumDTO stadiumDTO) throws Exception {
 
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		String id = (String) session.getAttribute("id");
 
 			date(m);
 
@@ -296,6 +296,48 @@ public class MatchController {
 		m.addAttribute("s_list", sm_list);
 
 		return "/rental/detailDate";
+	}
+	
+	@RequestMapping("/order_ok")
+	public void order_ok(HttpServletRequest request, HttpServletResponse response,HttpSession session, CashDTO cash, MemberDTO member) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		String id = (String)session.getAttribute("id");
+		
+		int payment = Integer.parseInt(request.getParameter("payment"));
+	//	int pcash = Integer.parseInt(request.getParameter("pcash"));
+	//	int mcash = Integer.parseInt(request.getParameter("mcash"));
+		int member_cash= Integer.parseInt(request.getParameter("membercash"));
+		int no= Integer.parseInt(request.getParameter("no"));
+	
+		if(member_cash < payment) {
+			out.println("<script>");
+			out.println("alert('캐쉬 충전이 필요합니다.');");
+			out.println("location='/member/cash';");
+			out.println("</script>");
+		}else {
+			cash.setMem_id(id);
+			cash.setStadium_match_no(no);
+			cash.setPayment(payment);
+			this.matchservice.insertStadium_Match(cash);
+			this.matchservice.updateMember(cash);
+			this.matchservice.insertM_Cash(cash);
+			
+			out.println("<script>");
+			out.println("alert('구장예약이 완료되었습니다.');");
+			out.println("location='/member/my_history';");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("/member/cash")
+	public String cash() {
+		return "/member/cash";
+	}
+	@RequestMapping("/mypage/my_history")
+	public String my_history() {
+		return "/mypage/my_history";
 	}
 
 	public static void date(Model m) throws Exception {

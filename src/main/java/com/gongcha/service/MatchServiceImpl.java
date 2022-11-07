@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.MatchDAO;
 import com.gongcha.dto.CashDTO;
+import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -82,6 +83,26 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public CashDTO getCash(String id) {
 		return this.matchDAO.getCash(id);
+	}
+
+	@Override
+	public MemberDTO getMember(String id) {
+		return matchDAO.getMember(id);
+	}
+
+	@Override
+	public void insertStadium_Match(CashDTO cash) {
+		matchDAO.insertStadium_Match(cash);
+	}
+
+	@Override
+	public void updateMember(CashDTO cash) {
+		matchDAO.updateMember(cash);
+	}
+
+	@Override
+	public void insertM_Cash(CashDTO cash) {
+		matchDAO.insertM_Cash(cash);
 	}
 
 }
