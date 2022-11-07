@@ -68,11 +68,10 @@
 			$('#reserve').click(function(){
 				$(this).toggleClass("on");
 				if($(this).attr("class") == 'filterBtn on'){
-					$('input[type="hidden"][id="avail"]').attr("value", 1);
+					$(".soldout").hide()
 				}else{
-					$('input[type="hidden"][id="avail"]').attr("value", 0);
+					$(".soldout").show()
 				}
-				filter();
 			});
 		});
 	</script>
@@ -80,9 +79,8 @@
 	function filter() {
 		
 		var region = $('input[type="hidden"][id="region"]').attr("value");
-		var avail = $('input[type="hidden"][id="avail"]').attr("value");
 		var selectedDate = $('input[type="hidden"][id="date"]').attr("value");
-		var sendData = {"region" : region,"avail" : avail,"selectedDate" : selectedDate}
+		var sendData = {"region" : region,"selectedDate" : selectedDate}
 		
 		$.ajax({
 			url : "/stadium_filter",
@@ -174,7 +172,6 @@
 					<button type="button" data-class="region" name="local" value="부산광역시" class="normal">부산</button>
 					<input type="hidden" id="date" name="date" value="${today}">
 					<input type="hidden" id="region" name="region" value="전체">
-					<input type="hidden" id="avail" name="avail" value="0">
 				</div>
 				
 				
@@ -208,22 +205,26 @@
 														<c:if test="${stadium_name eq stadium_match_name}" var="b">
 															<c:choose>
 																<c:when test="${st.available eq 1}">
-																	<li class="rental" data-date="${fn:substring(st.match_date,8,10)}">
-																		<p class="rTime">
-																			<c:out value="${st.start_time}" />
-																			~<br>
-																			<c:out value="${st.end_time}" />
-																		</p>
-																	</li>
+																	<a href="/rental/order?no=${st.stadium_match_no}">
+																		<li class="rental" data-date="${fn:substring(st.match_date,8,10)}">
+																			<p class="rTime">
+																				<c:out value="${st.start_time}" />
+																				~<br>
+																				<c:out value="${st.end_time}" />
+																			</p>
+																		</li>
+																	</a>
 																</c:when>
 																<c:otherwise>
-																	<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
-																		<p class="rTime">
-																			<c:out value="${st.start_time}" />
-																			~<br>
-																			<c:out value="${st.end_time}" />
-																		</p>
-																	</li>
+																	<a href="/rental/order?no=${st.stadium_match_no}">
+																		<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
+																			<p class="rTime">
+																				<c:out value="${st.start_time}" />
+																				~<br>
+																				<c:out value="${st.end_time}" />
+																			</p>
+																		</li>
+																	</a>
 																</c:otherwise>
 															</c:choose>
 														</c:if>

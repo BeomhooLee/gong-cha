@@ -91,24 +91,6 @@
 		</where>
 
 	</select>
-
-	
-	<select id="stadiumMatchJoin_list" resultType="stadium_match"
-		resultMap="stmmap">
-		select
-		stm.stadium_match_no, stm.match_date, stm.available, stm.stadium_name, stm.mem_id, stm.price, stm.start_time, stm.end_time, s.city
-		from stadium_match stm left outer join stadium s on stm.stadium_name =
-		s.stadium_name
-		<where>
-			<if test="region=='' || region=='%전체%'"></if>
-			<if test="region=='%서울%' || region=='%경기%' || region=='%부산%'">
-				s.city like #{region}
-			</if>
-				and stm.available = #{avail}
-				and to_char(stm.match_date, 'YYYY-MM-DD') = #{date}
-		</where>
-		order by stm.match_date
-	</select>
 	
 	<select id="socialjoin_list" resultType="social_match"
 		resultMap="smmap">
@@ -150,6 +132,11 @@
 		select * from stadium where
 		stadium_name = #{stadium_name}
 	</select>
+	
+	<select id="getStadiumList_region" resultType="stadium">
+		select * from stadium where
+		city like #{region}
+	</select>
 
 	<select id="getSocialDTO" resultType="social_match">
 		select * from social_match
@@ -164,6 +151,10 @@
 	
 	<select id="stadium_matchList" resultType="stadium_match">
 		select * from stadium_match where stadium_name = #{stadium} and to_char(match_date, 'YYYY-MM-DD') = #{selectdate} order by match_date
+	</select>
+	
+	<select id="get_Stadium_match_date" resultType="stadium_match">
+		select * from stadium_match where to_char(match_date, 'YYYY-MM-DD') = #{date} order by match_date
 	</select>
 	
 	<select id="getStadiumMatch" resultType="stadium_match">

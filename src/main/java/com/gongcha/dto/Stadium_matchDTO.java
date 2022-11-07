@@ -14,9 +14,7 @@ public class Stadium_matchDTO {
 	private String end_time;
 	
 	//필터상세설정에 필요한 변수
-	private int avail;
 	private String region;
-	private String date;
 	private String selectdate;
 	private String stadium;
 	

@@ -58,11 +58,6 @@ public class MatchServiceImpl implements MatchService {
 	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm) {
 		return matchDAO.getJoin_list(sm);
 	}
-
-	@Override
-	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm) {
-		return matchDAO.getJoin_list_stm(stm);
-	}
 	
 	@Override
 	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm) {
@@ -82,6 +77,16 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public CashDTO getCash(String id) {
 		return this.matchDAO.getCash(id);
+	}
+
+	@Override
+	public List<StadiumDTO> getStadiumList_region(String region) {
+		return this.matchDAO.getStadiumList_region(region);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getStadium_matchList_date(String date) {
+		return matchDAO.getStadium_matchList_date(date);
 	}
 
 }

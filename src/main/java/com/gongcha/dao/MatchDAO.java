@@ -25,8 +25,6 @@ public interface MatchDAO {
 
 	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm);
 
-	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm);
-
 	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm);
 
 	public List<Stadium_matchDTO> getStadiumMatch(String stadium);
@@ -34,6 +32,10 @@ public interface MatchDAO {
 	public Stadium_matchDTO getStadiummatchList(int no);
 
 	public CashDTO getCash(String id);
+
+	public List<StadiumDTO> getStadiumList_region(String region);
+
+	public List<Stadium_matchDTO> getStadium_matchList_date(String date);
 
 
 }

@@ -60,11 +60,6 @@ public class MatchDAOImpl implements MatchDAO {
 	}
 
 	@Override
-	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm) {
-		return sqlSession.selectList("match.stadiumMatchJoin_list",stm);
-	}
-
-	@Override
 	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm) {
 		return sqlSession.selectList("match.stadium_matchList",sm);
 	}
@@ -82,6 +77,16 @@ public class MatchDAOImpl implements MatchDAO {
 	@Override
 	public CashDTO getCash(String id) {
 		return this.sqlSession.selectOne("match.getcash", id);
+	}
+
+	@Override
+	public List<StadiumDTO> getStadiumList_region(String region) {
+		return this.sqlSession.selectList("match.getStadiumList_region",region);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getStadium_matchList_date(String date) {
+		return sqlSession.selectList("match.get_Stadium_match_date", date);
 	}
 
 }

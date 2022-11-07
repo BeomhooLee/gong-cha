@@ -70,12 +70,10 @@ public class MatchController {
 		LocalDate now = LocalDate.now(); // YYYY-MM-DD
 		String st_now = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // String으로
 		
-		stm.setDate(st_now);
-		
-		List<Stadium_matchDTO> stadium_matchList = matchservice.getJoin_list_stm(stm);
+		List<Stadium_matchDTO> stm_list = matchservice.getStadium_matchList_date(st_now);
 		List<StadiumDTO> stadium = matchservice.getStadiumList();
 		
-		m.addAttribute("stadium_match",stadium_matchList);
+		m.addAttribute("stadium_match",stm_list);
 		m.addAttribute("stadium", stadium);
 		
 		return "/rental/rental";
@@ -108,24 +106,24 @@ public class MatchController {
 	@RequestMapping(value = "/stadium_filter", method = RequestMethod.POST)
 	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Stadium_matchDTO stm, Model m)throws Exception {
 
-
 		date(m);
 	
-		int avail = Integer.parseInt(map.get("avail"));
-		String region = map.get("region");
+		String region = "%"+map.get("region")+"%";
 		String selectedDate = map.get("selectedDate");
-
-		stm.setAvail(avail);
-		stm.setRegion(region);
-		stm.setDate(selectedDate);
-
-		List<Stadium_matchDTO> joinsocial_list = matchservice.getJoin_list_stm(stm);
-		List<StadiumDTO> stadium_list = matchservice.getStadiumList();
+		if(region.equals("%전체%")) {
+			List<StadiumDTO> stadium = matchservice.getStadiumList();
+			m.addAttribute("stadium", stadium);
+		}else {
+			List<StadiumDTO> stadium_region_list = matchservice.getStadiumList_region(region);
+			m.addAttribute("stadium", stadium_region_list);
+		}
 		
-		m.addAttribute("stadium", stadium_list);
-		m.addAttribute("stm_list", joinsocial_list);
+		List<Stadium_matchDTO> stm_list = matchservice.getStadium_matchList_date(selectedDate);
 		
-		return "stadium_filtered";
+		
+		m.addAttribute("stm_list", stm_list);
+		
+		return "/rental/stadium_filtered";
 	}
 
 	@RequestMapping(value = "/social")
