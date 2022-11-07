@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gongcha.dto.CashDTO;
+import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -87,6 +88,26 @@ public class MatchDAOImpl implements MatchDAO {
 	@Override
 	public List<Stadium_matchDTO> getStadium_matchList_date(String date) {
 		return sqlSession.selectList("match.get_Stadium_match_date", date);
+	}
+
+	public MemberDTO getMember(String id) {
+		return sqlSession.selectOne("match.getmember",id);
+	}
+
+	@Override
+	public void insertStadium_Match(CashDTO cash) {
+		sqlSession.update("match.edit_sm",cash);
+	}
+
+	@Override
+	public void updateMember(CashDTO cash) {
+		sqlSession.update("match.edit_mem",cash);
+	}
+
+	@Override
+	public void insertM_Cash(CashDTO cash) {
+		sqlSession.insert("match.insert_mcash",cash);
+
 	}
 
 }

@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/resources/css/order.css" />
-
+<form method="post" action="/order_ok">
 <article>
 	<div id="content">
+		<input type="hidden" value="${s.stadium_match_no}" name="no" id="no">
 		<div id="content_wrap">
 			<div id="content_header">
 				<div id="header_base">
@@ -27,7 +29,10 @@
 										<p>캐시</p>
 									</div>	
 									<span style=" font-size: 16px;">잔액
-										<b>${c.p_cash - c.m_cash}원</b></span>							
+										<b><fmt:formatNumber value="${m.cash}" pattern="#,###"/>원</b></span>
+										<input type="hidden" value="${c.p_cash}" name="pcash" id="pcash">						
+										<input type="hidden" value="${c.m_cash}" name="mcash" id="mcash">						
+										<input type="hidden" value="${m.cash}" name="membercash" id="membercash">						
 								</li>
 							
 							</div>
@@ -41,7 +46,7 @@
 						<div class="section_body">
 							<div class="recipt">
 								<ul class="recipt_list">
-									<li class="list_item"><strong>결제 금액</strong> <strong>${s.price}원</strong>
+									<li class="list_item"><strong>결제 금액</strong> <strong><fmt:formatNumber value="${s.price}" pattern="#,###"/>원</strong>
 									</li>
 								</ul>
 								<div class="payment">
@@ -49,8 +54,8 @@
 									<c:if test="${s.price <= (c.p_cash - c.m_cash)}">
 									<div class="list_value"><strong>0원</strong></div>
 									</c:if>
-									<c:if test="${s.pr   > (c.p_cash - c.m_cash)}">
-									<div class="list_value"><strong>-${s.price-(c.p_cash - c.m_cash)}원</strong></div>
+									<c:if test="${s.price > (c.p_cash - c.m_cash)}">
+									<div class="list_value"><strong >-<fmt:formatNumber value="${s.price-(c.p_cash - c.m_cash)}" pattern="#,###"/>원</strong></div>
 									</c:if>
 								</div>
 							</div>
@@ -166,14 +171,14 @@
 
 			<div id="content_footer">
 				<div id="btn_wrap">
-					<button class="con_btn">${s.price}원 결제하기</button>
+					<button class="con_btn"><fmt:formatNumber value="${s.price}" pattern="#,###"/>원 결제하기</button>
+					<input type="hidden" value="${s.price}" name="payment" id="payment">
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 </article>
-
-</div>
+</form>
 <div class="clear"></div>
 <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

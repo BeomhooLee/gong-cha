@@ -3,6 +3,7 @@ package com.gongcha.dao;
 import java.util.List;
 
 import com.gongcha.dto.CashDTO;
+import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -37,5 +38,12 @@ public interface MatchDAO {
 
 	public List<Stadium_matchDTO> getStadium_matchList_date(String date);
 
+	public MemberDTO getMember(String id);
+
+	public void insertStadium_Match(CashDTO cash);
+
+	public void updateMember(CashDTO cash);
+
+	public void insertM_Cash(CashDTO cash);
 
 }
