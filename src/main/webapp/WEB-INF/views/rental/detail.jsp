@@ -373,6 +373,7 @@ function check(){
 						</ul>
 					</div>
 				</div>
+				
 </form>
 				<div id="st_info">
 					<p class="info_p">취소/환급</p>
@@ -402,6 +403,8 @@ function check(){
 				</div>
 
 			</div>
+			
+		</div>
 		</div>
 		<div class="clear"></div>
 </article>

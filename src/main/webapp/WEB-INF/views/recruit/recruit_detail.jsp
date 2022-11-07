@@ -10,6 +10,16 @@
 			location = url;
 		}
 	}
+	$.ajax({
+        type: "get",
+        url: "recruit_reply",
+        data: {"mem_id": $("#mem_id").val()},
+        success: function (data) {
+        	alert('성공');
+            let html = "";
+            const count = data.list.length;
+        }
+	});
 </script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/recruit_detail.css" />
@@ -45,7 +55,7 @@
 
 					</div>
 					<div class="user">
-						<p>${o.mem_id}</p>
+						<p id="mem_id">${o.mem_id}</p>
 					</div>
 						<p style="font-size: 13px;">${fn:substring(o.regdate,0,16) }</p>
 
@@ -57,7 +67,7 @@
 						<div class="pre_head">
 							<div class="title">댓글 (0개)</div>
 						</div>
-						
+					<div class="reply"></div>
 					</div>
 					<div class="commentWriter">
 					  <div class="comment_inbox">
