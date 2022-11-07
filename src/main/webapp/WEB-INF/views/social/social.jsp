@@ -2,16 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-<link rel="stylesheet" type="text/css" href="/resources/css/social.css" />
-
-</head>
-<body>
 	<jsp:include page="../include/header.jsp" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/social.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -295,21 +287,23 @@
 				</div>
 			</div>
 			<div id="social_right_bottom">
-				<c:if test="${(sm_dto.player_num - sm_dto.current_count) <= 0}">
-					<div id="pay_btn_disabled">
-						<p>끝난 매치입니다</p>
-					</div>
-				</c:if>
-				<c:if test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
-					<div id="pay_btn_available">
-						<p>신청가능</p>
-					</div>
-				</c:if>
-				<c:if test="${((sm.player_num-sm.current_count) <= 3) && ((sm.player_num-sm.current_count)>0)}">
-					<div id="pay_btn_almost">
-						<p>마감임박!!</p>
-					</div>
-				</c:if>
+				<c:choose>
+					<c:when test="${(sm_dto.player_num - sm_dto.current_count) <= 0}">
+						<button id="pay_btn_disabled" disabled>
+							<span>지난매치입니다</span>
+						</button>
+					</c:when>
+					<c:when test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
+						<a href="/rental/order"><button id="pay_btn_available">
+							<span>신청가능</span>
+						</button></a>
+					</c:when>
+					<c:when test="${((sm_dto.player_num-sm_dto.current_count) <= 3) && ((sm_dto.player_num-sm_dto.current_count) > 0)}">
+						<a href="/rental/order"><button id="pay_btn_almost">
+							<span>마감임박!!</span>
+						</button></a>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</div>

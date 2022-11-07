@@ -58,4 +58,9 @@ public class MatchServiceImpl implements MatchService {
 		return matchDAO.getJoin_list(sm);
 	}
 
+	@Override
+	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm) {
+		return matchDAO.getJoin_list_stm(stm);
+	}
+
 }

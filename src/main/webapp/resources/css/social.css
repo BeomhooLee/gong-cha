@@ -402,9 +402,10 @@ footer{
 	width: 340px;
 	height: 60px;
 	border-radius: 15px;
+	border: 1px solid white;
 }
 
-#pay_btn_disabled p{
+#pay_btn_disabled span{
 	margin: 20px;
 	text-align: center;
 	background: #eeeeee !important;
@@ -418,9 +419,10 @@ footer{
 	width: 340px;
 	height: 60px;
 	border-radius: 15px;
+	border: 1px solid white;
 }
 
-#pay_btn_available p{
+#pay_btn_available span{
 	margin: 20px;
 	text-align: center;
 	background: #1570FF !important;
@@ -434,9 +436,10 @@ footer{
 	width: 340px;
 	height: 60px;
 	border-radius: 15px;
+	border: 1px solid white;
 }
 
-#pay_btn_almost p{
+#pay_btn_almost span{
 	margin: 20px;
 	text-align: center;
 	background: #FF4D37 !important;

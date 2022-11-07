@@ -1,4 +1,14 @@
 @charset "UTF-8";
+
+.on{
+	background-color: #1570FF !important;
+    border: 1px solid #1570FF;
+    border-radius: 20px;
+}
+.on span{
+    color: white !important;
+}
+
 .item_d{
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -242,6 +252,7 @@ header{
   display: inline-block;
   padding: 15px 0;
   position: relative;
+  margin-left: 5px;
 }
 
 #nav_c:hover{
@@ -286,29 +297,20 @@ header{
 	justify-content: space-around;
 	align-items:center;
 }
-.nav2_cont{
-	display:flex;
-}
 .nav2{
-	width:100%;
-	max-width:1024px;
-	display:flex;
+	width: 1024px;
 	justify-content: space-around;
 	align-items:center;
 	margin-left:auto;
 	margin-right:auto;
-	padding:0;	
 	margin-top:20px;
 	margin-bottom:20px;
-	white-space : nowrap;
 	height:70px;
 }
-.nav2 a{
-	text-decoration:none;
-}
+
 .b_cal{
 	color:white;
-	width:100px;
+	width:89px;
 	background-color: #25316D;
 	margin-left:5px;
 	margin-right:5px;	
@@ -317,6 +319,7 @@ header{
 	height:70px;
 	padding: 13px;
 	cursor: pointer;
+	border: 1px solid black;
 }
 .nav2 i{
 	margin-right: 20px;
@@ -613,4 +616,13 @@ footer{
 	margin-left:10px;
 	margin-right:10px;
 	text-decoration:none;
+}
+
+.slick-slider{
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transition-delay: 10ms;
 }

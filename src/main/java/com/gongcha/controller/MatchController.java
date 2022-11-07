@@ -40,7 +40,7 @@ public class MatchController {
 	private MatchService matchservice;
 
 	@RequestMapping("/")
-	public String index(HttpServletResponse response, Model m, HttpServletRequest request, Social_matchDTO sm) throws Exception {
+	public String index(Model m, Social_matchDTO sm) throws Exception {
 
 		date(m);
 		
@@ -57,9 +57,28 @@ public class MatchController {
 
 		return "index";
 	}
+	
+	@RequestMapping("/rental")
+	public String rental(Model m, Stadium_matchDTO stm) throws Exception {
 
-	@RequestMapping(value = "/filter", method = RequestMethod.POST)
-	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm, Model m)throws Exception {
+		date(m);
+		
+		LocalDate now = LocalDate.now(); // YYYY-MM-DD
+		String st_now = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // String으로
+		
+		stm.setDate(st_now);
+		
+		List<Stadium_matchDTO> stadium_matchList = matchservice.getJoin_list_stm(stm);
+		List<StadiumDTO> stadium = matchservice.getStadiumList();
+		
+		m.addAttribute("stadium_match",stadium_matchList);
+		m.addAttribute("stadium", stadium);
+		
+		return "/rental/rental";
+	}
+
+	@RequestMapping(value = "/social_filter", method = RequestMethod.POST)
+	public String social_filter(@RequestBody Map<String, String> map, HttpServletResponse response, Social_matchDTO sm, Model m)throws Exception {
 
 		date(m);
 		
@@ -79,7 +98,30 @@ public class MatchController {
 		
 		m.addAttribute("sm_list", joinsocial_list);
 		
-		return "filtered";
+		return "social_filtered";
+	}
+	
+	@RequestMapping(value = "/stadium_filter", method = RequestMethod.POST)
+	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Stadium_matchDTO stm, Model m)throws Exception {
+
+		date(m);
+		
+		
+		int avail = Integer.parseInt(map.get("avail"));
+		String region = map.get("region");
+		String selectedDate = map.get("selectedDate");
+
+		stm.setAvail(avail);
+		stm.setRegion(region);
+		stm.setDate(selectedDate);
+
+		List<Stadium_matchDTO> joinsocial_list = matchservice.getJoin_list_stm(stm);
+		List<StadiumDTO> stadium_list = matchservice.getStadiumList();
+		
+		m.addAttribute("stadium", stadium_list);
+		m.addAttribute("stm_list", joinsocial_list);
+		
+		return "stadium_filtered";
 	}
 
 	@RequestMapping(value = "/social")
@@ -126,21 +168,6 @@ public class MatchController {
 		return "/social/social";
 	}
 
-	@RequestMapping("/rental")
-	public String rental(Model m) throws Exception {
-
-		List<StadiumDTO> stadium_list = matchservice.getStadiumList();
-
-		List<Stadium_matchDTO> sm_list = matchservice.get_sm_list();
-
-		m.addAttribute("stadium_match", sm_list);
-
-		m.addAttribute("stadium", stadium_list);
-
-		date(m);
-		
-		return "/rental/rental";
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/slick", method = RequestMethod.POST)

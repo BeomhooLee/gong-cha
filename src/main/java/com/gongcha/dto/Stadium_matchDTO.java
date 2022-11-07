@@ -12,4 +12,12 @@ public class Stadium_matchDTO {
 	private int price;
 	private String start_time;
 	private String end_time;
+	
+	//필터상세설정에 필요한 변수
+	private int avail;
+	private String region;
+	private String date;
+	
+	//조인 쿼리
+	private StadiumDTO stadiumDTO;
 }

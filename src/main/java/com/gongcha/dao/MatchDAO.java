@@ -24,4 +24,6 @@ public interface MatchDAO {
 
 	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm);
 
+	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm);
+
 }

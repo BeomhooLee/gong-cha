@@ -12,11 +12,7 @@
 <link rel="shortcut icon" href="/resources/images/favicon.ico" />
 
 <!-- 부트스트랩 (순서도 바뀌면 안됨) -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 <!-- jquery랑 main.css -->
 <script type="text/javascript" src="/resources/js/jquery.js"></script>
@@ -33,9 +29,8 @@
 	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-		$('.nav2').slick(
-			{
+	$(document).ready(function() {
+		$('.nav2').slick({
 				slide : 'button', //슬라이드 되어야 할 태그 ex) div, li 
 				infinite : false, //무한 반복 옵션	 
 				slidesToShow : 7, // 한 화면에 보여질 컨텐츠 개수
@@ -47,33 +42,38 @@
 				vertical : false, // 세로 방향 슬라이드 옵션
 				prevArrow : "<i class='fa-regular fa-circle-left' id='next'></i>", // 이전 화살표 모양 설정
 				nextArrow : "<i class='fa-regular fa-circle-right' id='before'></i>",
-				draggable : false,
+				draggable : false
 			});
 	});
+</script>
+
+<script type="text/javascript">
 
 	var last_date_var = '${last_date}'
 
 	$(document).on("click",'i',function() {
-				var sendData = {"last_date" : last_date_var,"dayofweek" : ""}
+		var sendData = {"last_date" : last_date_var,"dayofweek" : ""}
 
-				$.ajax({
-					url : "slick",
-					method : 'POST',
-					data : JSON.stringify(sendData),
-					contentType : 'application/json; charset=UTF-8',
-					dataTye : "json",
-					success : function(resp) {
+		$.ajax({
+			url : "slick",
+			method : 'POST',
+			data : JSON.stringify(sendData),
+			contentType : 'application/json; charset=UTF-8',
+			dataTye : "json",
+			success : function(resp) {
 
-						last_date_var = resp.plused_date
+				last_date_var = resp.plused_date
 
-						var div = "<button type='button' class='b_cal'><p>"
-								+ resp.last_date + "일</p><span>"
-								+ resp.dayofweek + "</span></button>"
-						$('.nav2').slick('slickAdd', div);
-					}
-				});
-			});
+				var div = "<button type='button' class='b_cal'><p>"
+						+ resp.last_date + "일</p><span>"
+						+ resp.dayofweek + "</span></button>"
+				$('.nav2').slick('slickAdd', div);
+			}
+		});
+	});
+
 </script>
+
 <script type="text/javascript">
 	$(function() {
 		$('.rowWrap').children('button').click(function() {
@@ -133,7 +133,7 @@
 		var sendData = {"level" : level,"type" : type,"vs" : vs,"city" : city,"selectedDate" : selectedDate}
 		
 		$.ajax({
-			url : "filter",
+			url : "social_filter",
 			method : 'POST',
 			data : JSON.stringify(sendData),
 			contentType : 'application/json; charset=UTF-8',
@@ -144,6 +144,15 @@
 		});
 
 	};
+</script>
+<script type="text/javascript">
+	$(function(){
+		$('#detail').click(function(){
+			if($(this).attr("aria-expanded")){
+				$(this).toggleClass("on");
+			}
+		});
+	});
 </script>
 <script type="text/javascript">
 	var selected_date = $(this).children('p').text().replace('일', '')
@@ -239,7 +248,7 @@
 			<article>
 			<div id="carousel_container">
 				<div id="myCarousel" class="carousel slide carousel-fade"
-					data-bs-ride="carousel">
+					data-bs-pause="hover">
 					<div class="carousel-indicators">
 						<button type="button" data-bs-target="#myCarousel"
 							data-bs-slide-to="0" class="active" aria-current="true"
@@ -300,10 +309,9 @@
 			<div class="clear"></div>
 
 			<div class="header_wrap">
-				<div>
-					<div id="detail" data-bs-toggle="collapse" href="#collapseExample"
-						aria-expanded="false" aria-controls="collapseExample">매치
-						상세설정</div>
+				<div role="button" id="detail" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+					aria-expanded="false" aria-controls="collapseExample">
+					<span>매치 상세설정</span>
 				</div>
 			</div>
 			<div class="collapse" id="collapseExample">
@@ -312,7 +320,7 @@
 
 						<div id="row1">
 							<div id="row1_1">
-								<b>레벨</b><br>
+								<b style="cursor:default">레벨</b><br>
 								<div class="rowWrap">
 									<button type="button" class="blue" data-value="11" data-type="all" >전체</button>
 									<button type="button" class="normal" data-value="1" >초보</button>
@@ -322,7 +330,7 @@
 
 							</div>
 							<div id="row1_2">
-								<b>매치 형태</b><br>
+								<b style="cursor:default">매치 형태</b><br>
 								<div class="rowWrap">
 									<button type="button" class="blue" data-value="12" data-type="all" >전체</button>
 									<button type="button" class="normal" data-value="4" >2파전</button>
@@ -334,7 +342,7 @@
 
 						<div id="row2">
 							<div id="row2_1">
-								<b>매치 인원</b><br>
+								<b style="cursor:default">매치 인원</b><br>
 								<div class="rowWrap">
 									<button type="button" class="blue" data-value="13" data-type="all" >전체</button>
 									<button type="button" class="normal" data-value="6" >6vs6</button>
@@ -342,11 +350,11 @@
 								</div>
 							</div>
 							<div id="row2_2">
-								<b>지역</b><br>
+								<b style="cursor:default">지역</b><br>
 								<div class="rowWrap">
 									<button type="button" class="blue" data-value="14" data-type="all" >전체</button>
 									<button type="button" class="normal" data-value="8" >서울</button>
-									<button type="button" class="normal" data-value="9" >경기도</button>
+									<button type="button" class="normal" data-value="9" >경기</button>
 									<button type="button" class="normal" data-value="10" >부산</button>
 								</div>
 							</div>
@@ -441,9 +449,6 @@
 		</div>
 		</footer>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+		 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

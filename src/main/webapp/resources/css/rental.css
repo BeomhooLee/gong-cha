@@ -58,6 +58,20 @@
     font-size: 14px;
     line-height: 14px;
 }
+
+#reserve{
+	display: inline-grid;
+    font-size: 14px;
+    margin-left: 5px;
+    padding: 5px 12px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgb(0, 128, 255);
+    border-radius: 20px;
+    outline: none;	
+    background: white;
+}
+
 #location{
 	width:66px;
 	cursor: pointer;
@@ -176,3 +190,4 @@ ul{
 a:hover{
 	text-decoration: none !important;
 }
+

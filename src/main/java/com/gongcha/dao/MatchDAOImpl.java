@@ -39,11 +39,6 @@ public class MatchDAOImpl implements MatchDAO {
 	}
 
 	@Override
-	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm) {
-		return sqlSession.selectList("match.socialjoin_list",sm);
-	}
-
-	@Override
 	public Social_matchDTO get_sm_dto(String match_no) {
 		return sqlSession.selectOne("getSocialDTO",match_no);
 	}
@@ -56,6 +51,16 @@ public class MatchDAOImpl implements MatchDAO {
 	@Override
 	public List<String> getEtcs(String stadium_name) {
 		return sqlSession.selectList("getEtcs", stadium_name);
+	}
+	
+	@Override
+	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm) {
+		return sqlSession.selectList("match.socialjoin_list",sm);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm) {
+		return sqlSession.selectList("match.stadiumMatchJoin_list",stm);
 	}
 
 }
