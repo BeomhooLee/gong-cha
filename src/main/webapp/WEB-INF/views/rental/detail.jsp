@@ -139,10 +139,6 @@ function check(){
 		}
 	});
 }
-
-function checked(){
-	alert('해당시간은 이미 예약완료 되었습니다. 다른 시간을 골라주세요!');
-}
 </script>
 <article>
 	<div id="contentWrap">
@@ -222,11 +218,18 @@ function checked(){
 						role="tab" aria-controls="pills-home" aria-selected="true">시설</button>
 				</li>
 				<li class="nav-item" role="presentation">
+					<!-- <button class="nav-link">구장 예약</button> -->
 					<button class="nav-link" id="pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-profile"
 						type="button" role="tab" aria-controls="pills-profile"
 						aria-selected="false">구장 예약</button>
 				</li>
+				<!-- <li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-contact-tab"
+						data-bs-toggle="pill" data-bs-target="#pills-contact"
+						type="button" role="tab" aria-controls="pills-contact"
+						aria-selected="false">소셜 매치</button>
+				</li> -->
 			</ul>
 		</div>
 		<div class="tab-content" id="pills-tabContent">
@@ -323,7 +326,7 @@ function checked(){
 				</div>
 			</div>
 			<div class="clear"></div>
-
+<form>
 			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 				aria-labelledby="pills-profile-tab">
 				<div id="info_container2">
@@ -350,30 +353,28 @@ function checked(){
 					<div id="rentalChoice">
 						<ul style="padding-left: 0rem;" id="timelist">
 							<c:forEach var="s" items="${sm_list }">
+						<a href="/rental/order?no=${s.stadium_match_no}">
 								<c:if test="${s.available == 1}">
-										<li class="rental">
-									<a href="/rental/order?no=${s.stadium_match_no}">
-											<p class="rTime">
-											${s.start_time }~<br>${s.end_time}
-											</p>
-									</a>
-										</li>
-								</c:if>
-								<c:if test="${s.available == 0}">
-									<li class="rental soldout">
-									<a onclick="checked();">
+									<li class="rental">
 										<p class="rTime">
 											${s.start_time }~<br>${s.end_time}
 										</p>
-									</a>
 									</li>
 								</c:if>
+								<c:if test="${s.available == 0}">
+									<li class="rental soldout">
+										<p class="rTime">
+											${s.start_time }~<br>${s.end_time}
+										</p>
+									</li>
+								</c:if>
+							</a>
 							</c:forEach>
 						</ul>
 					</div>
 				</div>
-			
-
+				
+</form>
 				<div id="st_info">
 					<p class="info_p">취소/환급</p>
 					<div id="stadInner">
@@ -402,8 +403,9 @@ function checked(){
 				</div>
 
 			</div>
+			
 		</div>
-	</div>		
+		</div>
 		<div class="clear"></div>
 </article>
 
@@ -435,8 +437,12 @@ marker.setMap(map);
 // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 // marker.setMap(null);    
 </script>
+
 </div>
 <div class="clear"></div>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 </body>
 </html>

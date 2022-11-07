@@ -1,8 +1,10 @@
 package com.gongcha.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.ReplyDTO;
 import com.gongcha.service.BoardService;
+import com.gongcha.service.ReplyService;
 import com.google.gson.Gson;
 
 @Controller
@@ -25,6 +29,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 
 	@RequestMapping("/recruit")
@@ -163,6 +170,28 @@ public class BoardController {
 		}
 		return null;
 	}
+	
+//	//댓글 목록
+//	@ResponseBody
+//	@RequestMapping("/recruit_reply")
+//	public HashMap<String, Object> recruit_reply(@RequestParam String mem_id,BoardDTO t) {
+//        HashMap<String, Object> map = new HashMap<>();
+//        t.setMem_id(mem_id);
+//        Optional<BoardDTO> fi = boardService.findId(t);
+//        List<ReplyDTO> re = replyService.findRecruit(fi.get());
+//
+//        List<ReplyDTO> replyList = new ArrayList<>(); // 댓글 리스트
+//        List<Long> Count = new ArrayList<>(); // 대댓글 갯수 카운트
+//
+//        for (int i = 0; i < re.size(); i++) {
+//            replyList.add(re.get(i).getReply_content());
+//            ccCountList.add(boardCommentQueryRepository.findReCommentCnt(boardCommentEntityList.get(i).getId())); //대댓글 갯수 카운트
+//        }
+//        map.put("list", boardCommentDtoList);
+//        map.put("commentCnt", ccCountList);
+//
+//        return map;
+//    }
 
 	//게시글 수정
 	@RequestMapping("/recruit_edit")
