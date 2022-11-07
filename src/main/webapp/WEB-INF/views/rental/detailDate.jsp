@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<c:forEach var="s" items="${s_list }">
+								<a href="/rental/order?no=${s.stadium_match_no}">
 								<c:if test="${s.available == 1}">
 									<li class="rental">
 										<p class="rTime">
@@ -16,4 +17,5 @@
 										</p>
 									</li>
 								</c:if>
+								</a>
 							</c:forEach>

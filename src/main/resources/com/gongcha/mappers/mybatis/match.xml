@@ -138,5 +138,13 @@
 	<select id="getStadiumMatch" resultType="stadium_match">
 		select * from stadium_match where stadium_name = #{st} and to_char(match_date, 'YYYY-MM-DD') = to_char(sysdate,'YYYY-MM-DD') order by match_date
 	</select>
+	
+	<select id="getSMList" resultType="stadium_match">
+		select * from stadium_match where stadium_match_no = #{no}
+	</select>
+	
+	<select id="getcash" resultType="cash">
+		select * from cash where mem_id=#{id}
+	</select>
 
 </mapper>

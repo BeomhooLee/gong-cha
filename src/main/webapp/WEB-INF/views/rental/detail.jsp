@@ -353,6 +353,7 @@ function check(){
 					<div id="rentalChoice">
 						<ul style="padding-left: 0rem;" id="timelist">
 							<c:forEach var="s" items="${sm_list }">
+						<a href="/rental/order?no=${s.stadium_match_no}">
 								<c:if test="${s.available == 1}">
 									<li class="rental">
 										<p class="rTime">
@@ -367,6 +368,7 @@ function check(){
 										</p>
 									</li>
 								</c:if>
+							</a>
 							</c:forEach>
 						</ul>
 					</div>
