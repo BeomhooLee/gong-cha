@@ -60,6 +60,22 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.idCheck(i);
 	}
 
+	@Override
+	public List<BoardDTO> getStadium(String stadium_name) {
+		return boardDao.getStadium(stadium_name);
+	}
+
+	@Override
+	public List<BoardDTO> getInfo(BoardDTO a) {
+		return boardDao.getInfo(a);
+	}
+
+	@Override
+	public void delRecruit(BoardDTO de) {
+		boardDao.delRecruit(de);
+	}
+
+
 
 }
 

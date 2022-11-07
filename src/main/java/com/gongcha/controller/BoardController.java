@@ -1,6 +1,7 @@
 package com.gongcha.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,13 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
-import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.BoardService;
+import com.google.gson.Gson;
 
 @Controller
 public class BoardController {
@@ -38,7 +41,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/recruit_regi")
-	public ModelAndView recruit_regi(HttpServletResponse response,HttpSession session, Stadium_matchDTO h) throws Exception {
+	public ModelAndView recruit_regi(HttpServletResponse response,HttpSession session,String stadium_name) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
 
@@ -52,17 +55,19 @@ public class BoardController {
 		}else {
 
 			List<BoardDTO> g=boardService.getMatch(id);
-			
+
+			List<BoardDTO> my=boardService.getStadium(stadium_name);
 			if(g.isEmpty()) {
 				out.println("<script>");
 				out.println("alert('예약하신 구장이 없습니다!');");
 				out.println("history.back();");
 				out.println("</script>");
 			}else {
+
 				ModelAndView f=new ModelAndView();
 
-				f.addObject("li",g.stream().distinct());
-
+				f.addObject("li",g);
+				f.addObject("my",my);
 				f.setViewName("/recruit/recruit_regi");
 
 				return f;
@@ -70,6 +75,30 @@ public class BoardController {
 		}
 
 		return null;
+	}
+
+	@ResponseBody
+	@PostMapping("/stadium_name_check")
+	public String stadium_name_check(@RequestParam("stadium_name") String stadium_name, HttpServletResponse response,
+			HttpSession session, BoardDTO a) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+
+		String id=(String)session.getAttribute("id");
+
+		Gson gson=new Gson();
+		HashMap<String,Object> map =new HashMap<>();
+
+		a.setMem_id(id);
+		a.setStadium_name(stadium_name);
+		List<BoardDTO> sn = boardService.getInfo(a);
+
+		map.put("sn",sn);
+
+		String json=gson.toJson(map);
+		System.out.println("json : "+json);
+
+		return json;
+
 	}
 
 	//게시글 작성
@@ -103,32 +132,42 @@ public class BoardController {
 			HttpServletResponse response,HttpSession session) throws Exception {
 
 		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
 
 		String id=(String)session.getAttribute("id");
 
-		o=this.boardService.getCont(recruit_no);
-		
-		String cont=o.getRecruit_content().replace("\n","<br/>");
+		if(id==null) {
+			out.println("<script>");
+			out.println("alert('로그인 해주세요!');");
+			out.println("location='login';");
+			out.println("</script>");
+		}else {
+			o=this.boardService.getCont(recruit_no);
 
-		o.setMem_id(id);
+			String cont=o.getRecruit_content().replace("\n","<br/>");
+			
+			o.setMem_id(id);
 
-		BoardDTO e=boardService.getId(o);
+			BoardDTO e=boardService.getId(o);
 
-		ModelAndView ml=new ModelAndView();
+			ModelAndView ml=new ModelAndView();
 
-		ml.addObject("cont",cont);
-		ml.addObject("o",o);
+			ml.addObject("cont",cont);
+			ml.addObject("o",o);
 
-		ml.addObject("t",e);
+			ml.addObject("t",e);
 
-		ml.setViewName("/recruit/recruit_detail");
+			ml.setViewName("/recruit/recruit_detail");
 
-		return ml;
+			return ml;
+		}
+		return null;
 	}
 
 	//게시글 수정
 	@RequestMapping("/recruit_edit")
-	public ModelAndView recruit_(HttpServletResponse response,HttpSession session,BoardDTO i,@RequestParam int recruit_no) throws Exception {
+	public ModelAndView recruit_(HttpServletResponse response,HttpSession session,BoardDTO i,@RequestParam int recruit_no,
+			String stadium_name) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
 
@@ -143,12 +182,9 @@ public class BoardController {
 			i.setMem_id(id);
 			i.setRecruit_no(recruit_no);
 			BoardDTO id_check=boardService.idCheck(i);
-			
-//			String qs="recruit_detail?recruit_no="+i.getRecruit_no();
-//			String qs=Integer.toString(recruit_no);
+
 			i=boardService.getRegi(recruit_no);
-//			System.out.println("컨트 : "+recruit_no+" 맵 : "+i.getRecruit_no());
-//			String no= Integer.toBinaryString(i.getRecruit_no());
+
 			if(id_check == null || !(recruit_no == i.getRecruit_no()) ) {
 				out.println("<script>");
 				out.println("alert('잘못된 접근입니다!');");
@@ -164,12 +200,14 @@ public class BoardController {
 					out.println("</script>");
 				}else {
 
-					i=boardService.getRegi(recruit_no);
+					i=boardService.getCont(recruit_no);
 					String cont=i.getRecruit_content().replace("\n","<br/>");
-
+					
+					List<BoardDTO> my=boardService.getStadium(stadium_name);
+					
 					ModelAndView f=new ModelAndView();
-
-					f.addObject("li",g);
+					
+					f.addObject("my",my);
 					f.addObject("re",i);
 					f.addObject("cont",cont);
 
@@ -197,8 +235,9 @@ public class BoardController {
 			out.println("location='login';");
 			out.println("</script>");
 		}else {
+			j.setMem_id(id);
 			boardService.edit(j);
-			System.out.println("확인요 "+j);
+			
 			return "redirect:/recruit_detail?recruit_no="+j.getRecruit_no();
 
 		}
@@ -206,10 +245,14 @@ public class BoardController {
 	}
 
 	@RequestMapping("recruit_del")
-	public String recruit_del(HttpServletResponse response, int recruit_no) throws Exception{
-		PrintWriter out=response.getWriter();
-
-
-		return null;
+	public String recruit_del(HttpServletResponse response,@RequestParam int recruit_no,BoardDTO de,HttpSession session) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+		String id=(String)session.getAttribute("id");
+		
+		de.setMem_id(id);
+		de.setRecruit_no(recruit_no);
+		boardService.delRecruit(de);
+		
+		return "redirect:/recruit";
 	}
 }

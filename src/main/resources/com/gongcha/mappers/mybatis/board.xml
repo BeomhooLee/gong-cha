@@ -6,8 +6,8 @@
 	
 	<!-- 용병 모집 게시글 저장 -->
 	<insert id="insert_regi">
-  		insert into recruit (recruit_no, city, title, recruit_content, mem_id, stadium_match_no, regdate, match_level) 
-  		values (recruit_no_seq.nextval, #{city,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{recruit_content,jdbcType=VARCHAR}, #{mem_id,jdbcType=VARCHAR},
+  		insert into recruit (recruit_no, stadium_name, title, recruit_content, mem_id, stadium_match_no, regdate, match_level) 
+  		values (recruit_no_seq.nextval, #{stadium_name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{recruit_content,jdbcType=VARCHAR}, #{mem_id,jdbcType=VARCHAR},
   		#{stadium_match_no,jdbcType=VARCHAR}, sysdate, #{match_level,jdbcType=VARCHAR})
 	</insert>
 
@@ -19,15 +19,20 @@
 	</select>
 
 	<!-- 게시글 보기 -->
+<!-- 	<select id="get_cont" resultType="board"> -->
+<!-- 		 select * from recruit a join stadium_match b on a.stadium_match_no = b.stadium_match_no where a.recruit_no=#{recruit_no} -->
+<!-- 	</select> -->
 	<select id="get_cont" resultType="board">
-		 select * from recruit a join stadium_match b on a.stadium_match_no = b.stadium_match_no where a.recruit_no=#{recruit_no}
+		select a.recruit_no, a.stadium_name, a.title, a.recruit_content, a.mem_id ,a.regdate, a.match_level, b.stadium_match_no, b.match_date,
+		b.price, b.start_time, b.end_time, c.address from recruit a, stadium_match b, stadium c where a.stadium_match_no = b.stadium_match_no 
+		and b.stadium_name = c.stadium_name and a.recruit_no=#{recruit_no}
 	</select>
 	
-	<!-- 글쓰기에서 구장보기-->
+	<!-- 예약한 구장 확인 -->
 	<select id="get_match" resultType="board">
-		select stadium_name from stadium_match where mem_id=#{mem_id,jdbcType=VARCHAR}
+		select * from stadium_match where mem_id=#{mem_id,jdbcType=VARCHAR} order by stadium_name,match_date,start_time
 	</select>
-
+	
 	<!-- 글보기에서 내 아이디 값 확인 -->
 	<select id="get_id" resultType="board">
 	  	select * from recruit where recruit_no=#{recruit_no,jdbcType=VARCHAR} and mem_id=#{mem_id,jdbcType=VARCHAR}
@@ -45,7 +50,7 @@
 	
 	<!-- 글수정 완료 -->
 	<update id="edit">
-		update recruit set city=#{city}, title=#{title}, recruit_content=#{recruit_content},
+		update recruit set stadium_name=#{stadium_name}, title=#{title}, recruit_content=#{recruit_content},
 		stadium_match_no=#{stadium_match_no}, match_level=#{match_level} where recruit_no=#{recruit_no} and mem_id=#{mem_id,jdbcType=VARCHAR}
 	</update>
 	
@@ -54,5 +59,18 @@
 		select * from recruit where recruit_no=#{recruit_no} and mem_id=#{mem_id,jdbcType=VARCHAR}
 	</select>
 	
-
+	<!-- 글쓰기에서 구장이름 확인 -->
+	<select id="get_stadium" resultType="board">
+		select stadium_name from stadium 
+	</select>
+	
+	<!-- 내가 예약한 구장 보기 -->
+	<select id="get_info" resultType="board">
+		select * from stadium_match where stadium_name=#{stadium_name,jdbcType=VARCHAR} and mem_id=#{mem_id}
+	</select>
+	
+	<!-- 글삭제 -->
+	<delete id="del_recruit">
+		delete from recruit where recruit_no=#{recruit_no} and mem_id=#{mem_id}
+	</delete>
 </mapper>

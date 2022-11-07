@@ -23,6 +23,11 @@ public interface BoardDAO {
 	void edit(BoardDTO j);
 
 	BoardDTO idCheck(BoardDTO i);
-	
+
+	List<BoardDTO> getStadium(String stadium_name);
+
+	List<BoardDTO> getInfo(BoardDTO a);
+
+	void delRecruit(BoardDTO de);
 
 }

@@ -60,5 +60,19 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectOne("id_ck",i);
 	}
 
+	@Override
+	public List<BoardDTO> getStadium(String stadium_name) {
+		return sqlSession.selectList("get_stadium",stadium_name);
+	}
+
+	@Override
+	public List<BoardDTO> getInfo(BoardDTO a) {
+		return sqlSession.selectList("get_info",a);
+	}
+
+	@Override
+	public void delRecruit(BoardDTO de) {
+		sqlSession.delete("del_recruit",de);
+	}
 
 }

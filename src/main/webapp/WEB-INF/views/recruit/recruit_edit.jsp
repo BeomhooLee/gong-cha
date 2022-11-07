@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/recruit_regi.css" />
@@ -8,24 +9,25 @@
 <script type="text/javascript">
 
 function check(){
-	 if($.trim($("#city").val())=="none"){
-			alert("지역을 선택해주세요!");		
-			return false;
-		}
-	    if($.trim($("#stadium_match_no").val())=="none"){
+	 if($.trim($("#stadium_name").val())==''){
 			alert("경기장을 선택해주세요!");		
 			return false;
 		}
-	    if($.trim($("#match_level").val())=="none"){
+	    if($.trim($("#stadium_match_no").val())==''){
+			alert("경기 날짜를 선택해주세요!");		
+			return false;
+		}
+	    
+	    if($.trim($("#match_level").val())==''){
 			alert("실력을 선택해주세요!");		
 			return false;
 		}
-    if($.trim($("#title").val())==""){
+    if($.trim($("#title").val())==''){
        alert("제목을 입력해주세요!");
        $("#title").val("").focus();
        return false;
     }
-    if($.trim($("#recruit_content").val())==""){
+    if($.trim($("#recruit_content").val())==''){
        alert("내용을 입력해주세요!!");
        $("#recruit_content").val("").focus();
        return false;
@@ -33,28 +35,62 @@ function check(){
    
  }
  
- $(function(){
-// 	$("#stadium_match_no").hide();
-// 	$("#match_level").hide();
+$(function(){
+ 	$("#stadium_match_no").hide();
+	$('#match_level').hide();
 	
-	$("#city").change(function(){
-		if($("#city").val() == "none"){
+	$("#stadium_name").change(function(){
+		if($("#stadium_name").val() == ''){
 			$("#stadium_match_no").hide();
-			$("#match_level").hide();
+			$("#stadium_match_no").val('');
+			$("#stadium_match_no").children().remove();
+			$('#match_level').hide();
+			$("#match_level").val('');
 		}else{
-			$("#stadium_match_no").show();
-			
-			$("#stadium_match_no").change(function(){
-				if($("#stadium_match_no").val() == "none"){
-					$("#match_level").hide();
-				}else{
-					$("#match_level").show();
+			var stn=$('#stadium_match_no');
+			stn.show();
+			const stadium_name=$('#stadium_name option:selected').val();
+
+			$.ajax({
+				url:"stadium_name_check",
+				type:"post",
+				data:{
+					"stadium_name":stadium_name
+				},
+				success:function(data){
+					var obj = JSON.parse(data);
+					
+					$(stn).children().remove();
+					$(stn).append("<option value=''>경기 날짜 선택</option>");
+					
+					for(var i=0; i<obj.sn.length; i++){
+						console.log(obj.sn[i].stadium_match_no);
+						stn.append(
+								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+" / "+obj.sn[i].end_time+
+								"</option>"
+							);
 				
+					}
+					
+					
 				}
+			
+			
 			});
+			$("#stadium_match_no").change(function(){
+			if($("#stadium_match_no").val() == ''){
+				$("#match_level").hide();
+				$("#match_level").val('');
+			}else{
+				$("#match_level").show();
 			}
-		});
- });
+			});
+		}
+		
+	});
+
+});
+ 		
 </script>
 
 <div class="recruit_container"
@@ -63,34 +99,28 @@ function check(){
 	<div id="regi_form">
 		<form action="recruit_edit_ok" method="post"
 			onsubmit="return check();">
-			<input type="hidden" name="recruit_no" value="${re.recruit_no}"/>
+			<input type="hidden" name="recruit_no" id="recruit_no" value="${re.recruit_no}" />
 			<div id="select_contain">
-				<span>내 경기 선택</span>&nbsp;&nbsp; <select name="city" id="city">			
-						<option value="none">지역 선택</option>
-						<option value="서울특별시" <c:if test="${re.city == '서울특별시'}">selected</c:if>>서울특별시</option>
-						<option value="경기도" <c:if test="${re.city == '경기도'}">selected</c:if>>경기도</option>
-						<option value="부산광역시" <c:if test="${re.city == '부산광역시'}">selected</c:if>>부산광역시</option>
-					
-				</select> 
-				<select name="stadium_match_no" id="stadium_match_no">
-					
-					<option value="none">경기장 선택</option>
-					<c:forEach var="m" items="${li}">
-						<option value="${m.stadium_match_no}" 
-						<c:if test="${m.stadium_match_no == re.stadium_match_no}">selected</c:if>>${m.stadium_name}</option>
+				<span>내 경기 선택</span>&nbsp;&nbsp;
+				 <select name="stadium_name" id="stadium_name">
+					<option value=''>경기장 선택</option>
+					<c:forEach var="m" items="${my}">
+						<option value="${m.stadium_name}">${m.stadium_name}</option>
 					</c:forEach>
-				</select> <select name="match_level" id="match_level">
-					<option value="none">실력 선택</option>
-					<option value="1" <c:if test="${re.match_level == 1}">selected</c:if>>실력 하</option>
-					<option value="2" <c:if test="${re.match_level == 2}">selected</c:if>>실력 중</option>
-					<option value="3" <c:if test="${re.match_level == 3}">selected</c:if>>실력 상</option>
+				</select> 
+				<select name="stadium_match_no" id="stadium_match_no"></select> 
+				<select name="match_level" id="match_level">
+					<option value=''>실력 선택</option>
+					<option value="1">초보</option>
+					<option value="2">중수</option>
+					<option value="3">고수</option>
 				</select>
 
 			</div>
 
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="title" placeholder="제목" name="title" value="${re.title}"/>
-				<label for="title">제목을 입력해주세요</label>
+				<input type="text" class="form-control" id="title" placeholder="제목" value="${re.title}"
+					name="title"> <label for="title">제목을 입력해주세요</label>
 			</div>
 
 			<div class="form-floating" style="margin-top: 30px;">
@@ -101,7 +131,7 @@ function check(){
 
 			<div id="btn_contain" style="margin-top: 20px;">
 				<button type="submit">글수정</button>
-				<button type="button" id="btn_list" onclick="history.back();">취소</button>
+				<button type="button" id="btn_list" onclick="location='recruit'">목록</button>
 			</div>
 		</form>
 	</div>

@@ -2,6 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../include/header.jsp" />
+<script>
+	function del_check(url){
+		var del_text = confirm('게시글을 삭제하시겠습니까?');
+		
+		if(del_text == true){
+			location = url;
+		}
+	}
+</script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/recruit_detail.css" />
 <div class="contai">
@@ -17,16 +26,17 @@
 					
 					<span class="edit">
 					<c:if test="${t.mem_id eq id}">
-					<a href="recruit_edit?recruit_no=${o.recruit_no}">수정</a> · <a href="recruit_del?recruit_no=${o.recruit_no}">삭제</a></c:if>
+					<a href="recruit_edit?recruit_no=${o.recruit_no}">수정</a> · <a href="recruit_del?recruit_no=${o.recruit_no}" onclick="del_check('recruit_del')">삭제</a></c:if>
 					</span>
 					
 					
 					<div class="location">${o.stadium_name}</div>
 					<div class="address">
+					<span>${o.address}</span>
 					<span> 
-					 	<c:if test="${o.match_level == 1}">실력 하</c:if>
-						<c:if test="${o.match_level == 2}">실력 중</c:if>
-						<c:if test="${o.match_level == 3}">실력 상</c:if>
+					 	<c:if test="${o.match_level == 1}">초보</c:if>
+						<c:if test="${o.match_level == 2}">중급</c:if>
+						<c:if test="${o.match_level == 3}">상급</c:if>
 					</span> 
 					<span>${o.price}원</span></div>
 					<div class="address_buttons">

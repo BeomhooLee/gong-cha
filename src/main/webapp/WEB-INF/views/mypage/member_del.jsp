@@ -23,7 +23,14 @@ function check() {
 		$("#mem_pwd").val("").focus();
 		return false;
 	}
+	
+	var del_text = confirm('정말로 탈퇴 하시겠습니까?');
+	
+	if(del_text == true){
+		location = 'del_ok';
+	}
 }
+
 </script>
 </head>
 <body>

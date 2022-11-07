@@ -868,7 +868,7 @@ section {
         display: flex;
         position: fixed;
         left: 0;
-        width: 460px;
+        width:540px;
         min-height: 600px;
         height: 100%;
         overflow: hidden;

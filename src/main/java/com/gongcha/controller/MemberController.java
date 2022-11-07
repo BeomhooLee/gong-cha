@@ -221,7 +221,7 @@ public class MemberController {
 			return ea;
 		}
 		return null;
-	}//member_edit()
+	}
 
 	@RequestMapping("/pwd_change")
 	public ModelAndView pwd_change(HttpServletResponse response,HttpSession session) 
@@ -389,7 +389,7 @@ public class MemberController {
 					
 					out.println("<script>");
 					out.println("alert('회원 탈퇴 되었습니다.')");
-					out.println("location='index';");
+					out.println("location='/';");
 					out.println("</script>");
 				
 				}

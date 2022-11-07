@@ -10,8 +10,6 @@ public interface BoardService {
 
 	BoardDTO getCont(int recruit_no);
 
-	List<BoardDTO> getMatch(String id);
-
 	void insertRegi(BoardDTO p);
 
 	BoardDTO getId(BoardDTO o);
@@ -24,5 +22,12 @@ public interface BoardService {
 
 	BoardDTO idCheck(BoardDTO i);
 
+	List<BoardDTO> getMatch(String id);
+
+	List<BoardDTO> getStadium(String stdium_name);
+
+	List<BoardDTO> getInfo(BoardDTO a);
+
+	void delRecruit(BoardDTO de);
 	
 }
