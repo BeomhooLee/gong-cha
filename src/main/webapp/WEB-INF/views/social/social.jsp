@@ -294,12 +294,12 @@
 						</button>
 					</c:when>
 					<c:when test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
-						<a href="/rental/order"><button id="pay_btn_available">
+						<a href="/rental/social_order?no=${sm_dto.match_no}"><button id="pay_btn_available">
 							<span>신청가능</span>
 						</button></a>
 					</c:when>
 					<c:when test="${((sm_dto.player_num-sm_dto.current_count) <= 3) && ((sm_dto.player_num-sm_dto.current_count) > 0)}">
-						<a href="/rental/order"><button id="pay_btn_almost">
+						<a href="/rental/social_order?no=${sm_dto.match_no}"><button id="pay_btn_almost">
 							<span>마감임박!!</span>
 						</button></a>
 					</c:when>

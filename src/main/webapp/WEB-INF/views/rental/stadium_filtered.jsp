@@ -26,22 +26,26 @@
 														<c:if test="${stadium_name eq stadium_match_name}" var="b">
 															<c:choose>
 																<c:when test="${st.available eq 1}">
-																	<li class="rental" data-date="${fn:substring(st.match_date,8,10)}">
-																		<p class="rTime">
-																			<c:out value="${st.start_time}" />
-																			~<br>
-																			<c:out value="${st.end_time}" />
-																		</p>
-																	</li>
+																	<a href="/rental/order?no=${st.stadium_match_no}">
+																		<li class="rental" data-date="${fn:substring(st.match_date,8,10)}">
+																			<p class="rTime">
+																				<c:out value="${st.start_time}" />
+																				~<br>
+																				<c:out value="${st.end_time}" />
+																			</p>
+																		</li>
+																	</a>
 																</c:when>
 																<c:otherwise>
-																	<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
-																		<p class="rTime">
-																			<c:out value="${st.start_time}" />
-																			~<br>
-																			<c:out value="${st.end_time}" />
-																		</p>
-																	</li>
+																	<a href="/rental/order?no=${st.stadium_match_no}">
+																		<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
+																			<p class="rTime">
+																				<c:out value="${st.start_time}" />
+																				~<br>
+																				<c:out value="${st.end_time}" />
+																			</p>
+																		</li>
+																	</a>
 																</c:otherwise>
 															</c:choose>
 														</c:if>

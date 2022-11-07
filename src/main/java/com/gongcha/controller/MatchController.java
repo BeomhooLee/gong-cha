@@ -239,6 +239,34 @@ public class MatchController {
 
 		return null;
 	}
+	
+	@RequestMapping("/rental/social_order")
+	public String social_order(HttpSession session,HttpServletResponse response, HttpServletRequest request,
+			Social_matchDTO sm, Model m,@RequestParam("no") String no) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String id = (String) session.getAttribute("id");
+
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('먼저 로그인 해주세요!');");
+			out.println("location='/login';");
+			out.println("</script>");
+		} else {
+			sm = matchservice.get_sm_dto(no);
+			CashDTO cash = this.matchservice.getCash(id);
+			MemberDTO member = this.matchservice.getMember(id);
+
+			m.addAttribute("s", sm);
+			m.addAttribute("c", cash);
+			m.addAttribute("m", member);
+					
+			return "/rental/social_order";
+		}
+
+		return null;
+	}
 
 	@GetMapping("/rental/detail")
 	public String detail(HttpSession session,@RequestParam("stadium") String stadium, HttpServletResponse response, 

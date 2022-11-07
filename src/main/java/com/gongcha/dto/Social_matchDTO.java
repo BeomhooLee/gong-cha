@@ -17,6 +17,8 @@ public class Social_matchDTO {
 	private String match_level;
 	private int current_count;
 	private String manager;
+	private String start_time;
+	private String end_time;
 	
 	//필터상세설정에 필요한 변수
 	private String skill;
