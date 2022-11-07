@@ -201,18 +201,18 @@ article{
 }
 .info_p{
 	font-size: 18px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     font-weight: 700;
     margin-bottom: 0rem;
 }
 .txt3{
+	width: 100%;
 	font-size: 14px;
-	white-space: pre-wrap;
-    word-wrap: break-word;
+	white-space: pre-line;
+	line-height: 22px;
     word-break: keep-all;
     overflow: auto;
-    font-family: Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,
-    "Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+   font-family: 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Malgun Gothic', 'dotum', 'gulim', sans-serif;
 }
 #order_wrap{
 	max-width: 100%;

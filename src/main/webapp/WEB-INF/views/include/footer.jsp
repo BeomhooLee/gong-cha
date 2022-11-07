@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 	
 		<footer>
-			<div onclick="up()" id="up" class="up">
+			<div id="up" class="up">
 				<img src="/resources/images/arrow-up-circle.svg" width="40" height="40">
 			</div>
 			<div id="f_logo">
@@ -30,10 +30,7 @@
 	</div>
 	
 	<!-- 부트스트랩  -->
-	<!-- <script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script> -->
+	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<!-- ionicons(아이콘) -->
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.MatchDAO;
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -56,6 +57,31 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public List<Social_matchDTO> getJoin_list(Social_matchDTO sm) {
 		return matchDAO.getJoin_list(sm);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getJoin_list_stm(Stadium_matchDTO stm) {
+		return matchDAO.getJoin_list_stm(stm);
+	}
+	
+	@Override
+	public List<Stadium_matchDTO> getStadium_matchList(Stadium_matchDTO sm) {
+		return this.matchDAO.getStadium_matchList(sm);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getStadiumMatch(String stadium) {
+		return this.matchDAO.getStadiumMatch(stadium);
+	}
+
+	@Override
+	public Stadium_matchDTO getStadiummatchList(int no) {
+		return this.matchDAO.getStadiummatchList(no);
+	}
+
+	@Override
+	public CashDTO getCash(String id) {
+		return this.matchDAO.getCash(id);
 	}
 
 }

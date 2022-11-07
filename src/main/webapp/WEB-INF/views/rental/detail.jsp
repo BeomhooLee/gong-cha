@@ -1,11 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <jsp:include page="../include/header.jsp" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/rental.css" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/detail.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/rental.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/detail.css" />
 <!-- 부트스트랩 아이콘 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -21,21 +20,45 @@
 
 <script>
 $(function() {
-	$('.nav2').slick({
-		slide : 'div', //슬라이드 되어야 할 태그 ex) div, li 
-		infinite : false, //무한 반복 옵션	 
-		slidesToShow : 7, // 한 화면에 보여질 컨텐츠 개수
-		slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
-		speed : 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-		arrows : true, // 옆으로 이동하는 화살표 표시 여부
-		dots : false, // 스크롤바 아래 점으로 페이지네이션 여부
-		autoplay : false, // 자동 스크롤 사용 여부
-		vertical : false, // 세로 방향 슬라이드 옵션
-		prevArrow : "<i class='fa-regular fa-circle-left' id='next'></i>", // 이전 화살표 모양 설정
-		nextArrow : "<i class='fa-regular fa-circle-right' id='before'></i>",
-		draggable : false,
-	});
+	$('.nav2').slick(
+		{
+			slide : 'button', //슬라이드 되어야 할 태그 ex) div, li 
+			infinite : false, //무한 반복 옵션	 
+			slidesToShow : 7, // 한 화면에 보여질 컨텐츠 개수
+			slidesToScroll : 1, //스크롤 한번에 움직일 컨텐츠 개수
+			speed : 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+			arrows : true, // 옆으로 이동하는 화살표 표시 여부
+			dots : false, // 스크롤바 아래 점으로 페이지네이션 여부
+			autoplay : false, // 자동 스크롤 사용 여부
+			vertical : false, // 세로 방향 슬라이드 옵션
+			prevArrow : "<i class='fa-regular fa-circle-left' id='next'></i>", // 이전 화살표 모양 설정
+			nextArrow : "<i class='fa-regular fa-circle-right' id='before'></i>",
+			draggable : false,
+		});
 });
+
+var last_date_var = '${last_date}'
+
+$(document).on("click",'i',function() {
+			var sendData = {"last_date" : last_date_var,"dayofweek" : ""}
+
+			$.ajax({
+				url : "/slick",
+				method : 'POST',
+				data : JSON.stringify(sendData),
+				contentType : 'application/json; charset=UTF-8',
+				dataTye : "json",
+				success : function(resp) {
+
+					last_date_var = resp.plused_date
+
+					var div = "<button type='button' class='b_cal' onclick='filter()'><p>"
+							+ resp.last_date + "일</p><span>"
+							+ resp.dayofweek + "</span></button>"
+					$('.nav2').slick('slickAdd', div);
+				}
+			});
+		});
 
 function showmap() {
 	  var togglemap = document.getElementById("toggleMap");
@@ -92,8 +115,31 @@ $(function(){
 		}
 	});
 });
-</script>
+$(document).on("click", 'button[type="button"][id="cal"]',function() {
+	var selectedDate = document.querySelector('button[class="b_cal"]');
+	$('input[type="hidden"][id="date"]').attr("value",$(this).children('p').data('caldate'));
+	
+	check();
+});
 
+function check(){
+	$('input[type="hidden"][id="date"]').attr("value",$(this).children('p').data('caldate'));
+	var selectedDate = $('input[type="hidden"][id="date"]').attr("value");
+	var stadium = $('p[id="name"]').text();
+	var sendData = {"stadium" : stadium,"selectedDate" : selectedDate}
+	
+	$.ajax({
+		url : "/detailDate",
+		method : 'POST',
+		data : JSON.stringify(sendData),
+		contentType : 'application/json; charset=UTF-8',
+		dataTye : "html",
+		success : function(data) {
+			$('#timelist').html(data);
+		}
+	});
+}
+</script>
 <article>
 	<div id="contentWrap">
 
@@ -151,9 +197,9 @@ $(function(){
 		</div>
 		<div class="clear"></div>
 	</div>
-	
+
 	<div id="stadium_profile">
-		<p id="name">${stadium_name}</p>
+		<p id="name">${stadium.stadium_name}</p>
 		<div id="wtgTool">
 			<span id="txt1">${stadium.address}</span> <span id="copy-url1"
 				class="txt2" onclick="clipBoard()">주소 복사</span> <span id="toggleMap"
@@ -172,6 +218,7 @@ $(function(){
 						role="tab" aria-controls="pills-home" aria-selected="true">시설</button>
 				</li>
 				<li class="nav-item" role="presentation">
+					<!-- <button class="nav-link">구장 예약</button> -->
 					<button class="nav-link" id="pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-profile"
 						type="button" role="tab" aria-controls="pills-profile"
@@ -188,79 +235,90 @@ $(function(){
 		<div class="tab-content" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-home"
 				role="tabpanel" aria-labelledby="pills-home-tab">
-				<div id="stadium_info">					
-					<span>${stadium.stadium_size}·실외·인조잔디</span>		
+				<div id="stadium_info">
+					<span>${stadium.stadium_size}·실외·인조잔디</span>
 					<div id="info_list_wrap">
 						<ul>
-							<li class="info_list">
-								<i class="bi bi-car-front" style="font-size: 1.5rem;"></i>
+							<li class="info_list"><i class="bi bi-car-front"
+								style="font-size: 1.5rem;"></i>
 								<div class="li_di">
-								<p>
-								<c:if test="${stadium.parking_lot == 1 }">
+									<p>
+										<c:if test="${stadium.parking_lot == 1 }">
 									무료주차
 								</c:if>
-								<c:if test="${stadium.parking_lot == 0 }">
+										<c:if test="${stadium.parking_lot == 0 }">
 									유료주차
-								</c:if>	
-								</p>
-								</div>
-							</li>
-							<li class="info_list">
-								<c:if test="${stadium.parking_lot == 1 }">
-								<img src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg" style="font-size: 1.5rem;">
-								<div class="li_di">
-									<p >샤워실</p>
 								</c:if>
-							<c:if test="${stadium.parking_lot == 0 }">
-								<img class="no_icon" src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg" style="font-size: 1.5rem;">
-								<div class="li_di">
-									<p class="title_line">샤워실</p>
-								</div>
-								</div>
-							</c:if>	
-									
-							</li>
-							<li class="info_list">
-								<i class="fa-solid fa-restroom" style="font-size: 1.2rem;"></i>
+									</p>
+								</div></li>
+							<li class="info_list"><c:if
+									test="${stadium.parking_lot == 1 }">
+									<img
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg"
+										style="font-size: 1.5rem;">
+									<div class="li_di">
+										<p>샤워실</p>
+									</div>
+								</c:if> <c:if test="${stadium.parking_lot == 0 }">
+									<img class="no_icon"
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shower.svg"
+										style="font-size: 1.5rem;">
+									<div class="li_di">
+										<p class="title_line">샤워실</p>
+									</div>
+								</c:if></li>
+							<li class="info_list"><i class="fa-solid fa-restroom"
+								style="font-size: 1.2rem;"></i>
 								<div class="li_di">
 									<p>화장실</p>
-								</div>
-							</li>
-							<li class="info_list">
-								<img id="shoes_img" src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shoes.svg" class="icon">
-								<div class="li_di">
-									<p>풋살화 대여</p>
-								</div>
-							</li>
-							<li class="info_list">
-								<img id="vest_img" src="https://plab-football.s3.amazonaws.com/static/img/ic_info_wear.svg" class="icon">
-								<div class="li_di">
-									<p class="title_line">운동복 대여</p>
-								</div>
-							</li>
+								</div></li>
+							<li class="info_list"><c:if
+									test="${stadium.shoes_rental==1}">
+									<img id="shoes_img"
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shoes.svg"
+										class="icon">
+									<div class="li_di">
+										<p>풋살화 대여</p>
+									</div>
+								</c:if> <c:if test="${stadium.shoes_rental==0}">
+									<img id="shoes_img" class="no_icon"
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_shoes.svg"
+										class="icon">
+									<div class="li_di">
+										<p class="title_line">풋살화 대여</p>
+									</div>
+								</c:if></li>
+							<li class="info_list"><c:if test="${stadium.vest_rental==1}">
+									<img id="vest_img"
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_wear.svg"
+										class="icon">
+									<div class="li_di">
+										<p>운동복 대여</p>
+									</div>
+								</c:if> <c:if test="${stadium.vest_rental==0}">
+									<img id="vest_img"
+										src="https://plab-football.s3.amazonaws.com/static/img/ic_info_wear.svg"
+										class="icon">
+									<div class="li_di">
+										<p class="title_line">운동복 대여</p>
+									</div>
+								</c:if></li>
 						</ul>
 					</div>
 				</div>
 				<div id="info_container">
-					<p class="info_p">공지사항</p>
+					<p class="info_p">구장 특이사항</p>
 					<pre class="txt3">
- ■ 안내 사항
-
- - 주차 : 사전 주차 등록 16대 3시간 무료 (예약 시 알림톡 비상 연락처로 주차 번호 전달 필요)
-
- - 흡연 : 지정된 흡연 구역 외에 금연
-
- - 물/음료 판매 : o
-
- - 공/조끼 대여 : o
-
- - 풋살화 대여 : o (비오는 날 x)
-				  </pre>
+						<c:forEach var="item" items="${etcs}">
+							■${item}
+						</c:forEach>
+				  	</pre>
 				</div>
-				<div id="order_wrap" >
+				<div id="order_wrap">
 					<div id="lp">
 						<div id="lp_btn">
-							<a class="btn_order" onclick="$('#pills-profile-tab.nav-link').trigger('click');">
+							<a class="btn_order"
+								onclick="$('#pills-profile-tab.nav-link').trigger('click');">
 								<p id="btn_p">예약하기</p>
 							</a>
 						</div>
@@ -268,290 +326,84 @@ $(function(){
 				</div>
 			</div>
 			<div class="clear"></div>
-			
+<form>
 			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 				aria-labelledby="pills-profile-tab">
-			<div id="info_container2">
-					
-				<div id="filter_wrap">
-					<div id="calendar_wrap">
-						<div class="nav2" style="display: flex;">
-							<c:forEach var="item" items="${dates}" varStatus="status">
-								<div class="b_cal">
-									<p>${item}일</p>
-									<span>${dayofweek_list[status.index]}</span>
-								</div>
-							</c:forEach>
-
+				<div id="info_container2">
+					<div id="filter_wrap">
+						<div id="calendar_wrap">
+							<div class="nav2" style="display: flex;">
+								<c:forEach var="item" items="${dates}" varStatus="status">
+									<button type="button" class="b_cal" id="cal">
+										<p data-caldate="${item}">${fn:substring(item,8,10)}일</p>
+										<span>${dayofweek_list[status.index]}</span>
+									</button>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
-				</div>
-					
-				
-				<div id="rFilter">
-					<div id="filter_wrapper">
-
-						<div class="filterBtn" id="reserv" style="margin-bottom: 15px;">
-							<span>예약가능</span>
+					<div id="rFilter">
+						<div id="filter_wrapper">
+							<div class="filterBtn" id="reserv" style="margin-bottom: 15px;">
+								<span>예약가능</span>
+							</div>
 						</div>
 					</div>
-				</div>
-
+					<input type="hidden" id="date" name="date" value="${today}">
 					<div id="rentalChoice">
-						<ul style="padding-left: 0rem;">
-							<li class="rental soldout">
-								<p class="rTime">
-									09:00~<br>10:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									10:00~<br>11:00
-								</p>
-							</li>
-							<li class="rental"><a class="bl"
-								href="order"><p class="rTime">
-										11:00~<br>12:00
-									</p></a></li>
-							<li class="rental soldout">
-								<p class="rTime">
-									12:00~<br>13:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									13:00~<br>14:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									14:00~<br>15:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									15:00~<br>16:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									16:00~<br>17:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									17:00~<br>18:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									18:00~<br>19:00
-								</p>
-							</li>
-							<li class="rental">
-								<p class="rTime">
-									19:00~<br>20:00
-								</p>
-							</li>
-							<li class="rental soldout">
-								<p class="rTime">
-									20:00~<br>21:00
-								</p>
-							</li>
+						<ul style="padding-left: 0rem;" id="timelist">
+							<c:forEach var="s" items="${sm_list }">
+						<a href="/rental/order?no=${s.stadium_match_no}">
+								<c:if test="${s.available == 1}">
+									<li class="rental">
+										<p class="rTime">
+											${s.start_time }~<br>${s.end_time}
+										</p>
+									</li>
+								</c:if>
+								<c:if test="${s.available == 0}">
+									<li class="rental soldout">
+										<p class="rTime">
+											${s.start_time }~<br>${s.end_time}
+										</p>
+									</li>
+								</c:if>
+							</a>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
-				
+</form>
 				<div id="st_info">
-				  <p class="info_p">취소/환급</p>
-				  <div id="stadInner">
-				    <ul class="matchRule" style="padding-left: 0rem;">
-				      <h4>일반</h4>
-				      <li>7일 전 취소 시 100% 환불</li>
-				      <li>5일 전 취소 시 80% 환불</li>
-				      <li>3일 전 취소 시 50% 환불</li>
-				      <li>2일 전 ~ 예약 당일 환불 불가</li>
-				      <p><strong>(캐시는 규정에 따라 자동 환급되며 잔액 환불 희망 시 나의 충전 내역에서 신청바랍니다)</strong></p>
-				    </ul>
-				    <ul class="matchRule" style="padding-left: 0rem; margin-top:20px; margin-bottom: 0rem;">
-				      <h4>천재지변</h4>
-				      <li>당일 천재지변으로 인해 구장 이용이 불가한 경우 100% 환불</li>
-				      <li>(적용기준 : 호우경보, 대설경보, 태풍주의보, 태풍경보)</li>
-				      <h4>우천 시 변경 기준</h4>
-				      <li>시간 당 5mm 이상 시 날짜 변경 가능</li>
-				      <li>(기준 : 당일 이용 2시간 전 기상청 날씨누리 해당 주소기 기준)</li>
-				      <li>단순 변심에 의한 날짜 변경은 불가</li>
-				    </ul>
-				  </div>
-				</div>
-			</div>
-			
-<!-- 			<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-				aria-labelledby="pills-contact-tab">
-			
-			<div id="info_container3">
-			
-				<div id="filter_wrap">
-					<div id="calendar_wrap">
-						<div class="nav2" style="display:flex;">
-							<div class="b_cal">
-								<p>1일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>2일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>3일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>4일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>5일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>6일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>7일</p>
-								<span>수</span>
-							</div>
-							<div class="b_cal">
-								<p>8일</p>
-								<span>목</span>
-							</div>
-							<div class="b_cal">
-								<p>9일</p>
-								<span>금</span>
-							</div>
-							<div class="b_cal">
-								<p>10일</p>
-								<span>토</span>
-							</div>
-							<div class="b_cal">
-								<p>11일</p>
-								<span>일</span>
-							</div>
-							<div class="b_cal">
-								<p>12일</p>
-								<span>월</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-							<div class="b_cal">
-								<p>13일</p>
-								<span>화</span>
-							</div>
-						</div>
+					<p class="info_p">취소/환급</p>
+					<div id="stadInner">
+						<ul class="matchRule" style="padding-left: 0rem;">
+							<h4>일반</h4>
+							<li>7일 전 취소 시 100% 환불</li>
+							<li>5일 전 취소 시 80% 환불</li>
+							<li>3일 전 취소 시 50% 환불</li>
+							<li>2일 전 ~ 예약 당일 환불 불가</li>
+							<p>
+								<strong>(캐시는 규정에 따라 자동 환급되며 잔액 환불 희망 시 나의 충전 내역에서
+									신청바랍니다)</strong>
+							</p>
+						</ul>
+						<ul class="matchRule"
+							style="padding-left: 0rem; margin-top: 20px; margin-bottom: 0rem;">
+							<h4>천재지변</h4>
+							<li>당일 천재지변으로 인해 구장 이용이 불가한 경우 100% 환불</li>
+							<li>(적용기준 : 호우경보, 대설경보, 태풍주의보, 태풍경보)</li>
+							<h4>우천 시 변경 기준</h4>
+							<li>시간 당 5mm 이상 시 날짜 변경 가능</li>
+							<li>(기준 : 당일 이용 2시간 전 기상청 날씨누리 해당 주소기 기준)</li>
+							<li>단순 변심에 의한 날짜 변경은 불가</li>
+						</ul>
 					</div>
 				</div>
-				
-				
-				<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>10:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 A구장 *주차16자리*</h3>									
-								</div>
-								<div class="option">
-									<span class="isMix">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="Hurry">
-									<p style="margin: 0px;">마감임박!</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>	
-				
-			<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>17:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 B구장 *주차16자리*</h3>									
-								</div>
-								<div class="option">
-									<span class="isMan">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="isOpen">
-									<p style="margin: 0px;">신청가능</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-			
-			<div id="list">
-				<ul>
-					<li class="item">
-						<a href="/social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
-							<div class="time">
-								<p>19:00</p>
-							</div>
-							<div class="info">
-								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 ㅠ구장 *주차16자리*</h3>								
-								</div>
-								<div class="option">
-									<span class="isMix">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
-								</div>
-							</div>
-	
-							<div class="schedule">
-								<div class="isFull">
-									<p style="margin: 0px;">마감</p>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>		
-				
-				
-			</div>
-		</div> -->
 
-	</div>
-	<div class="clear"></div>
-	
+			</div>
+		</div>
+		<div class="clear"></div>
 </article>
 
 <!-- 카카오맵 api -->
@@ -560,6 +412,7 @@ $(function(){
 
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+
     mapOption = { 
         center: new kakao.maps.LatLng(37.498096349937015, 127.0294336536626), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
@@ -585,8 +438,8 @@ marker.setMap(map);
 </div>
 <div class="clear"></div>
 <script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 </body>
 </html>

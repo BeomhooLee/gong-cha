@@ -10,6 +10,7 @@
 		<typeAlias type="com.gongcha.dto.Stadium_matchDTO" alias="stadium_match" />
 		<typeAlias type="com.gongcha.dto.StadiumDTO" alias="stadium" />
 		<typeAlias type="com.gongcha.dto.BoardDTO" alias="board" />
+		<typeAlias type="com.gongcha.dto.CashDTO" alias="cash" />
 	</typeAliases>
 	
 </configuration>

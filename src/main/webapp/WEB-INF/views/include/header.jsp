@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,34 +7,27 @@
 <title>공차고 싶을 땐 공차!</title>
 <!-- 파비콘 -->
 <link rel="shortcut icon" href="/resources/images/favicon.ico" />
-<!-- 가로 달력 넘기는 버튼 라이브러리 -->
-<script src="https://kit.fontawesome.com/19265c8d35.js" crossorigin="anonymous"></script>
+
+<!-- 부트스트랩 (순서도 바뀌면 안됨) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 <!-- jquery랑 main.css -->
 <script type="text/javascript" src="/resources/js/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
 
-<!-- 가로달력 라이브러리 -->
-<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- 가로 달력 넘기는 버튼 라이브러리 -->
+<script src="https://kit.fontawesome.com/19265c8d35.js" crossorigin="anonymous"></script>
 
-<!-- 부트스트랩 (순서도 바뀌면 안됨) -->
-<!-- <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous"> -->
-	
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"/>
-	
+
+<!-- 가로달력 라이브러리 -->
+<link rel="stylesheet" type="text/css"
+	href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<script type="text/javascript"
+	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <script type="text/javascript">
-	$(function(){	
-		$('.up').on('click',function(e){
-			e.preventDefault();
-			$('html,body').animate({scrollTop:0},1000);
-		});
+	$('.up').on('click',function(){
+		$('html').scrollTop(0);
 	});
 </script>
 	

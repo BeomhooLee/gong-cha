@@ -29,9 +29,22 @@
 		<result property="match_time" column="match_time" />
 		<result property="match_level" column="match_level" />
 		<result property="current_count" column="current_count" />
+		<result property="manager" column="manager" />
 		<collection property="stadiumDTO" resultMap="smap"></collection>
-
 	</resultMap>
+	
+	<resultMap type="stadium_match" id="stmmap">
+		<id property="stadium_match_no" column="stadium_match_no" />
+		<result property="match_date" column="match_date" />
+		<result property="available" column="available" />
+		<result property="stadium_name" column="stadium_name" />
+		<result property="mem_id" column="mem_id" />
+		<result property="price" column="price" />
+		<result property="start_time" column="start_time" />
+		<result property="end_time" column="end_time" />
+		<collection property="stadiumDTO" resultMap="smap"></collection>
+	</resultMap>
+	
 
 	<select id="getSocial_list" resultType="social_match"
 		parameterType="social_match">
@@ -59,7 +72,7 @@
 		stadium s on sm.stadium_name = s.stadium_name
 		<where>
 			<if test="region=='' || region=='%전체%'"></if>
-			<if test="region=='%서울%' || region=='%경기도%' || region=='%부산%'">
+			<if test="region=='%서울%' || region=='%경기%' || region=='%부산%'">
 				s.city like #{region}
 			</if>
 			<if test="skill=='' || skill=='전체'"></if>
@@ -74,10 +87,29 @@
 			<if test="vs=='6vs6' || vs=='7vs7'">
 				and sm.versus_num = #{vs}
 			</if>
+			and to_char(sm.match_date ,'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
 		</where>
 
 	</select>
 
+	
+	<select id="stadiumMatchJoin_list" resultType="stadium_match"
+		resultMap="stmmap">
+		select
+		stm.stadium_match_no, stm.match_date, stm.available, stm.stadium_name, stm.mem_id, stm.price, stm.start_time, stm.end_time, s.city
+		from stadium_match stm left outer join stadium s on stm.stadium_name =
+		s.stadium_name
+		<where>
+			<if test="region=='' || region=='%전체%'"></if>
+			<if test="region=='%서울%' || region=='%경기%' || region=='%부산%'">
+				s.city like #{region}
+			</if>
+				and stm.available = #{avail}
+				and to_char(stm.match_date, 'YYYY-MM-DD') = #{date}
+		</where>
+		order by stm.match_date
+	</select>
+	
 	<select id="socialjoin_list" resultType="social_match"
 		resultMap="smmap">
 		select
@@ -86,7 +118,7 @@
 		s.stadium_name
 		<where>
 			<if test="region=='' || region=='%전체%'"></if>
-			<if test="region=='%서울%' || region=='%경기도%' || region=='%부산%'">
+			<if test="region=='%서울%' || region=='%경기%' || region=='%부산%'">
 				s.city like #{region}
 			</if>
 			<if test="skill=='' || skill=='전체'"></if>
@@ -127,8 +159,23 @@
 	<select id="getEtcs" resultType="string">
 		select etc1, etc2, etc3, etc4,
 		etc5, etc6, etc7, etc8, etc9, etc10 from
-		stadium where
-		stadium_name=#{stadium_name}
+		stadium where stadium_name=#{stadium_name}
+	</select>
+	
+	<select id="stadium_matchList" resultType="stadium_match">
+		select * from stadium_match where stadium_name = #{stadium} and to_char(match_date, 'YYYY-MM-DD') = #{selectdate} order by match_date
+	</select>
+	
+	<select id="getStadiumMatch" resultType="stadium_match">
+		select * from stadium_match where stadium_name = #{st} and to_char(match_date, 'YYYY-MM-DD') = to_char(sysdate,'YYYY-MM-DD') order by match_date
+	</select>
+	
+	<select id="getSMList" resultType="stadium_match">
+		select * from stadium_match where stadium_match_no = #{no}
+	</select>
+	
+	<select id="getcash" resultType="cash">
+		select * from cash where mem_id=#{id}
 	</select>
 
 </mapper>

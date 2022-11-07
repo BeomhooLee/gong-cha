@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-<link rel="stylesheet" type="text/css" href="/resources/css/social.css" />
-
-</head>
-<body>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<jsp:include page="../include/header.jsp" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/social.css" />
 	
 	<script type="text/javascript">
 		$(function(){
@@ -278,25 +271,39 @@
 		</div>
 		<div id="social_container_right">
 			<div id="social_right_top">
-				<div class="title">${fn:substring(sm_dto.match_date,5,7)}월 ${fn:substring(sm_dto.match_date,5,7)}일 월요일 17:00</div>
+				<div class="title">${fn:substring(sm_dto.match_date,5,7)}월 ${fn:substring(sm_dto.match_date,8,10)}일 ${dayofweek}요일 ${fn:substring(sm_dto.match_date,10,16)}</div>
 				<div id="per_ground">
-					<a href="#">서울 영등포 더에프 필드 B구장</a> 
+					<a href="#">${sm_dto.stadium_name}</a> 
 				</div>
 				<div id="address">
-					<a href="#">서울특별시 영등포구 선유로 138</a>
+					<a href="#">${stadium.address}</a>
 				</div>
 				<div id="map">
 					<a href="#">지도보기</a>
 				</div>
 				<div id="cost">
-					<span>10,000원</span>
-					<p>&nbsp;/ 2시간</p>
+					<span><fmt:formatNumber value="${sm_dto.price}" pattern="#,###"/>원</span>
+					<p>&nbsp;/&nbsp;${sm_dto.match_time}</p>
 				</div>
 			</div>
 			<div id="social_right_bottom">
-				<div id="pay_btn_disabled">
-					<p>끝난 매치입니다.</p>
-				</div>
+				<c:choose>
+					<c:when test="${(sm_dto.player_num - sm_dto.current_count) <= 0}">
+						<button id="pay_btn_disabled" disabled>
+							<span>지난매치입니다</span>
+						</button>
+					</c:when>
+					<c:when test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
+						<a href="/rental/order"><button id="pay_btn_available">
+							<span>신청가능</span>
+						</button></a>
+					</c:when>
+					<c:when test="${((sm_dto.player_num-sm_dto.current_count) <= 3) && ((sm_dto.player_num-sm_dto.current_count) > 0)}">
+						<a href="/rental/order"><button id="pay_btn_almost">
+							<span>마감임박!!</span>
+						</button></a>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</div>
