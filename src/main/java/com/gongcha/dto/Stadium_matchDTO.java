@@ -17,7 +17,10 @@ public class Stadium_matchDTO {
 	private int avail;
 	private String region;
 	private String date;
+	private String selectdate;
+	private String stadium;
 	
 	//조인 쿼리
 	private StadiumDTO stadiumDTO;
+	
 }

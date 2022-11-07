@@ -1,6 +1,7 @@
 package com.gongcha.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -16,10 +17,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -104,9 +108,9 @@ public class MatchController {
 	@RequestMapping(value = "/stadium_filter", method = RequestMethod.POST)
 	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Stadium_matchDTO stm, Model m)throws Exception {
 
+
 		date(m);
-		
-		
+	
 		int avail = Integer.parseInt(map.get("avail"));
 		String region = map.get("region");
 		String selectedDate = map.get("selectedDate");
@@ -210,31 +214,92 @@ public class MatchController {
 	}
 
 	@RequestMapping("/rental/order")
-	public String order(HttpServletResponse response) {
-		response.setContentType("text/html; charset=utf-8");
+	public String order(HttpSession session,HttpServletResponse response, HttpServletRequest request,
+			Stadium_matchDTO sm, Model m,@RequestParam("no") int no) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
-		return "/rental/order";
+		String id = (String) session.getAttribute("id");
+
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('먼저 로그인 해주세요!');");
+			out.println("location='/login';");
+			out.println("</script>");
+		} else {
+			sm = this.matchservice.getStadiummatchList(no);
+			CashDTO cash = this.matchservice.getCash(id);
+			System.out.println(cash);
+
+			m.addAttribute("s", sm);
+			m.addAttribute("c", cash);
+					
+			return "/rental/order";
+		}
+
+		return null;
 	}
 
-	@RequestMapping("/rental/detail")
-	public String detail(@RequestParam("stadium") String stadium, HttpServletRequest request, Model m,
-			@ModelAttribute StadiumDTO stadiumDTO) throws Exception {
+	@GetMapping("/rental/detail")
+	public String detail(HttpSession session,@RequestParam("stadium") String stadium, HttpServletResponse response, 
+			HttpServletRequest request, Model m, @ModelAttribute StadiumDTO stadiumDTO) throws Exception {
 
-		date(m);
-		
-		// 스타디움 정보
-		stadiumDTO = this.matchservice.getStadium(stadium);
-		System.out.println(stadium);
-		System.out.println(stadiumDTO);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String id = (String) session.getAttribute("id");
 
-		m.addAttribute("stadium", stadiumDTO);
-		m.addAttribute("stadium_name", stadium);
+			date(m);
+
+			// 스타디움 정보
+			stadiumDTO = this.matchservice.getStadium(stadium);
+			List<String> etcs = new ArrayList<String>();
+
+			etcs.add(stadiumDTO.getEtc1());
+			etcs.add(stadiumDTO.getEtc2());
+			etcs.add(stadiumDTO.getEtc3());
+			etcs.add(stadiumDTO.getEtc4());
+			etcs.add(stadiumDTO.getEtc5());
+			etcs.add(stadiumDTO.getEtc6());
+			etcs.add(stadiumDTO.getEtc7());
+			etcs.add(stadiumDTO.getEtc8());
+			etcs.add(stadiumDTO.getEtc9());
+			etcs.add(stadiumDTO.getEtc10());
+
+			boolean flag = true;
+			while (flag) {
+				flag = etcs.remove(null);
+			}
+
+			List<Stadium_matchDTO> list = this.matchservice.getStadiumMatch(stadium);
+
+			m.addAttribute("etcs", etcs);
+			m.addAttribute("stadium", stadiumDTO);
+			m.addAttribute("sm_list", list);
 
 		return "/rental/detail";
 	}
 
+	@RequestMapping(value = "detailDate", method = RequestMethod.POST)
+	public String detailDate(HttpServletRequest request, Stadium_matchDTO sm, @RequestBody Map<String, String> map,
+			Model m) {
+
+		String stadium = map.get("stadium");
+		String selectedDate = map.get("selectedDate");
+		sm.setSelectdate(selectedDate);
+		sm.setStadium(stadium);
+		// System.out.println(stadium);
+		// System.out.println(selectedDate);
+
+		List<Stadium_matchDTO> sm_list = this.matchservice.getStadium_matchList(sm);
+		// System.out.println(sm_list);
+
+		m.addAttribute("s_list", sm_list);
+
+		return "/rental/detailDate";
+	}
+
 	public static void date(Model m) throws Exception {
-		//		날짜 관련
+		// 날짜 관련
 
 		LocalDate now = LocalDate.now(); // YYYY-MM-DD
 		String st_now = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // String으로

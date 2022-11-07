@@ -87,6 +87,7 @@
 			<if test="vs=='6vs6' || vs=='7vs7'">
 				and sm.versus_num = #{vs}
 			</if>
+			and to_char(sm.match_date ,'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
 		</where>
 
 	</select>
@@ -158,8 +159,23 @@
 	<select id="getEtcs" resultType="string">
 		select etc1, etc2, etc3, etc4,
 		etc5, etc6, etc7, etc8, etc9, etc10 from
-		stadium where
-		stadium_name=#{stadium_name}
+		stadium where stadium_name=#{stadium_name}
+	</select>
+	
+	<select id="stadium_matchList" resultType="stadium_match">
+		select * from stadium_match where stadium_name = #{stadium} and to_char(match_date, 'YYYY-MM-DD') = #{selectdate} order by match_date
+	</select>
+	
+	<select id="getStadiumMatch" resultType="stadium_match">
+		select * from stadium_match where stadium_name = #{st} and to_char(match_date, 'YYYY-MM-DD') = to_char(sysdate,'YYYY-MM-DD') order by match_date
+	</select>
+	
+	<select id="getSMList" resultType="stadium_match">
+		select * from stadium_match where stadium_match_no = #{no}
+	</select>
+	
+	<select id="getcash" resultType="cash">
+		select * from cash where mem_id=#{id}
 	</select>
 
 </mapper>

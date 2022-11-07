@@ -1,17 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/resources/css/order.css" />
 
 <article>
 	<div id="content">
 		<div id="content_wrap">
-
 			<div id="content_header">
 				<div id="header_base">
 					<div id="header_title">
-						<h2 class="h_ti_h2">10월 10일 월요일</h2>
-						<h2 class="h_ti_h2">11:00~12:00</h2>
-						<h3 class="h_ti_h3">HM풋살파크 안산 고잔점 B구장</h3>
+						<h2 class="h_ti_h2"><b>${s.stadium_name}</b></h2>
+						<h2 class="h_ti_h2">${fn:substring(s.match_date,0,11)}</h2>
+						<h2 class="h_ti_h2">${s.start_time}~${s.end_time }</h2>
 					</div>
 				</div>
 			</div>
@@ -24,21 +25,11 @@
 								<li class="list_menu">
 									<div class="list_left">
 										<p>캐시</p>
-									</div>
-									<div class="list_right">
-										<div class="btn-primary"
-											data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
-											aria-controls="offcanvasBottom">											
-											0원 사용
-											<img src="/resources/images/arrow_right.svg">
-										</div>
-										
-									</div>
+									</div>	
+									<span style=" font-size: 16px;">잔액
+										<b>${c.p_cash - c.m_cash}원</b></span>							
 								</li>
-								<div style="text-align: right; padding-bottom: 20px;">
-									<span style="color: rgb(159, 177, 189); font-size: 12px;">잔액
-										0원</span>
-								</div>
+							
 							</div>
 						</div>
 					</section>
@@ -50,36 +41,21 @@
 						<div class="section_body">
 							<div class="recipt">
 								<ul class="recipt_list">
-									<li class="list_item"><strong>이용 금액</strong> <strong>55,000원</strong>
+									<li class="list_item"><strong>결제 금액</strong> <strong>${s.price}원</strong>
 									</li>
 								</ul>
 								<div class="payment">
 									<div class="list_label">추가 결제 금액</div>
-									<div class="list_value">55,000원</div>
+									<c:if test="${s.price <= (c.p_cash - c.m_cash)}">
+									<div class="list_value"><strong>0원</strong></div>
+									</c:if>
+									<c:if test="${s.pr   > (c.p_cash - c.m_cash)}">
+									<div class="list_value"><strong>-${s.price-(c.p_cash - c.m_cash)}원</strong></div>
+									</c:if>
 								</div>
 							</div>
 						</div>
 					</section>
-
-					<section>
-						<div class="section_title">
-							<h5>결제 수단</h5>
-						</div>
-						<div class="section_body">
-							<div class="list">
-								<ul>
-									<li class="list_radio"><input type="radio" id="kakaoPay"
-										value name="kakaoPay" /> <label for="kakaoPay"> <span
-											class="radio"></span>
-											<p style="margin-top: 4px;">카카오페이</p> <img
-											src="/resources/images/kakaopay.png">
-									</label></li>
-								</ul>
-							</div>
-						</div>
-					</section>
-
-
 					<section>
 						<div class="section_body">
 
@@ -190,37 +166,12 @@
 
 			<div id="content_footer">
 				<div id="btn_wrap">
-					<button class="con_btn">55,000원 결제하기</button>
+					<button class="con_btn">${s.price}원 결제하기</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </article>
-
-<div class="offcanvas offcanvas-bottom" tabindex="-1"
-	id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
-	<div class="offcanvas-header">
-		<h5 class="offcanvas-title" id="offcanvasBottomLabel">사용할 캐시를 입력해주세요
-			</h5>
-		<button type="button" class="btn-close text-reset"
-			data-bs-dismiss="offcanvas" aria-label="Close"></button>
-	</div>
-	<div class="canvas-body">
-	  <div class="input">
-	    <div class="input_wrap">
-	      <input type="number" class="input_btn" min="0" value="0"/>
-	    </div>
-	  </div>
-	</div>
-	<div class="canvas-bottom">
-	  <div class="canvas-button">
-	    <span class="canvas_btn">
-	           적용하기
-	    </span>
-	  </div>
-	</div>
-</div>
 
 </div>
 <div class="clear"></div>
