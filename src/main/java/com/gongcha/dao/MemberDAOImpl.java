@@ -77,4 +77,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("Member.getstadium_matchList", id);
 	}
 
+	@Override
+	public Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO) {
+		return sqlSession.selectOne("Member.getSocialNo", social_historyDTO);
+	}
+
 }

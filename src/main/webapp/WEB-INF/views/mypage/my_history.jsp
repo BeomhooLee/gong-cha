@@ -10,10 +10,19 @@
 <script>
 function reset(){
 	var reset = confirm('정말 취소 하시겠습니까?');
-	
+	var smNo = $('input[type="hidden"][name="smNo"]').val();		
 	var stNo = $('input[type="hidden"][name="stNo"]').val();
+	if (smNo != null && stNo != null){
+		var sendData = {"stadium_match_no" : stNo,"match_no" : smNo}
+	}else if(smNo != null && stNo == null){
+		var sendData = {"stadium_match_no" : 0,"match_no" : smNo}		
+	}else if(smNo == null && stNo != null){		
+		var sendData = {"stadium_match_no" : stNo,"match_no" : 0}
+	}
 	console.log(stNo);
-	var sendData = {"stadium_match_no" : stNo}
+	console.log(smNo);
+	console.log(sendData);
+	
 	if(reset == true){
 		$.ajax({
 			url : "/historyDel",
@@ -76,19 +85,20 @@ function reset(){
 							</div>
 							<div class="info" style="width: 45%;">
 								<div class="title">
-									<h3>HM풋살파크 안산 고잔점 A구장 *주차16자리*</h3>									
+									<h3>${sm.stadium_name}</h3>									
 								</div>
 								<div class="option">
-									<span class="isMix">남녀모두</span><span>6vs6</span><span>3파전</span><span>모든레벨</span>
+									<span class="isMix">${sm.gender}</span><span>${sm.versus_num}</span><span>${sm.match_type}</span><span>${match_level}</span>
 								</div>
 							</div>
 	
 							<div class="reserv_option">
-								<div class="st_info">
+								<div class="st_info" onclick="lodcation='/social?match_no=${sm.match_no}'">
 									<p style="margin: 0px;">구장정보</p>
 								</div>
 								<div class="cancel">
 								   <p style="margin:0px;" onclick="reset()">신청취소</p>
+								   <input type="hidden" name="smNo" value="${sm.match_no}">
 								</div>
 							</div>
 						</a>

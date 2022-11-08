@@ -475,13 +475,13 @@ public class MemberController {
 		}else {
 			List<Social_historyDTO> social_historyList = this.memberService.getSocialhistory(id);		
 			List<Stadium_matchDTO> stadium_matchList = this.memberService.getstadiumList(id);
-			List<Social_matchDTO> social_no = new ArrayList<Social_matchDTO>();
+			List<Integer> social_no = new ArrayList<>();
 		
 			for(int i=0; i<social_historyList.size(); i++) {
-				// Social_matchDTO smdto  = memberService.getSocialNo(social_historyList.get(i));
+				 Social_matchDTO smdto  = memberService.getSocialNo(social_historyList.get(i));
 				 
+				 social_no.add(smdto.getMatch_no());
 			}
-			
 			
 			m.addAttribute("social_hisotry", social_no);
 			m.addAttribute("sh_size", social_historyList.size());
@@ -495,9 +495,26 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/historyDel", method=RequestMethod.POST,produces = "application/text; charset=utf8")
 	public String historyDel(@RequestBody Map<String,String> map) {
+	
+		int stadium_match_no=Integer.parseInt(map.get("stadium_match_no"));
 		
-		int stadium_match_no =Integer.parseInt(map.get("stadium_match_no"));
+		int match_no=Integer.parseInt(map.get("match_no"));
+		System.out.println(stadium_match_no);
+		System.out.println(match_no);
+		List<Social_historyDTO> social_historyList = new ArrayList<>();
+		List<Social_matchDTO> social_List = new ArrayList<>();
+		List<Stadium_matchDTO> stadium_matchList = new ArrayList<>();
 		
+		if(stadium_match_no == 0 && match_no != 0) {
+			social_historyList = memberService.delHistory(match_no);
+			social_List = memberService.updateSocial_match(match_no);
+		}else if(stadium_match_no != 0 && match_no == 0) {	
+			stadium_matchList = memberService.updateStadium_match(stadium_match_no);	
+		}else {	
+			social_historyList = memberService.delHistory(match_no);
+			social_List = memberService.updateSocial_match(match_no);
+			stadium_matchList = memberService.updateStadium_match(stadium_match_no);
+		}
 		
 		return "예약이 취소 되었습니다.";
 	}

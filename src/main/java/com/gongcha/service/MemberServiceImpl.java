@@ -78,4 +78,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.getstadiumList(id);
 	}
 
+	@Override
+	public Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO) {
+		return memberDao.getSocialNo(social_historyDTO);
+	}
+
 }

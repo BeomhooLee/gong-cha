@@ -32,5 +32,7 @@ public interface MemberService {
 	List<Stadium_matchDTO> getstadiumList(String id);
 
 	List<Social_historyDTO> getSocialhistory(String id);
+
+	Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO);
 	
 }

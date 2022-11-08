@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_historyDTO;
+import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.Stadium_matchDTO;
 
 public interface MemberDAO {
@@ -31,4 +32,6 @@ public interface MemberDAO {
 	List<Social_historyDTO> getSocialhistory(String id);
 
 	List<Stadium_matchDTO> getstadiumList(String id);
+
+	Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO);
 }
