@@ -62,7 +62,7 @@ function font1(){
 								<p style="font-size: 12px; margin-bottom: 0rem;">나의 캐시</p>
 								<p
 									style="font-size: 20px; font-weight: 700; margin-bottom: 0rem;">${m.cash}원</p>
-							</div> <a href="#" style="text-decoration: none;">
+							</div> <a href="/member/cash" style="text-decoration: none;">
 								<div id="my_cash">
 									<span>충전하기</span>
 								</div>
@@ -97,7 +97,7 @@ function font1(){
 					</div>
 					<div class="my_menu">
 						<ul class="my_menu_list">
-							<li><a href="#">
+							<li><a href="/mypage/my_history">
 									<div class="my_list_label">
 										<img
 											src="https://plab-football.s3.amazonaws.com/static/img/ic_myplab_color.svg"

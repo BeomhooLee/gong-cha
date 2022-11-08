@@ -139,6 +139,10 @@ function check(){
 		}
 	});
 }
+
+function checked(){
+	alert('이미 예약된 구장입니다.');
+}
 </script>
 <article>
 	<div id="contentWrap">
@@ -325,88 +329,88 @@ function check(){
 					</div>
 				</div>
 			</div>
-			<div class="clear"></div>
-<form>
-			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-				aria-labelledby="pills-profile-tab">
-				<div id="info_container2">
-					<div id="filter_wrap">
-						<div id="calendar_wrap">
-							<div class="nav2" style="display: flex;">
-								<c:forEach var="item" items="${dates}" varStatus="status">
-									<button type="button" class="b_cal" id="cal">
-										<p data-caldate="${item}">${fn:substring(item,8,10)}일</p>
-										<span>${dayofweek_list[status.index]}</span>
-									</button>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-					<div id="rFilter">
-						<div id="filter_wrapper">
-							<div class="filterBtn" id="reserv" style="margin-bottom: 15px;">
-								<span>예약가능</span>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" id="date" name="date" value="${today}">
-					<div id="rentalChoice">
-						<ul style="padding-left: 0rem;" id="timelist">
-							<c:forEach var="s" items="${sm_list }">
-						<a href="/rental/order?no=${s.stadium_match_no}">
-								<c:if test="${s.available == 1}">
-									<li class="rental">
-										<p class="rTime">
-											${s.start_time }~<br>${s.end_time}
-										</p>
-									</li>
-								</c:if>
-								<c:if test="${s.available == 0}">
-									<li class="rental soldout">
-										<p class="rTime">
-											${s.start_time }~<br>${s.end_time}
-										</p>
-									</li>
-								</c:if>
-							</a>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-				
-</form>
-				<div id="st_info">
-					<p class="info_p">취소/환급</p>
-					<div id="stadInner">
-						<ul class="matchRule" style="padding-left: 0rem;">
-							<h4>일반</h4>
-							<li>7일 전 취소 시 100% 환불</li>
-							<li>5일 전 취소 시 80% 환불</li>
-							<li>3일 전 취소 시 50% 환불</li>
-							<li>2일 전 ~ 예약 당일 환불 불가</li>
-							<p>
-								<strong>(캐시는 규정에 따라 자동 환급되며 잔액 환불 희망 시 나의 충전 내역에서
-									신청바랍니다)</strong>
-							</p>
-						</ul>
-						<ul class="matchRule"
-							style="padding-left: 0rem; margin-top: 20px; margin-bottom: 0rem;">
-							<h4>천재지변</h4>
-							<li>당일 천재지변으로 인해 구장 이용이 불가한 경우 100% 환불</li>
-							<li>(적용기준 : 호우경보, 대설경보, 태풍주의보, 태풍경보)</li>
-							<h4>우천 시 변경 기준</h4>
-							<li>시간 당 5mm 이상 시 날짜 변경 가능</li>
-							<li>(기준 : 당일 이용 2시간 전 기상청 날씨누리 해당 주소기 기준)</li>
-							<li>단순 변심에 의한 날짜 변경은 불가</li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
 			
+			<div class="clear"></div>
+			
+				<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+					aria-labelledby="pills-profile-tab">
+					<div id="info_container2">
+						<div id="filter_wrap">
+							<div id="calendar_wrap">
+								<div class="nav2" style="display: flex;">
+									<c:forEach var="item" items="${dates}" varStatus="status">
+										<button type="button" class="b_cal" id="cal">
+											<p data-caldate="${item}">${fn:substring(item,8,10)}일</p>
+											<span>${dayofweek_list[status.index]}</span>
+										</button>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<div id="rFilter">
+							<div id="filter_wrapper">
+								<div class="filterBtn" id="reserv" style="margin-bottom: 15px;">
+									<span>예약가능</span>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" id="date" name="date" value="${today}">
+						<div id="rentalChoice">
+							<ul style="padding-left: 0rem;" id="timelist">
+								<c:forEach var="s" items="${sm_list }">
+									 <c:if test="${s.available == 1}">
+											<li class="rental">
+											<a href="/rental/order?no=${s.stadium_match_no}">
+												<p class="rTime">
+													${s.start_time }~<br>${s.end_time}
+												</p>
+												</a>
+											</li>
+										</c:if> 
+										<c:if test="${s.available == 0}">
+											<li class="rental soldout">
+												<a onclick="checked();">
+												<p class="rTime">
+													${s.start_time }~<br>${s.end_time}
+												</p>
+												</a>
+											</li>
+										</c:if>							
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+			<div id="st_info">
+				<p class="info_p">취소/환급</p>
+				<div id="stadInner">
+					<ul class="matchRule" style="padding-left: 0rem;">
+						<h4>일반</h4>
+						<li>7일 전 취소 시 100% 환불</li>
+						<li>5일 전 취소 시 80% 환불</li>
+						<li>3일 전 취소 시 50% 환불</li>
+						<li>2일 전 ~ 예약 당일 환불 불가</li>
+						<p>
+							<strong>(캐시는 규정에 따라 자동 환급되며 잔액 환불 희망 시 나의 충전 내역에서
+								신청바랍니다)</strong>
+						</p>
+					</ul>
+					<ul class="matchRule"
+						style="padding-left: 0rem; margin-top: 20px; margin-bottom: 0rem;">
+						<h4>천재지변</h4>
+						<li>당일 천재지변으로 인해 구장 이용이 불가한 경우 100% 환불</li>
+						<li>(적용기준 : 호우경보, 대설경보, 태풍주의보, 태풍경보)</li>
+						<h4>우천 시 변경 기준</h4>
+						<li>시간 당 5mm 이상 시 날짜 변경 가능</li>
+						<li>(기준 : 당일 이용 2시간 전 기상청 날씨누리 해당 주소기 기준)</li>
+						<li>단순 변심에 의한 날짜 변경은 불가</li>
+					</ul>
+				</div>
+			</div>
+
 		</div>
-		</div>
-		<div class="clear"></div>
+	</div>
+</div>
+	<div class="clear"></div>
 </article>
 
 <!-- 카카오맵 api -->

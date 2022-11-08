@@ -29,9 +29,7 @@
 										<p>캐시</p>
 									</div>	
 									<span style=" font-size: 16px;">잔액
-										<b><fmt:formatNumber value="${m.cash}" pattern="#,###"/>원</b></span>
-										<input type="hidden" value="${c.p_cash}" name="pcash" id="pcash">						
-										<input type="hidden" value="${c.m_cash}" name="mcash" id="mcash">						
+										<b><fmt:formatNumber value="${m.cash}" pattern="#,###"/>원</b></span>						
 										<input type="hidden" value="${m.cash}" name="membercash" id="membercash">						
 								</li>
 							
@@ -51,11 +49,11 @@
 								</ul>
 								<div class="payment">
 									<div class="list_label">추가 결제 금액</div>
-									<c:if test="${s.price <= (c.p_cash - c.m_cash)}">
+									<c:if test="${s.price <= m.cash}">
 									<div class="list_value"><strong>0원</strong></div>
 									</c:if>
-									<c:if test="${s.price > (c.p_cash - c.m_cash)}">
-									<div class="list_value"><strong >-<fmt:formatNumber value="${s.price-(c.p_cash - c.m_cash)}" pattern="#,###"/>원</strong></div>
+									<c:if test="${s.price > m.cash}">
+									<div class="list_value"><strong ><fmt:formatNumber value="${s.price-m.cash}" pattern="#,###"/>원</strong></div>
 									</c:if>
 								</div>
 							</div>

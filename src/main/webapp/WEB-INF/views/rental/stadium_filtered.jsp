@@ -35,7 +35,7 @@
 																	</li>
 																</c:when>
 																<c:otherwise>
-																	<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
+																	<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}" onclick="checked();">
 																		<p class="rTime">
 																			<c:out value="${st.start_time}" />
 																			~<br>

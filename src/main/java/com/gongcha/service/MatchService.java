@@ -32,7 +32,7 @@ public interface MatchService {
 
 	public Stadium_matchDTO getStadiummatchList(int no);
 
-	public CashDTO getCash(String id);
+	public List<CashDTO> getCash(String id);
 
 	public List<StadiumDTO> getStadiumList_region(String region);
 
@@ -40,7 +40,7 @@ public interface MatchService {
 
 	public MemberDTO getMember(String id);
 
-	public void insertStadium_Match(CashDTO cash);
+	public void updateStadium_Match(CashDTO cash);
 
 	public void updateMember(CashDTO cash);
 

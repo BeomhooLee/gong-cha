@@ -227,11 +227,11 @@ public class MatchController {
 			out.println("</script>");
 		} else {
 			sm = this.matchservice.getStadiummatchList(no);
-			CashDTO cash = this.matchservice.getCash(id);
+			List<CashDTO> cashlist = this.matchservice.getCash(id);
 			MemberDTO member = this.matchservice.getMember(id);
 
 			m.addAttribute("s", sm);
-			m.addAttribute("c", cash);
+		//m.addAttribute("c", cash);
 			m.addAttribute("m", member);
 					
 			return "/rental/order";
@@ -318,13 +318,13 @@ public class MatchController {
 			cash.setMem_id(id);
 			cash.setStadium_match_no(no);
 			cash.setPayment(payment);
-			this.matchservice.insertStadium_Match(cash);
+			this.matchservice.updateStadium_Match(cash);
 			this.matchservice.updateMember(cash);
 			this.matchservice.insertM_Cash(cash);
 			
 			out.println("<script>");
 			out.println("alert('구장예약이 완료되었습니다.');");
-			out.println("location='/member/my_history';");
+			out.println("location='/mypage/my_history';");
 			out.println("</script>");
 		}
 	}
@@ -332,10 +332,6 @@ public class MatchController {
 	@RequestMapping("/member/cash")
 	public String cash() {
 		return "/member/cash";
-	}
-	@RequestMapping("/mypage/my_history")
-	public String my_history() {
-		return "/mypage/my_history";
 	}
 
 	public static void date(Model m) throws Exception {
