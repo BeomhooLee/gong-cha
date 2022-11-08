@@ -366,7 +366,7 @@ public class MemberController {
 	}
 
 	/*회원 탈퇴 완료*/
-	@PostMapping("del_ok")
+	@RequestMapping("del_ok")
 	public String member_del_ok(HttpServletResponse response,HttpSession session,
 			MemberDTO bm,String mem_id, String mem_pwd) throws Exception{
 
@@ -382,7 +382,7 @@ public class MemberController {
 		if(id == null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='index';");
+			out.println("location='login';");
 			out.println("</script>");
 		}else {
 			if(pm == null) {

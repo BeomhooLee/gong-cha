@@ -74,17 +74,48 @@
 </script>
 <script>
 function edit_check(){
+	
 	if ($.trim($("#email_id").val()) == "") {
 		alert("이메일을 입력해주세요!");
 		$("#mail_id").val("").focus();
 		return false;
 	}
-	if ($.trim($("#email_domain").val()) == "none") {
-		alert("도메인을 선택해 주세요!");
+	
+	$email=$.trim($("#email_id").val());
+	$("#email_check").hide();
+	let email_check = /[a-z0-9]{5,15}$/;
+	if (!(email_check.test($email))) {
+			$emailchecktext = '<font color="red" size="2">이메일은 5~15자 까지 영문 소문자와 숫자만 가능합니다.</font>';
+			$("#email_check").text('');
+			$("#email_check").show();
+			$("#email_check").append($emailchecktext);
+			$("#email_id").val('').focus();
+			return false;
+	}
+	
+	if($.trim($("#email_domain").val())=="none" && $("#email_domain_text").val()==""){
+		alert("이메일 주소를 선택해 주세요!");
+		$("#email_domain").focus();
 		return false;
 	}
 
-	$birth = $.trim($("#mem_birth").val());
+	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
+		$("#email_domain").val("");
+	}
+
+	$domain = $.trim($("#email_domain_text").val());
+	$("#domain_check").hide();
+	let domain_check = /^(?:\w+\.)+\w+$/g;
+	if (!(domain_check.test($domain))) {
+			$emailchecktext = '<font color="red" size="2">도메인을 다시 확인해 주세요.</font>';
+			$("#domain_check").text('');
+			$("#domain_check").show();
+			$("#domain_check").append($emailchecktext);
+			$("#email_domain_text").val('').focus();
+			return false;
+	}
+
+	$birth = $.trim($("#mem_birth").val())
 
 	if ($birth == "") {
 		alert("생년월일을 입력해주세요!");
@@ -93,13 +124,22 @@ function edit_check(){
 	}
 
 	//입력글자 길이 체크
-	$("#birthcheck").hide();
+	$("#birth_check").hide();
 
 	if ($birth.length < 8) {
 		$birthtext = '<font color="red" size="2">생년월일는 8자 이어야 합니다. ex) 19980312</font>';
-		$("#birthcheck").text('');
-		$("#birthcheck").show();
-		$("#birthcheck").append($birthtext);
+		$("#birth_check").text('');
+		$("#birth_check").show();
+		$("#birth_check").append($birthtext);
+		$("#mem_birth").val('').focus();
+		return false;
+	}
+	
+	if ($birth.length > 8) {
+		$birthtext = '<font color="red" size="2">생년월일는 8자 이어야 합니다. ex) 19980312</font>';
+		$("#birth_check").text('');
+		$("#birth_check").show();
+		$("#birth_check").append($birthtext);
 		$("#mem_birth").val('').focus();
 		return false;
 	}
@@ -121,6 +161,15 @@ function edit_check(){
 		return false;
 	}
 	
+	if ($phone.length > 8) {
+		$phonetext = '<font color="red" size="2">휴대폰 번호 8자리 입력해주세요!</font>';
+		$("#phonecheck").text('');
+		$("#phonecheck").show();
+		$("#phonecheck").append($phonetext);
+		$("#phone02").val('').focus();
+		return false;
+	}
+	
 	if($.trim($("#postcode").val())==""){
 		alert("우편번호를 입력해주세요!");		
 		return false;
@@ -130,7 +179,46 @@ function edit_check(){
 		alert("상세 주소를 입력해주세요!!");		
 		return false;
 	}
+	
+	$owner = $.trim($("#bank_owner").val());
+	$("#owner_check").hide();
+	let owner_check = /^[가-힣]{2,10}$/;
+	if(!($owner.val() == "")){
+	if (!(owner_check.test($owner))) {
+			$ownwechecktext = '<font color="red" size="2">이름은 2~10자 까지 한글로 입력 가능합니다.</font>';
+			$("#owner_check").text('');
+			$("#owner_check").show();
+			$("#owner_check").append($ownwechecktext);
+			$("#bank_owner").val('').focus();
+			return false;
+	}
+	}
 }
+
+$(function(){	
+
+	$(document).ready(function(){
+
+		$('select[name=email_domain]').change(function() {
+
+			if($(this).val()=="none"){
+
+				$('#email_domain_text').val("");
+				$("#email_domain_text").attr("readonly", false);
+
+			} else {
+
+				$('#email_domain_text').val($(this).val());
+
+				$("#email_domain_text").attr("readonly", true);
+
+			}
+
+		});
+
+	});
+
+});
 </script>
 </head>
 <body>
@@ -146,29 +234,6 @@ function edit_check(){
 
 			<form action="edit_ok" method="post" onsubmit="return edit_check();">
 				<fieldset>
-					<!-- 					<div class="inputWrap" -->
-					<!-- 						style="flex-direction: column; align-items: flex-start;"> -->
-					<!-- 						<div> -->
-					<!-- 							<label for="oldPassword">기존 비밀번호</label> <input type="password" -->
-					<!-- 								name="oldPassword" id="oldPassword"> -->
-					<!-- 						</div> -->
-					<!-- 						<p style="font-size: 14px; color: red;">* 다른 개인자정보와 비슷한 비밀번호는 -->
-					<!-- 							사용할 수 없습니다. 비밀번호는 8자 이상 12자 이하 이여야 합니다. 비밀번호는 영문/숫자/특수문자를 섞어서 -->
-					<!-- 							사용해야합니다.</p> -->
-					<!-- 						<div class="newWrap"> -->
-					<!-- 							<div class="new1"> -->
-					<!-- 								<label for="newPassword">새 비밀번호</label> <input type="password" -->
-					<!-- 									name="newPassword" id="newPassword"> <span -->
-					<!-- 									id="pwdcheck"></span> -->
-					<!-- 							</div> -->
-
-					<!-- 							<div class="new2"> -->
-					<!-- 								<label for="newPassword2">새 비밀번호(확인)</label> <input -->
-					<!-- 									type="password" name="newPassword2" id="newPassword2"> -->
-					<!-- 							</div> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-
 					<div class="inputWrapA">
 						<div class="inputWrapB">
 							<label>이름</label> <input name="mem_name" id="name"
@@ -178,23 +243,27 @@ function edit_check(){
 					</div>
 					<div class="inputWrapA">
 						<label>이메일</label>
-						<div style="display: flex; width: 100%">
+						<div style="display: flex; width: 100%; align-items:center;" >
 							<input name="email_id" id="email_id" value="${m.email_id}">
 							&nbsp;@&nbsp;
 							<div>
-								<select name="email_domain" style="width: 280px;">
-									<option value="${m.email_domain}">${m.email_domain}</option>
+								<input id="email_domain_text" name="email_domain" value="${m.email_domain}"/>
+								<select id="email_domain" name="email_domain" style="width: 199px;">
 									<option value="none">직접입력</option>
-									<option value="naver.com">naver.com</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="daum.net">daum.net</option>
+									<option value="naver.com" <c:if test="${m.email_domain == 'naver.com'}">selected</c:if>>naver.com</option>
+									<option value="gmail.com" <c:if test="${m.email_domain == 'gmail.com'}">selected</c:if>>gmail.com</option>
+									<option value="daum.net" <c:if test="${m.email_domain == 'daum.net'}">selected</c:if>>daum.net</option>
 								</select>
 							</div>
 						</div>
+						<span id="email_check"></span> <br>
+						<span id="domain_check"></span>
 						<label>생년월일</label> <input type="number" name="mem_birth"
 							id="mem_birth" value="${m.mem_birth}" style="width: 49%;"
-							placeholder="ex)19900101">
+							placeholder="ex)19900101"  maxlength="8">
+							<span id="birth_check"></span>
 					</div>
+					
 					<div class="inputWrapB">
 						<label>성별</label> <select id="mem_gender" name="mem_gender"
 							class="inputFull"
@@ -203,11 +272,7 @@ function edit_check(){
 							<option value="${m.mem_gender}" selected>
 								<c:if test="${m.mem_gender == 1}">남성</c:if>
 								<c:if test="${m.mem_gender == 2}">여성</c:if>
-							</option>
-							<!-- 									<option value="none">성별 선택</option> -->
-							<!-- 									<option value="1">남성</option> -->
-							<!-- 									<option value="2">여성</option> -->
-
+							
 						</select>
 					</div>
 
@@ -223,7 +288,7 @@ function edit_check(){
 								placeholder="휴대폰 번호" id="phone02" style="margin-left: 10px;">
 						</div>
 					</div>
-
+					<span id="phonecheck"></span>
 					<div class="inputWrap"
 						style="flex-direction: column; align-items: flex-start;">
 						<div class="address">
@@ -315,7 +380,7 @@ function edit_check(){
 						<label>환불 예금주</label> <input name="bank_owner" placeholder="예금주명"
 							id="bank_owner" value="${m.bank_owner }">
 					</div>
-
+					<span id="owner_check"></span>
 					<div class="confirm">
 						<label style="margin: 20px 0px 10px 5px;">알림설정</label> <input
 							type="checkbox" name="subscribe" class="checkbox" id="confirm_id">

@@ -71,7 +71,31 @@
 					}
 				}).open();
 	}
+	
+	$(function(){	
 
+		$(document).ready(function(){
+
+			$('select[name=email_domain]').change(function() {
+
+				if($(this).val()=="none"){
+
+					$('#email_domain_text').val("");
+					$("#email_domain_text").attr("readonly", false);
+
+				} else {
+
+					$('#email_domain_text').val($(this).val());
+
+					$("#email_domain_text").attr("readonly", true);
+
+				}
+
+			});
+
+		});
+
+	});
 </script>
 </head>
 <body>
@@ -92,9 +116,9 @@
 						<div>
 						<label for="id">아이디</label>
 
-						<input type="text" name="mem_id" id="mem_id">						
+						<input type="text" name="mem_id" id="mem_id" style="margin-right:15px;">						
 						<input type="button" name="btn_id_check" onclick="id_check();" value="아이디 중복체크">
-						<input type="hidden" name="id_check" value="" />
+						<input type="hidden" name="id_checked" value="" />
 						<br>
 						<span id="idcheck"></span>
 						</div>
@@ -115,7 +139,7 @@
 						</div>
 						<span id="pwdcheck"></span>
 						<p style="font-size: 14px; color: red;">* 다른 개인자정보와 비슷한 비밀번호는
-							사용할 수 없습니다. 비밀번호는 8자 이상 12자 이하 이여야 합니다. 비밀번호는 영문/숫자/특수문자를 섞어서
+							사용할 수 없습니다. 비밀번호는 8자 이상 12자 이하 이여야 합니다. <br>&nbsp;&nbsp;비밀번호는 영문/숫자/특수문자를 섞어서
 							사용해야합니다.</p>
 					</div>
 							
@@ -130,11 +154,12 @@
 					</div>
 					<div class="inputWrapA">
 						<label>이메일</label>
-						<div style="display: flex; width: 100%">
-							<input name="email_id" id="email_id" value="${email}">
+						<div style="display: flex; width: 100%; align-items: center;" >
+							<input name="email_id" id="email_id" value="${email}" placeholder="이메일">
 							&nbsp;@&nbsp;
 							<div>
-								<select id="email_domain" name="email_domain" style="width: 280px;">
+								<input id="email_domain_text" name="email_domain" />
+								<select id="email_domain" name="email_domain" style="width: 199px;">
 									<option value="none">직접입력</option>
 									<option value="naver.com">naver.com</option>
 									<option value="gmail.com">gmail.com</option>
@@ -144,7 +169,7 @@
 						</div>
 						<span id="email_check"></span>
 						<label>생년월일</label> <input type="number" name="mem_birth" id="mem_birth"
-							value="${mem_birth}" style="width: 49%;"
+							 style="width: 49%;" maxlength="8"
 							placeholder="ex)19900101"><br>
 							<span id="birthcheck"></span>
 					</div>
@@ -167,9 +192,9 @@
 								<option selected>010</option>
 <!-- 								<option>011</option> -->
 							</select> <input type="number" name="phone02" value="${phone02}" placeholder="휴대폰 번호"
-								id="phone02" style="margin-left: 10px;"><br>
-								<span id="phonecheck"></span>
+								id="phone02" style="margin-left: 10px;" >
 						</div>
+						<span id="phonecheck"></span>
 					</div>
 
 					<div class="inputWrap"
