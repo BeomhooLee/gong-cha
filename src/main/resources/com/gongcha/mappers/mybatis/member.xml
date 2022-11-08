@@ -98,8 +98,8 @@
     select * from member where mem_name=#{mem_name} and mem_id=#{mem_id}
   </select>
   
-  <!-- 소셜 히스토리 아이디 기준 검색 -->
-  <select id="getsocial_his" resultType="social_match">
+  <!-- 소셜 매치 아이디 기준 검색 -->
+  <select id="getsocial_his" resultType="history">
   	select match_no from social_history where mem_id=#{id}
   </select>
   

@@ -126,4 +126,9 @@ public class MatchDAOImpl implements MatchDAO {
 		sqlSession.insert("match.insert_pcash",cash);
 	}
 
+	@Override
+	public void insert_social_history(Social_matchDTO sm) {
+		sqlSession.insert("match.insert_social_history", sm);
+	}
+
 }

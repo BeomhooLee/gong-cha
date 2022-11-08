@@ -26,6 +26,7 @@ public class Social_matchDTO {
 	private String vs;	
 	private String region;
 	private String date;
+	private String member;
 	
 	//조인 쿼리
 	private StadiumDTO stadiumDTO;
