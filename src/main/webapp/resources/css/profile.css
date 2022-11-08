@@ -128,12 +128,18 @@ form label.checkLabel {
 	background-color: #c6c6c6 !important;
 	border-color: #c6c6c6 !important;
 }
+.btn.del:active{
+	background-color: #c6c6c6 !important;
+}
 .btn.submit {
 	background-color: #25316D;
 	width: 100px;
 	font-size: 16px;
 	line-height: 18px;
 	margin: 20px 10px;
+}
+.btn.submit:active{
+	background-color: #25316D !important;
 }
 .address{
 	width: 100%;

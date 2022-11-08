@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/resources/css/order.css" />
+<script>
+
+</script>
 <form method="post" action="/order_ok">
 <article>
 	<div id="content">
@@ -159,7 +162,7 @@
 							</div>
 
 							<li class="checkbox_list"><input type="checkbox"
-								id="confirmNotice" name="#" /> <label for="confirmNotice">
+								id="confirmNotice" name="confirmNotice" /> <label for="confirmNotice">
 									<span class="checkbox"></span>
 									<p>네, 위 내용을 보고 동의해요.</p>
 							</label></li>

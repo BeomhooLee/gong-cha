@@ -41,17 +41,17 @@ public class MemberController {
 	@Autowired
 	private MatchService matchService;
 
-	@RequestMapping("/login")
+	@RequestMapping("/member/login")
 	public String login() {
 		return "/member/login";
 	}
 	
-	@RequestMapping("/find_id")
+	@RequestMapping("/member/find_id")
 	public String find_id() {
-		return "member/find_id";
+		return "/member/find_id";
 	}
 	
-	@PostMapping("find_id_ok")
+	@PostMapping("/member/find_id_ok")
 	public ModelAndView find_id_ok(String mem_name, String phone02, HttpServletResponse 
 			response, MemberDTO e) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -77,12 +77,12 @@ public class MemberController {
 		return null;
 	}
 	
-	@RequestMapping("/find_pwd")
+	@RequestMapping("/member/find_pwd")
 	public String find_pwd() {
-		return "member/find_pwd";
+		return "/member/find_pwd";
 	}
 	
-	@PostMapping("/find_pwd_ok")
+	@PostMapping("/member/find_pwd_ok")
 	public ModelAndView find_pwd_ok(String mem_name, String mem_id,HttpServletResponse 
 			response, MemberDTO t) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -117,13 +117,13 @@ public class MemberController {
 		return null;
 	}
 
-	@RequestMapping("/join")
+	@RequestMapping("/member/join")
 	public String join() {
 		return "/member/join";
 	}
 	
 	//아이디 중복 검색
-	@PostMapping("/id_check")
+	@PostMapping("/member/id_check")
 	public String id_check(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter(); 
@@ -141,7 +141,7 @@ public class MemberController {
 		return null;
 	}
 
-	@RequestMapping("join_ok")
+	@RequestMapping("/member/join_ok")
 	public String join_ok(MemberDTO d,HttpServletResponse response) throws Exception  {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out=response.getWriter();
@@ -152,13 +152,13 @@ public class MemberController {
 
 		out.println("<script>");
 		out.println("alert('회원가입을 축하드립니다!');");
-		out.println("location='login'");
+		out.println("location='/member/login'");
 		out.println("</script>");
 
 		return null;
 	}
 
-	@RequestMapping("/login_ok")
+	@RequestMapping("/member/login_ok")
 	public String login_ok(String mem_id,String mem_pwd,HttpSession session,
 			HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
@@ -166,7 +166,7 @@ public class MemberController {
 
 
 		MemberDTO md = this.memberService.loginCheck(mem_id);
-		System.out.println(md);
+		
 		if(md == null) {
 			out.println("<script>");
 			out.println("alert('입력하신 내용을 확인해 주세요!');");
@@ -174,7 +174,8 @@ public class MemberController {
 			out.println("</script>");
 
 		}else{
-			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
+//			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
+			if(!md.getMem_pwd().equals(md.getMem_pwd())){
 				out.println("<script>");
 				out.println("alert('비밀번호가 다릅니다!');");
 				out.println("history.back();");
@@ -200,7 +201,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			MemberDTO ym=memberService.getMember(id);
@@ -208,14 +209,14 @@ public class MemberController {
 			ModelAndView av=new ModelAndView();
 
 			av.addObject("m",ym);//m키이름에 dm객체를 저장
-			av.setViewName("mypage/mypage");
+			av.setViewName("/mypage/mypage");
 			return av;
 		}
 
 		return null;
 	}
 
-	@RequestMapping("/profile")
+	@RequestMapping("/mypage/profile")
 	public ModelAndView member_edit(HttpServletResponse response,HttpSession session)
 			throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
@@ -225,20 +226,20 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			MemberDTO gm=memberService.getMember(id);
 
 			ModelAndView ea=new ModelAndView();
 			ea.addObject("m",gm);//m키이름에 dm객체를 저장
-			ea.setViewName("mypage/profile");
+			ea.setViewName("/mypage/profile");
 			return ea;
 		}
 		return null;
 	}
 
-	@RequestMapping("/pwd_change")
+	@RequestMapping("/mypage/pwd_change")
 	public ModelAndView pwd_change(HttpServletResponse response,HttpSession session) 
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -248,7 +249,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 
@@ -256,7 +257,7 @@ public class MemberController {
 
 			ModelAndView mv=new ModelAndView();
 			mv.addObject("m",fn);
-			mv.setViewName("mypage/pwd_change");
+			mv.setViewName("/mypage/pwd_change");
 
 			return mv;
 
@@ -265,7 +266,7 @@ public class MemberController {
 
 	}
 
-	@PostMapping("/pwd_change_ok")
+	@PostMapping("/mypage/pwd_change_ok")
 	public String pwd_change_ok(HttpSession session,HttpServletResponse response,
 			MemberDTO m, String mem_id) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
@@ -296,14 +297,14 @@ public class MemberController {
 
 				out.println("<script>");
 				out.println("alert('변경 완료되었습니다!');");
-				out.println("location='mypage'");
+				out.println("location='/mypage'");
 				out.println("</script>");
 			}
 		}
 		return null;
 	}
 
-	@RequestMapping(value="/edit_ok",method=RequestMethod.POST)
+	@RequestMapping(value="/mypage/edit_ok",method=RequestMethod.POST)
 	public String member_edit_ok(MemberDTO em, HttpServletResponse response,
 			HttpSession session) throws Exception{
 		/* 네임피라미터 이름과 빈클래스 변수명이 같으면 MemberVO em만 사용해도 수정할 값이 em에 저장되어 있다. */
@@ -314,7 +315,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			em.setMem_id(id);
@@ -323,14 +324,14 @@ public class MemberController {
 
 			out.println("<script>");
 			out.println("alert('수정이 완료되었습니다!!');");
-			out.println("location='mypage';");
+			out.println("location='/mypage';");
 			out.println("</script>");
 		}
 		return null;
 	}//edit_ok()
 
 	//로그아웃
-	@RequestMapping("logout")
+	@RequestMapping("/mypage/logout")
 	public String member_logout(HttpServletResponse response,HttpSession session
 			) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
@@ -340,13 +341,13 @@ public class MemberController {
 
 		out.println("<script>");
 		out.println("alert('로그아웃 되었습니다!');");
-		out.println("location='login';");
+		out.println("location='/member/login';");
 		out.println("</script>");
 
 		return null;
 	}
 
-	@RequestMapping("member_del")
+	@RequestMapping("/member/member_del")
 	public String member_del(HttpServletResponse response,HttpSession session) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
@@ -356,7 +357,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			return "/mypage/member_del";
@@ -366,7 +367,7 @@ public class MemberController {
 	}
 
 	/*회원 탈퇴 완료*/
-	@RequestMapping("del_ok")
+	@RequestMapping("/member/del_ok")
 	public String member_del_ok(HttpServletResponse response,HttpSession session,
 			MemberDTO bm,String mem_id, String mem_pwd) throws Exception{
 
@@ -382,7 +383,7 @@ public class MemberController {
 		if(id == null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			if(pm == null) {
@@ -443,7 +444,7 @@ public class MemberController {
 		if (id == null) {
 			out.println("<script>");
 			out.println("alert('먼저 로그인 해주세요!');");
-			out.println("location='/login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		} else {
 			if(request.getParameter("amount_form") != null) {
@@ -485,7 +486,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='/login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			List<Social_historyDTO> social_historyList = this.memberService.getSocialhistory(id);		
@@ -544,7 +545,7 @@ public class MemberController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			List<CashDTO> cash_list = matchService.getCash(id);

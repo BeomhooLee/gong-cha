@@ -43,9 +43,9 @@ $(function(){
 		if($("#stadium_name").val() == ''){
 			$("#stadium_match_no").hide();
 			$("#stadium_match_no").val('');
-			$("#stadium_match_no").children().remove();
 			$('#match_level').hide();
 			$("#match_level").val('');
+			$("#stadium_match_no").children().remove();
 		}else{
 			var stn=$('#stadium_match_no');
 			stn.show();
@@ -63,7 +63,6 @@ $(function(){
 					$(stn).append("<option value=''>경기 날짜 선택</option>");
 					
 					for(var i=0; i<obj.sn.length; i++){
-						console.log(obj.sn[i].stadium_match_no);
 						$('#stadium_match_no').append(
 								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+"~"+obj.sn[i].end_time+
 								"</option>"
@@ -96,7 +95,7 @@ $(function(){
 	style="margin: 20px auto; max-width: 1024px; width: 100%;">
 	<p>용병 모집
 	<div id="regi_form">
-		<form action="recruit_regi_ok" method="post"
+		<form action="/recruit/recruit_regi_ok" method="post"
 			onsubmit="return check();">
 			
 			<div id="select_contain">
@@ -130,7 +129,7 @@ $(function(){
 
 			<div id="btn_contain" style="margin-top: 20px;">
 				<button type="submit">글등록</button>
-				<button type="button" id="btn_list" onclick="location='recruit'">목록</button>
+				<button type="button" id="btn_list" onclick="location='/recruit'">목록</button>
 			</div>
 		</form>
 	</div>

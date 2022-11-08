@@ -125,7 +125,7 @@ function font1(){
 									</div>
 
 							</a></li>
-							<li><a href="profile">
+							<li><a href="/mypage/profile">
 									<div class="my_list_label">
 										<img
 											src="https://plab-football.s3.amazonaws.com/static/img/ic_setting_color.svg"
@@ -134,14 +134,14 @@ function font1(){
 									</div>
 							</a></li>
 							<li>
-				        <a href="pwd_change">
+				        <a href="/mypage/pwd_change">
 				          <div class="my_list_label">
 				            <img src="https://plab-football.s3.amazonaws.com/static/img/ic_pw_color.svg" alt="비밀번호 번경" />
 				            <p>비밀번호 변경</p>
 				          </div>
 				        </a>
 				        </li>
-							<li><a href="logout">
+							<li><a href="/mypage/logout">
 									<div class="my_list_label">
 										<img
 											src="https://plab-football.s3.amazonaws.com/static/img/ic_logout_color.svg"
@@ -160,7 +160,7 @@ function font1(){
 				  <div class="my_menu">
 				    <ul class="my_menu_list">
 				      <li>
-				        <a href="#">
+				        <a href="/side_menu/notice">
 				          <div class="my_list_label">
 				            <img src="https://plab-football.s3.amazonaws.com/static/img/ic_notice_color.svg" alt="공지사항"/>
 				            <p>공지사항</p>
@@ -168,21 +168,21 @@ function font1(){
 				        </a>
 				      </li>
 				      <li>
-				        <a href="#">
+				        <a href="/side_menu/company_introduction">
 				          <div class="my_list_label">
 				            <img src="/resources/images/favicon.ico" height="24"/>
 				            <p>공차 소개
 				          </div>
 				        </a>
 				      </li>
-				      <li>
-				        <a href="#">
-				          <div class="my_list_label">
-				            <img src="https://plab-football.s3.amazonaws.com/static/img/ic_manager_color.svg" alt="매니저 지원" />
-				            <p>매니저 지원</p>
-				          </div>
-				        </a>
-				      </li>
+<!-- 				      <li> -->
+<!-- 				        <a href="/side_menu/manager_recruit"> -->
+<!-- 				          <div class="my_list_label"> -->
+<!-- 				            <img src="https://plab-football.s3.amazonaws.com/static/img/ic_manager_color.svg" alt="매니저 지원" /> -->
+<!-- 				            <p>매니저 지원</p> -->
+<!-- 				          </div> -->
+<!-- 				        </a> -->
+<!-- 				      </li> -->
 				      
 				    </ul>
 				  </div>

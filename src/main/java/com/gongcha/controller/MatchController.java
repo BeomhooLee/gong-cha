@@ -243,7 +243,7 @@ public class MatchController {
 		if (id == null) {
 			out.println("<script>");
 			out.println("alert('먼저 로그인 해주세요!');");
-			out.println("location='/login';");
+			out.println("location='/member//login';");
 			out.println("</script>");
 		} else {
 			sm = this.matchservice.getStadiummatchList(no);
@@ -269,7 +269,7 @@ public class MatchController {
 		if (id == null) {
 			out.println("<script>");
 			out.println("alert('먼저 로그인 해주세요!');");
-			out.println("location='/login';");
+			out.println("location='/member//login';");
 			out.println("</script>");
 		} else {
 			sm = matchservice.get_sm_dto(no);

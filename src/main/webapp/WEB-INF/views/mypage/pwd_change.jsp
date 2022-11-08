@@ -77,15 +77,15 @@ function check() {
     <div class="headMessage">
       <h2>${m.mem_id}</h2>
     </div>
-    <form action="pwd_change_ok" method="post" onsubmit="return check();">
+    <form action="/mypage/pwd_change_ok" method="post" onsubmit="return check();">
       <div class="inner_wrap">
         <p>
           <label for="mem_id">아이디</label>
-          <input type="text" name="mem_id" id="mem_id" />
+          <input type="text" name="mem_id" id="mem_id" style="width: 100%;"/>
         </p>
         <p>
           <label for="mem_pwd">새 비밀번호:</label>
-          <input type="password" name="mem_pwd" id="mem_pwd" /><br>
+          <input type="password" name="mem_pwd" id="mem_pwd" style="width: 100%;" /><br>
           <span id="pwdcheck"></span>
         </p>
         <ul>        
@@ -94,11 +94,11 @@ function check() {
         </ul>
         <p>
           <label for="new_pwd">새 비밀번호 (확인)</label>
-          <input type="password" name="new_pwd" id="new_pwd" />
+          <input type="password" name="new_pwd" id="new_pwd" style="width: 100%;" />
         </p>
       </div>
       <div class="btn_wrap">
-        <button type="submit" class="edit">저장하기</button>
+        <button type="submit" class="btn submit" style="width: 100%; margin-left: 0px;">저장하기</button>
       </div>
     </form>
   </div>

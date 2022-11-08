@@ -232,7 +232,7 @@ $(function(){
 				</div>
 			</div>
 
-			<form action="edit_ok" method="post" onsubmit="return edit_check();">
+			<form action="/mypage/edit_ok" method="post" onsubmit="return edit_check();">
 				<fieldset>
 					<div class="inputWrapA">
 						<div class="inputWrapB">
@@ -395,7 +395,7 @@ $(function(){
 				<div style="display: flex; justify-content: flex-end;">
 					<button type="submit" class="btn submit">저장하기</button>
 					<button type="button" class="btn del"
-						onclick="location='member_del';">회원탈퇴</button>
+						onclick="location='/member/member_del';">회원탈퇴</button>
 				</div>
 			</form>
 		</div>

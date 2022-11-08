@@ -97,7 +97,7 @@ $(function(){
 	style="margin: 20px auto; max-width: 1024px; width: 100%;">
 	<p>용병 모집
 	<div id="regi_form">
-		<form action="recruit_edit_ok" method="post"
+		<form action="/recruit/recruit_edit_ok" method="post"
 			onsubmit="return check();">
 			<input type="hidden" name="recruit_no" id="recruit_no" value="${re.recruit_no}" />
 			<div id="select_contain">
@@ -144,7 +144,7 @@ $(function(){
 
 			<div id="btn_contain" style="margin-top: 20px;">
 				<button type="submit">글수정</button>
-				<button type="button" id="btn_list" onclick="location='recruit'">목록</button>
+				<button type="button" id="btn_list" onclick="location='/recruit'">목록</button>
 			</div>
 		</form>
 	</div>

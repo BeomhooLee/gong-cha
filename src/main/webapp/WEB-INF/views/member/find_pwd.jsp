@@ -35,14 +35,14 @@ function check() {
 	<jsp:include page="../include/header.jsp" />
 
 	<div id="nav">
-		<span id="nav_a"> <a href="find_id" style="font-size: 18px;">아이디
+		<span id="nav_a"> <a href="/member/find_id" style="font-size: 18px;">아이디
 				찾기&nbsp;&nbsp;</a>
-		</span> <span id="selected"> <a href="find_pwd" style="font-size: 18px;">비밀번호
+		</span> <span id="selected"> <a href="/member/find_pwd" style="font-size: 18px;">비밀번호
 				찾기&nbsp;&nbsp;</a>
 		</span>
 	</div>
 
-	<form action="find_pwd_ok" method="post" onsubmit="return check();">
+	<form action="/member/find_pwd_ok" method="post" onsubmit="return check();">
 	  <div class="inner">
 		<div class="inner_wrap" style="width:400px;">
 			<p>

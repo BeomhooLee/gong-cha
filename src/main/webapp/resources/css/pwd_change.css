@@ -39,7 +39,7 @@ form label{
     margin: 10px 0 3px 5px;
 }
 .inner_wrap input{
-	width: 100%;
+	width: 95%;
 }
 input[type=password]{
 	outline: none;
