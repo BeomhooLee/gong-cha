@@ -24,10 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
-import com.gongcha.service.MatchService;
 import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.Stadium_matchDTO;
+import com.gongcha.service.MatchService;
 import com.gongcha.service.MemberService;
 
 import pwdconv.PwdChange;
@@ -424,6 +424,17 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 
 		String id = (String) session.getAttribute("id");
+		String social_no = request.getParameter("social_no");
+		String stadium_no = request.getParameter("stadium_no");
+		System.out.println(stadium_no);
+		System.out.println(social_no);
+		String query_str = null;
+		
+		if(social_no.equals("null")) {
+			query_str = "/rental/order?no="+stadium_no;
+		}else {
+			query_str = "/social/social_order?no="+social_no;
+		}
 		
 		if (id == null) {
 			out.println("<script>");
@@ -440,7 +451,7 @@ public class MemberController {
 				
 				out.println("<script>");
 				out.println("alert('충전이 완료되었습니다.');");
-				out.println("window.history.go(-2);");
+				out.println("location='"+query_str+"';");
 				out.println("</script>");
 			}else {
 				int pcash = Integer.parseInt(request.getParameter("options-outlined"));
@@ -451,7 +462,7 @@ public class MemberController {
 				
 				out.println("<script>");
 				out.println("alert('충전이 완료되었습니다.');");
-				out.println("window.history.go(-2);");
+				out.println("location='"+query_str+"';");
 				out.println("</script>");
 			}
 		}
@@ -516,7 +527,32 @@ public class MemberController {
 		memberService.updateMemCash(cash);
 		
 		return "예약이 취소 되었습니다.";
+}
+	
+	@RequestMapping("/cash_history")
+	public String cash_history(HttpSession session, HttpServletResponse response, CashDTO cash, Model m) throws IOException {
+		
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
+		
+		String id=(String)session.getAttribute("id");//세션 아이디값을 구함
+
+		if(id==null) {
+			out.println("<script>");
+			out.println("alert('로그인 해주세요!');");
+			out.println("location='login';");
+			out.println("</script>");
+		}else {
+			List<CashDTO> cash_list = matchService.getCash(id);
+			MemberDTO member = matchService.getMember(id);
+			
+			m.addAttribute("member", member);
+			m.addAttribute("cash_list", cash_list);
+		}
+		
+		return "/mypage/cash_history";
 	}
+	
 	
 
 

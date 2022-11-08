@@ -9,7 +9,8 @@ public class CashDTO {
 	private String mem_id;
 	private int p_cash;
 	private int m_cash;
-	private String redate;
+	private String regdate;
+	private String note;
 	
 	private int stadium_match_no;
 	private int social_match_no;

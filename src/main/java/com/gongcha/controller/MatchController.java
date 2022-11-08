@@ -50,8 +50,7 @@ public class MatchController {
 	private MemberService memberservice;
 
 	@RequestMapping("/")
-	public String index(Model m, Social_matchDTO sm) throws Exception {
-
+	public String index(HttpSession session,Model m, Social_matchDTO sm) throws Exception {
 		date(m);
 		
 		LocalDate now = LocalDate.now(); // YYYY-MM-DD
@@ -139,7 +138,20 @@ public class MatchController {
 		StadiumDTO stadium = matchservice.getStadium(sm_dto.getStadium_name());
 		List<String> etcs = new ArrayList<String>();
 
-		String id = (String) session.getAttribute("id");
+		if(session.getAttribute("id") != null) {
+			String id = (String) session.getAttribute("id");
+			List<Social_historyDTO> history_list = memberservice.getSocialhistory(id);
+			List<Integer> history_match_no = new ArrayList<Integer>();
+			
+			for (Social_historyDTO history : history_list) {
+				history_match_no.add(history.getMatch_no());
+			}
+			
+			boolean contains = history_match_no.contains(Integer.parseInt(match_no));
+			
+			m.addAttribute("contains", contains);
+		}
+		
 		
 		etcs.add(stadium.getEtc1());
 		etcs.add(stadium.getEtc2());
@@ -170,16 +182,7 @@ public class MatchController {
 
 		String dayofweek = dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN);
 		
-		List<Social_historyDTO> history_list = memberservice.getSocialhistory(id);
-		List<Integer> history_match_no = new ArrayList<Integer>();
 		
-		for (Social_historyDTO history : history_list) {
-			history_match_no.add(history.getMatch_no());
-		}
-		
-		boolean contains = history_match_no.contains(Integer.parseInt(match_no));
-		
-		m.addAttribute("contains", contains);
 		m.addAttribute("dayofweek", dayofweek);
 		m.addAttribute("sm_dto", sm_dto);
 		m.addAttribute("stadium", stadium);
@@ -352,10 +355,17 @@ public class MatchController {
 		cash.setPayment(payment);
 	
 		if(member_cash < payment) {
-			out.println("<script>");
-			out.println("alert('캐쉬 충전이 필요합니다.');");
-			out.println("location='/member/cash';");
-			out.println("</script>");
+			if(social_no == null) {
+				out.println("<script>");
+				out.println("alert('캐쉬 충전이 필요합니다.');");
+				out.println("location='/member/cash?stadium_no="+ stadium_no +"';");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('캐쉬 충전이 필요합니다.');");
+				out.println("location='/member/cash?social_no="+ social_no +"';");
+				out.println("</script>");
+			}
 		}else {
 
 			if(social_no == null) {

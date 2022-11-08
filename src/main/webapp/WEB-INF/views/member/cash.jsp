@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <link rel="stylesheet" type="text/css" href="/resources/css/cash.css" />
 
@@ -156,6 +158,12 @@
 		<div class="select_amount" style="margin: 20px 200px;">
 			<button class="btn__disabled">충전 신청</button>
 		</div>
+		<%
+			String social_no = request.getParameter("social_no");
+			String stadium_no = request.getParameter("stadium_no");
+		%>
+		<input type="hidden" name="stadium_no" value="<%=stadium_no%>"/>
+		<input type="hidden" name="social_no" value="<%=social_no%>"/>
 	</form>
 		
 <jsp:include page="../include/footer.jsp"></jsp:include>

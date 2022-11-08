@@ -89,6 +89,7 @@ public class MatchServiceImpl implements MatchService {
 	public List<Stadium_matchDTO> getStadium_matchList_date(String date) {
 		return matchDAO.getStadium_matchList_date(date);
 	}
+	
 	@Override
 	public MemberDTO getMember(String id) {
 		return matchDAO.getMember(id);
@@ -96,7 +97,7 @@ public class MatchServiceImpl implements MatchService {
 	
 	@Override
 	public void insertSocial_Match(CashDTO cash) {
-		matchDAO.insertStadium_Match(cash);
+		matchDAO.insertSocial_Match(cash);
 	}
 
 	@Override
