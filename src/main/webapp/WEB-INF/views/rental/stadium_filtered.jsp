@@ -37,15 +37,13 @@
 																	</a>
 																</c:when>
 																<c:otherwise>
-																	<a href="/rental/order?no=${st.stadium_match_no}">
-																		<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
-																			<p class="rTime">
-																				<c:out value="${st.start_time}" />
-																				~<br>
-																				<c:out value="${st.end_time}" />
-																			</p>
-																		</li>
-																	</a>
+																	<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}" onclick="checked();">
+																		<p class="rTime">
+																			<c:out value="${st.start_time}" />
+																			~<br>
+																			<c:out value="${st.end_time}" />
+																		</p>
+																	</li>
 																</c:otherwise>
 															</c:choose>
 														</c:if>

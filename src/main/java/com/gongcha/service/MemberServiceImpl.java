@@ -1,10 +1,15 @@
 package com.gongcha.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.MemberDAO;
 import com.gongcha.dto.MemberDTO;
+import com.gongcha.dto.Social_historyDTO;
+import com.gongcha.dto.Social_matchDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -61,6 +66,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDTO find_pwd(MemberDTO t) {
 		return memberDao.find_pwd(t);
+	}
+
+	@Override
+	public List<Social_historyDTO> getSocialhistory(String id) {
+		return memberDao.getSocialhistory(id);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getstadiumList(String id) {
+		return memberDao.getstadiumList(id);
 	}
 
 }

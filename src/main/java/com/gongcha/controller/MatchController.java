@@ -340,6 +340,7 @@ public class MatchController {
 			out.println("location='/member/cash';");
 			out.println("</script>");
 		}else {
+
 			if(social_no == null) {
 				int stadium_no_int = Integer.parseInt(stadium_no);
 				cash.setStadium_match_no(stadium_no_int);
@@ -365,12 +366,6 @@ public class MatchController {
 			}
 			
 		}
-	}
-	
-	
-	@RequestMapping("/mypage/my_history")
-	public String my_history() {
-		return "/mypage/my_history";
 	}
 
 	public static void date(Model m) throws Exception {

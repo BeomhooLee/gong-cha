@@ -76,8 +76,8 @@ public class MatchDAOImpl implements MatchDAO {
 	}
 
 	@Override
-	public CashDTO getCash(String id) {
-		return this.sqlSession.selectOne("match.getcash", id);
+	public List<CashDTO> getCash(String id) {
+		return this.sqlSession.selectList("match.getcash", id);
 	}
 
 	@Override
@@ -95,6 +95,7 @@ public class MatchDAOImpl implements MatchDAO {
 	}
 
 	@Override
+
 	public void insertStadium_Match(CashDTO cash) {
 		sqlSession.update("match.edit_stm",cash);
 	}

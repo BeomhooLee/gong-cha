@@ -103,6 +103,9 @@
 			});
 		});
 	
+		function checked(){
+			alert('이미 예약된 구장입니다.');
+		}
  	</script>
  	
  	
@@ -216,7 +219,7 @@
 																	</a>
 																</c:when>
 																<c:otherwise>
-																	<a href="/rental/order?no=${st.stadium_match_no}">
+																	<a onclick="checked();">
 																		<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
 																			<p class="rTime">
 																				<c:out value="${st.start_time}" />

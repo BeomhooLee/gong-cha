@@ -97,4 +97,14 @@
   <select id="f_pwd" resultType="member">
     select * from member where mem_name=#{mem_name} and mem_id=#{mem_id}
   </select>
+  
+  <!-- 소셜 매치 아이디 기준 검색 -->
+  <select id="getsocial_his" resultType="social_match">
+  	select match_no from social_history where mem_id=#{id}
+  </select>
+  
+  <!-- 스타디움 매치 아이디 기준 검색 -->
+  <select id="getstadium_matchList" resultType="stadium_match">
+ 	 select * from stadium_match where mem_id=#{id}
+  </select>
 </mapper>

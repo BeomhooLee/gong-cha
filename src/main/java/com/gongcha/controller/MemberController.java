@@ -2,6 +2,9 @@ package com.gongcha.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.service.MatchService;
+import com.gongcha.dto.Social_historyDTO;
+import com.gongcha.dto.Social_matchDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.MemberService;
 
 import pwdconv.PwdChange;
@@ -158,7 +166,7 @@ public class MemberController {
 
 
 		MemberDTO md = this.memberService.loginCheck(mem_id);
-
+		System.out.println(md);
 		if(md == null) {
 			out.println("<script>");
 			out.println("alert('입력하신 내용을 확인해 주세요!');");
@@ -167,7 +175,6 @@ public class MemberController {
 
 		}else{
 			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
-			//if(!md.getMem_pwd().equals(mem_pwd)) {
 				out.println("<script>");
 				out.println("alert('비밀번호가 다릅니다!');");
 				out.println("history.back();");
@@ -451,5 +458,50 @@ public class MemberController {
 
 		return null;
 	}
+
+	@RequestMapping("/mypage/my_history")
+	public String my_history(HttpServletResponse response, HttpSession session,Model m,Social_historyDTO sh) throws Exception {
+		
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
+		
+		String id=(String)session.getAttribute("id");//세션 아이디값을 구함
+
+		if(id==null) {
+			out.println("<script>");
+			out.println("alert('로그인 해주세요!');");
+			out.println("location='/login';");
+			out.println("</script>");
+		}else {
+			List<Social_historyDTO> social_historyList = this.memberService.getSocialhistory(id);		
+			List<Stadium_matchDTO> stadium_matchList = this.memberService.getstadiumList(id);
+			List<Social_matchDTO> social_no = new ArrayList<Social_matchDTO>();
+		
+			for(int i=0; i<social_historyList.size(); i++) {
+				// Social_matchDTO smdto  = memberService.getSocialNo(social_historyList.get(i));
+				 
+			}
+			
+			
+			m.addAttribute("social_hisotry", social_no);
+			m.addAttribute("sh_size", social_historyList.size());
+			m.addAttribute("stadium_matchList", stadium_matchList);
+			m.addAttribute("st_size", stadium_matchList.size());
+			return "/mypage/my_history";
+		}
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/historyDel", method=RequestMethod.POST,produces = "application/text; charset=utf8")
+	public String historyDel(@RequestBody Map<String,String> map) {
+		
+		int stadium_match_no =Integer.parseInt(map.get("stadium_match_no"));
+		
+		
+		return "예약이 취소 되었습니다.";
+	}
+	
+
 
 }

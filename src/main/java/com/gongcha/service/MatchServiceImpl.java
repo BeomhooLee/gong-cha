@@ -76,7 +76,7 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public CashDTO getCash(String id) {
+	public List<CashDTO> getCash(String id) {
 		return this.matchDAO.getCash(id);
 	}
 
@@ -92,11 +92,6 @@ public class MatchServiceImpl implements MatchService {
 	
 	public MemberDTO getMember(String id) {
 		return matchDAO.getMember(id);
-	}
-
-	@Override
-	public void insertStadium_Match(CashDTO cash) {
-		matchDAO.insertStadium_Match(cash);
 	}
 	
 	@Override
@@ -122,6 +117,12 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public void insertP_Cash(CashDTO cash) {
 		matchDAO.insertP_Cash(cash);
+	}
+
+	@Override
+	public void insertStadium_Match(CashDTO cash) {
+		matchDAO.insertStadium_Match(cash);
+		
 	}
 
 }

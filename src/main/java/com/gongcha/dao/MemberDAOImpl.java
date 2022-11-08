@@ -1,10 +1,15 @@
 package com.gongcha.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gongcha.dto.MemberDTO;
+import com.gongcha.dto.Social_historyDTO;
+import com.gongcha.dto.Social_matchDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -61,5 +66,15 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberDTO find_pwd(MemberDTO t) {
 		return sqlSession.selectOne("f_pwd",t);
 	}//비밀번호 찾기
+
+	@Override
+	public List<Social_historyDTO> getSocialhistory(String id) {
+		return sqlSession.selectList("Member.getsocial_his", id);
+	}
+
+	@Override
+	public List<Stadium_matchDTO> getstadiumList(String id) {
+		return sqlSession.selectList("Member.getstadium_matchList", id);
+	}
 
 }

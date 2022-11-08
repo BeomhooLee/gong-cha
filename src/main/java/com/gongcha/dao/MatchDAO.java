@@ -32,7 +32,7 @@ public interface MatchDAO {
 
 	public Stadium_matchDTO getStadiummatchList(int no);
 
-	public CashDTO getCash(String id);
+	public List<CashDTO> getCash(String id);
 
 	public List<StadiumDTO> getStadiumList_region(String region);
 
