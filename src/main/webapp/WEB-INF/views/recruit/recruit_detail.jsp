@@ -23,6 +23,7 @@
 </script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/recruit_detail.css" />
+<input type="hidden" name="recruit_no" id="recruit_no" value="${o.recruit_no}" />
 <div class="contai">
 <div id="recruit_wrapper">
 

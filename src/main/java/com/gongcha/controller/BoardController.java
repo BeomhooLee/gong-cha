@@ -102,7 +102,6 @@ public class BoardController {
 		map.put("sn",sn);
 
 		String json=gson.toJson(map);
-		System.out.println("json : "+json);
 
 		return json;
 
@@ -170,28 +169,6 @@ public class BoardController {
 		}
 		return null;
 	}
-	
-//	//댓글 목록
-//	@ResponseBody
-//	@RequestMapping("/recruit_reply")
-//	public HashMap<String, Object> recruit_reply(@RequestParam String mem_id,BoardDTO t) {
-//        HashMap<String, Object> map = new HashMap<>();
-//        t.setMem_id(mem_id);
-//        Optional<BoardDTO> fi = boardService.findId(t);
-//        List<ReplyDTO> re = replyService.findRecruit(fi.get());
-//
-//        List<ReplyDTO> replyList = new ArrayList<>(); // 댓글 리스트
-//        List<Long> Count = new ArrayList<>(); // 대댓글 갯수 카운트
-//
-//        for (int i = 0; i < re.size(); i++) {
-//            replyList.add(re.get(i).getReply_content());
-//            ccCountList.add(boardCommentQueryRepository.findReCommentCnt(boardCommentEntityList.get(i).getId())); //대댓글 갯수 카운트
-//        }
-//        map.put("list", boardCommentDtoList);
-//        map.put("commentCnt", ccCountList);
-//
-//        return map;
-//    }
 
 	//게시글 수정
 	@RequestMapping("/recruit_edit")

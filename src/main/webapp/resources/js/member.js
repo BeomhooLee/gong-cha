@@ -8,9 +8,11 @@ function join_check(){
 		return false;
 	}
 	
+	$mem_name=$.trim($("#mem_name").val());
+	$email=$.trim($("#email_id").val());
 	$mem_pwd=$.trim($("#mem_pwd").val());
 	$mem_pwd2=$.trim($("#mem_pwd2").val());
-	
+
 	if($mem_pwd == ""){
 		alert("비밀번호를 입력해주세요!");
 		$("#mem_pwd").val("").focus();
@@ -65,11 +67,35 @@ function join_check(){
 		$("#mem_name").val("").focus();
 		return false;
 	}
+	
+	$("#mem_check").hide();
+	let id_check = /^[가-힣]{2,10}$/;
+	if (!(id_check.test($mem_name))) {
+			$namechecktext = '<font color="red" size="2">이름은 2~10자 까지 한글로 입력 가능합니다.</font>';
+			$("#name_check").text('');
+			$("#name_check").show();
+			$("#name_check").append($namechecktext);
+			$("#mem_name").val('').focus();
+			return false;
+	}
+		
 	if($.trim($("#email_id").val())==""){
 		alert("이메일을 입력해주세요!");
 		$("#mail_id").val("").focus();
 		return false;
 	}
+	
+	$("#email_check").hide();
+	let email_check = /[a-z0-9]{5,15}$/;
+	if (!(email_check.test($email))) {
+			$emailchecktext = '<font color="red" size="2">이메일은 5~15자 까지 영문 소문자와 숫자만 가능합니다.</font>';
+			$("#email_check").text('');
+			$("#email_check").show();
+			$("#email_check").append($emailchecktext);
+			$("#email_id").val('').focus();
+			return false;
+	}
+		
 	if($.trim($("#email_domain").val())=="none"){
 		alert("도메인을 선택해 주세요!");		
 		return false;
@@ -126,10 +152,18 @@ function join_check(){
 		alert("상세 주소를 입력해주세요!!");		
 		return false;
 	}
+	
+	if($("input[name='id_check']").val()==''){
+        alert('아이디중복 확인을 해주세요.');
+        $("input[name='id_check']").eq(0).focus();
+        return false;
+    	}
 }
 //중복아이디 검색
 function id_check(){
- /* copy begin */
+ 
+ 	$("input[name=id_check]").val('y');
+ 
 	$("#idcheck").hide();
 	//아이디 영역을 숨김
 	$mem_id=$.trim($("#mem_id").val());
@@ -165,6 +199,16 @@ function id_check(){
 		$("#mem_id").val('').focus();
 		return false;
 	};
+	
+	if(validate_userid2($("#mem_id").val())){
+		$idchecktext='<font color="red" size="3"><b>공백을 제거 해주세요.</b></font>';
+		$("#idcheck").text('');
+		$("#idcheck").show();
+		$("#idcheck").append($idchecktext);
+		$("#mem_id").val('').focus();
+		return false;
+	}
+	
 	//아이디 중복확인
     $.ajax({
         type:"POST",//데이터를 서버로 보내는 방법    
@@ -198,11 +242,16 @@ function id_check(){
 }
 
 //정규표현식
-function validate_userid($mem_id)
-{
-  var pattern= new RegExp(/^[a-z0-9]+$/);//아이디를 영문소문
+function validate_userid($mem_id){
+  var pattern= new RegExp(/[a-zA-Z0-9]/g);//아이디를 영문소문
   //자와 숫자 조합으로 처리
   return pattern.test($mem_id);
-};
+}
+
+function validate_userid2($mem_id){
+  //var pattern2= new RegExp(/\s/g);//공백 확인
+  var regExp = /\s/g;
+  return regExp.test($mem_id);
+}
 
 

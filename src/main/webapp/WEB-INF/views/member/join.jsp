@@ -72,7 +72,6 @@
 				}).open();
 	}
 
-	
 </script>
 </head>
 <body>
@@ -95,6 +94,7 @@
 
 						<input type="text" name="mem_id" id="mem_id">						
 						<input type="button" name="btn_id_check" onclick="id_check();" value="아이디 중복체크">
+						<input type="hidden" name="id_check" value="" />
 						<br>
 						<span id="idcheck"></span>
 						</div>
@@ -105,16 +105,15 @@
 						<div class="newWrap">
 							<div class="new1">
 								<label for="Password">비밀번호</label> <input type="password"
-									name="mem_pwd" id="mem_pwd"> <span
-									id="pwdcheck"></span>
+									name="mem_pwd" id="mem_pwd"> 
 							</div>
 
 							<div class="new2">
 								<label for="Password2">비밀번호(확인)</label> <input
 									type="password" name="mem_pwd2" id="mem_pwd2">
 							</div>
-							
 						</div>
+						<span id="pwdcheck"></span>
 						<p style="font-size: 14px; color: red;">* 다른 개인자정보와 비슷한 비밀번호는
 							사용할 수 없습니다. 비밀번호는 8자 이상 12자 이하 이여야 합니다. 비밀번호는 영문/숫자/특수문자를 섞어서
 							사용해야합니다.</p>
@@ -125,7 +124,9 @@
 						<div class="inputWrapB">
 							<label>이름</label> <input name="mem_name" id="mem_name"
 								type="text" value="${mem_name}" placeholder="이름" class="inputFull">
+							<span id="name_check"></span>
 						</div>
+						
 					</div>
 					<div class="inputWrapA">
 						<label>이메일</label>
@@ -141,6 +142,7 @@
 								</select>
 							</div>
 						</div>
+						<span id="email_check"></span>
 						<label>생년월일</label> <input type="number" name="mem_birth" id="mem_birth"
 							value="${mem_birth}" style="width: 49%;"
 							placeholder="ex)19900101"><br>
@@ -163,7 +165,7 @@
 						<div class="phone">
 							<select name="phone01" id="phone01">
 								<option selected>010</option>
-								<option>011</option>
+<!-- 								<option>011</option> -->
 							</select> <input type="number" name="phone02" value="${phone02}" placeholder="휴대폰 번호"
 								id="phone02" style="margin-left: 10px;"><br>
 								<span id="phonecheck"></span>

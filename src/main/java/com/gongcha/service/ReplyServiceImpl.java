@@ -10,4 +10,6 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Autowired
 	private ReplyDAO replyDao;
+
+
 }

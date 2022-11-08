@@ -326,7 +326,7 @@ function check(){
 				</div>
 			</div>
 			<div class="clear"></div>
-<form>
+
 			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 				aria-labelledby="pills-profile-tab">
 				<div id="info_container2">
@@ -374,7 +374,7 @@ function check(){
 					</div>
 				</div>
 				
-</form>
+
 				<div id="st_info">
 					<p class="info_p">취소/환급</p>
 					<div id="stadInner">
@@ -403,9 +403,9 @@ function check(){
 				</div>
 
 			</div>
-			
-		</div>
-		</div>
+		</div>	
+		
+		
 		<div class="clear"></div>
 </article>
 
