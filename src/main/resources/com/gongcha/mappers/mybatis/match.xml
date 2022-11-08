@@ -190,11 +190,11 @@
 	</update>
 	
 	<insert id="insert_mcash">
-		insert into cash values(cash_no_seq.nextval,#{mem_id},null,#{payment},sysdate)
+		insert into cash values(cash_no_seq.nextval,#{mem_id},null,#{payment},sysdate,'충전')
 	</insert>
 	
 	<insert id="insert_pcash">
-		insert into cash values(cash_no_seq.nextval,#{mem_id},#{payment},null,sysdate)
+		insert into cash values(cash_no_seq.nextval,#{mem_id},#{payment},null,sysdate,'결제')
 	</insert>
 	
 	<insert id="insert_social_history">

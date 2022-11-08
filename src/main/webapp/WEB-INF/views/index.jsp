@@ -46,7 +46,6 @@
 			});
 	});
 </script>
-
 <script type="text/javascript">
 
 	var last_date_var = '${last_date}'
@@ -222,7 +221,7 @@
 
 							<div style="display: flex; justify-content: flex-end;">
 								<img src="/resources/images/Logo.png" alt="bbalcha"
-									style="width: 100px; height: 70px; margin-top: 310px;" />
+									style="width: 100px; height: 70px; margin-top: 310px;"/>
 							</div>
 						</div>
 					</div>
@@ -424,7 +423,7 @@
 		</form>
 
 		<footer>
-		<div class="up">
+		<div id="up" class="up" onclick="window.scrollTo(0,0);">
 			<img src="/resources/images/arrow-up-circle.svg" width="40"
 				height="40">
 		</div>
