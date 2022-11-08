@@ -52,6 +52,10 @@
  
    $("#amount_form").on("keyup", function() {
 	   var num = /^[0-9]+$/;
+	   if($("#amount_form").val().length > 9){
+		  	alert('9자리 이하로 입력해주세요.');
+		  	$("#amount_form").val($(this).val().substring(0, 9))
+		  }
 	   
 	   if(!num.test($('#amount_form').val())){
 		   $('#amount_form').val('');
