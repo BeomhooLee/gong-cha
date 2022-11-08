@@ -19,9 +19,6 @@
 	</select>
 
 	<!-- 게시글 보기 -->
-<!-- 	<select id="get_cont" resultType="board"> -->
-<!-- 		 select * from recruit a join stadium_match b on a.stadium_match_no = b.stadium_match_no where a.recruit_no=#{recruit_no} -->
-<!-- 	</select> -->
 	<select id="get_cont" resultType="board">
 		select a.recruit_no, a.stadium_name, a.title, a.recruit_content, a.mem_id ,a.regdate, a.match_level, b.stadium_match_no, b.match_date,
 		b.price, b.start_time, b.end_time, c.address from recruit a, stadium_match b, stadium c where a.stadium_match_no = b.stadium_match_no 

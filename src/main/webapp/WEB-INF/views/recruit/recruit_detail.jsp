@@ -37,7 +37,7 @@
 					
 					<span class="edit">
 					<c:if test="${t.mem_id eq id}">
-					<a href="recruit_edit?recruit_no=${o.recruit_no}">수정</a> · <a href="recruit_del?recruit_no=${o.recruit_no}" onclick="del_check('recruit_del')">삭제</a></c:if>
+					<a href="/recruit/recruit_edit?recruit_no=${o.recruit_no}">수정</a> · <a href="/recruit/recruit_del?recruit_no=${o.recruit_no}" onclick="del_check('recruit_del')">삭제</a></c:if>
 					</span>
 					
 					

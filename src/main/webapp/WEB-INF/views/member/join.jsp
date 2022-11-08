@@ -109,7 +109,7 @@
 				</div>
 			</div>
 
-			<form action="join_ok" method="post" onsubmit="return join_check();">
+			<form action="/member/join_ok" method="post" onsubmit="return join_check();">
 				<fieldset>
 					<div class="inputWrap"
 						style="flex-direction: column; align-items: flex-start;">

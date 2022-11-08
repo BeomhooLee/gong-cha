@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>공차 공지사항</title>
-<link rel="stylesheet" type="text/css" href="/First_Project/css/notice_cs.css" />
-<script type="text/javascript" src="/First_Project/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/notice_cs.css" />
+<script type="text/javascript" src="/resources/js/jquery.js"></script>
 </head>
 <body>
 

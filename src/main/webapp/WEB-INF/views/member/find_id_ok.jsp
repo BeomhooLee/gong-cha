@@ -10,9 +10,9 @@
 	<jsp:include page="../include/header.jsp" />
 
 	<div id="nav">
-		<span id="selected"> <a href="find_id" style="font-size: 18px;">아이디
+		<span id="selected"> <a href="/member/find_id" style="font-size: 18px;">아이디
 				찾기&nbsp;&nbsp;</a>
-		</span> <span id="nav_b"> <a href="find_pwd" style="font-size: 18px;">비밀번호
+		</span> <span id="nav_b"> <a href="/member/find_pwd" style="font-size: 18px;">비밀번호
 				찾기&nbsp;&nbsp;</a>
 		</span>
 	</div>
@@ -25,7 +25,7 @@
 		</div>
 
 		<div style="display: flex; justify-content: center;">
-			<button class="btn submit" style="width: 26%;" onclick="location='login'">로그인 하기</button>
+			<button class="btn submit" style="width: 26%;" onclick="location='/member/login'">로그인 하기</button>
 		</div>
 
 

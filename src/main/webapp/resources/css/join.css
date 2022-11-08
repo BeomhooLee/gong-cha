@@ -124,6 +124,15 @@ form label.checkLabel {
 	line-height: 18px;
 	margin: 20px 0;
 }
+
+.btn.del:hover{
+	background-color: #c6c6c6;
+}
+
+.btn.del:active{
+	background-color: #c6c6c6 !important;
+}
+
 .btn.submit {
 	background-color: #25316D;
 	width: 100px;
@@ -131,6 +140,15 @@ form label.checkLabel {
 	line-height: 18px;
 	margin: 20px 10px;
 }
+
+.btn.submit:hover{
+	background-color: #25316D;
+}
+
+.btn.submit:active{
+	background-color: #25316D !important;
+}
+
 .address{
 	width: 100%;
 }

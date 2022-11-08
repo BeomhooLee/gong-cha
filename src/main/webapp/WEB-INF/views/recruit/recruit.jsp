@@ -30,9 +30,9 @@
 	<div id="nav">
 		<span id="nav_a"> <a href="/">소셜매치&nbsp;&nbsp;<img
 				src="/resources/images/social.svg"></a>
-		</span> <span id="nav_b"> <a href="rental">구장예약&nbsp;&nbsp;<img
+		</span> <span id="nav_b"> <a href="/rental/rental">구장예약&nbsp;&nbsp;<img
 				src="/resources/images/reservation.svg"></a>
-		</span> <span id="selected"> <a href="recruit">용병모집&nbsp;&nbsp;<img
+		</span> <span id="selected"> <a href="/recruit/recruit">용병모집&nbsp;&nbsp;<img
 				src="/resources/images/personplus.svg"></a>
 		</span>
 	</div>
@@ -152,7 +152,7 @@
 		<c:forEach var="t" items="${list}">			
 
 				<li class="item"><a
-					style="outline: none; color: #222836; text-decoration: none; cursor: pointer;" role="button" href="recruit_detail?recruit_no=${t.recruit_no }">
+					style="outline: none; color: #222836; text-decoration: none; cursor: pointer;" role="button" href="/recruit/recruit_detail?recruit_no=${t.recruit_no }">
 						<div class="time">
 							<p>${fn:substring(t.match_date,0,10)}</p>
 						</div>
@@ -183,26 +183,9 @@
 		</c:if>
 			</ul>
 			<div id="board_insert" class="board_insert"
-				onclick="location='recruit_regi'">글등록</div>
+				onclick="location='/recruit/recruit_regi'">글등록</div>
 		</div>
 		</form>
-		<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
 
 	</article>
 

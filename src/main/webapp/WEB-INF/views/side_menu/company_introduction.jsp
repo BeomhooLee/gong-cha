@@ -29,7 +29,7 @@
       </div>
       <div class="row">
        <div class=divS>
-       <h1 class="hen"><img class="imgC" src=/resources/images/reservation.svg"> RESERVATION</h1> 
+       <h1 class="hen"><img class="imgC" src="/resources/images/reservation.svg"> RESERVATION</h1> 
        <p class="pt">오늘은 어디서 차지?, 구장예약 시스템!</p>
        </div>
        <div class=divS>

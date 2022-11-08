@@ -39,12 +39,12 @@ public class BoardController {
 
 		ModelAndView ma=new ModelAndView();
 		ma.addObject("list",rList);
-		ma.setViewName("recruit/recruit");
+		ma.setViewName("/recruit/recruit");
 
 		return ma;
 	}
 
-	@RequestMapping("/recruit_regi")
+	@RequestMapping("/recruit/recruit_regi")
 	public ModelAndView recruit_regi(HttpServletResponse response,HttpSession session,String stadium_name) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
@@ -54,7 +54,7 @@ public class BoardController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 
@@ -82,7 +82,7 @@ public class BoardController {
 	}
 
 	@ResponseBody
-	@PostMapping("/stadium_name_check")
+	@PostMapping("/recruit/stadium_name_check")
 	public String stadium_name_check(@RequestParam("stadium_name") String stadium_name, HttpServletResponse response,
 			HttpSession session, BoardDTO a) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -105,7 +105,7 @@ public class BoardController {
 	}
 
 	//게시글 작성
-	@RequestMapping("/recruit_regi_ok")
+	@RequestMapping("/recruit/recruit_regi_ok")
 	public String recruit_regi_ok(HttpServletResponse response, BoardDTO p,HttpSession session,int stadium_match_no) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
@@ -130,7 +130,7 @@ public class BoardController {
 	}
 
 	//게시글 보기
-	@RequestMapping("/recruit_detail")
+	@RequestMapping("/recruit/recruit_detail")
 	public ModelAndView recruit_detail(@RequestParam("recruit_no") int recruit_no, BoardDTO o,
 			HttpServletResponse response,HttpSession session) throws Exception {
 
@@ -142,7 +142,7 @@ public class BoardController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			o=this.boardService.getCont(recruit_no);
@@ -168,7 +168,7 @@ public class BoardController {
 	}
 
 	//게시글 수정
-	@RequestMapping("/recruit_edit")
+	@RequestMapping("/recruit/recruit_edit")
 	public ModelAndView recruit_(HttpServletResponse response,HttpSession session,BoardDTO i,@RequestParam int recruit_no,
 			String stadium_name) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -179,7 +179,7 @@ public class BoardController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			i.setMem_id(id);
@@ -225,7 +225,7 @@ public class BoardController {
 	}
 
 	//게시글 수정 완료
-	@RequestMapping("/recruit_edit_ok")
+	@RequestMapping("/recruit/recruit_edit_ok")
 	public String recruit_edit_ok(HttpSession session,HttpServletResponse response,@ModelAttribute BoardDTO j) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out=response.getWriter();
@@ -235,19 +235,19 @@ public class BoardController {
 		if(id==null) {
 			out.println("<script>");
 			out.println("alert('로그인 해주세요!');");
-			out.println("location='login';");
+			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
 			j.setMem_id(id);
 			boardService.edit(j);
 			
-			return "redirect:/recruit_detail?recruit_no="+j.getRecruit_no();
+			return "redirect:/recruit/recruit_detail?recruit_no="+j.getRecruit_no();
 
 		}
 		return null;
 	}
 
-	@RequestMapping("recruit_del")
+	@RequestMapping("/recruit/recruit_del")
 	public String recruit_del(HttpServletResponse response,@RequestParam int recruit_no,BoardDTO de,HttpSession session) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
 		String id=(String)session.getAttribute("id");
@@ -258,4 +258,25 @@ public class BoardController {
 		
 		return "redirect:/recruit";
 	}
+	
+	@RequestMapping("/side_menu/company_introduction")
+	public String company_introduction() {
+		return "/side_menu/company_introduction";
+	}
+	
+	@RequestMapping("/side_menu/manager_recruit")
+	public String manager_recruit() {
+		return "/side_menu/manager_recruit";
+	}
+	
+	@RequestMapping("/side_menu/notice")
+	public String notice() {
+		return "/side_menu/notice";
+	}
+	
+	@RequestMapping("/side_menu/q&a")
+	public String qNa() {
+		return "/side_menu/q&a";
+	}
+	
 }

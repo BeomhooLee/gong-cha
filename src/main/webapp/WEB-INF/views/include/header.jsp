@@ -52,7 +52,7 @@
 
 				<div id="join">
 				  <c:if test="${empty id}">
-					<a href="/login"><img src="/resources/images/my.svg"></a>
+					<a href="/member/login"><img src="/resources/images/my.svg"></a>
 				  </c:if>
 				  <c:if test="${!empty id}">
 					<a href="/mypage"><img src="/resources/images/my.svg"></a>
@@ -87,11 +87,11 @@
 							</div>
 
 							<div id="side_b">
-								<a href="#">instagram</a>
+								<a href="https://www.instagram.com/">instagram</a>
 							</div>
 
 							<div id="side_a">
-								<a href="#">youtube</a>
+								<a href="https://www.youtube.com/">youtube</a>
 							</div>
 
 							<div style="display: flex; justify-content: flex-end;">
