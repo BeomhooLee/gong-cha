@@ -32,10 +32,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
+import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.MatchService;
+import com.gongcha.service.MemberService;
 import com.google.gson.Gson;
 
 @Controller
@@ -43,6 +45,9 @@ public class MatchController {
 
 	@Autowired
 	private MatchService matchservice;
+	
+	@Autowired
+	private MemberService memberservice;
 
 	@RequestMapping("/")
 	public String index(Model m, Social_matchDTO sm) throws Exception {
@@ -128,12 +133,14 @@ public class MatchController {
 	}
 
 	@RequestMapping(value = "/social")
-	public String social(HttpServletResponse response, @RequestParam("match_no") String match_no, Model m) {
-
+	public String social(HttpSession session, HttpServletResponse response, HttpServletRequest request, @RequestParam("match_no") String match_no, Model m) {
+		
 		Social_matchDTO sm_dto = matchservice.get_sm_dto(match_no);
 		StadiumDTO stadium = matchservice.getStadium(sm_dto.getStadium_name());
 		List<String> etcs = new ArrayList<String>();
 
+		String id = (String) session.getAttribute("id");
+		
 		etcs.add(stadium.getEtc1());
 		etcs.add(stadium.getEtc2());
 		etcs.add(stadium.getEtc3());
@@ -163,6 +170,16 @@ public class MatchController {
 
 		String dayofweek = dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN);
 		
+		List<Social_historyDTO> history_list = memberservice.getSocialhistory(id);
+		List<Integer> history_match_no = new ArrayList<Integer>();
+		
+		for (Social_historyDTO history : history_list) {
+			history_match_no.add(history.getMatch_no());
+		}
+		
+		boolean contains = history_match_no.contains(Integer.parseInt(match_no));
+		
+		m.addAttribute("contains", contains);
 		m.addAttribute("dayofweek", dayofweek);
 		m.addAttribute("sm_dto", sm_dto);
 		m.addAttribute("stadium", stadium);
@@ -321,7 +338,7 @@ public class MatchController {
 	}
 	
 	@RequestMapping("/order_ok")
-	public void order_ok(HttpServletRequest request, HttpServletResponse response,HttpSession session, CashDTO cash, MemberDTO member) throws Exception {
+	public void order_ok(HttpServletRequest request, HttpServletResponse response,HttpSession session, CashDTO cash, MemberDTO member, Social_matchDTO sm) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
@@ -355,6 +372,9 @@ public class MatchController {
 			}else {
 				int social_no_int = Integer.parseInt(social_no);
 				cash.setSocial_match_no(social_no_int);
+				sm.setMatch_no(social_no_int);
+				sm.setMember(id);
+				this.matchservice.insert_social_history(sm);
 				this.matchservice.insertSocial_Match(cash);
 				this.matchservice.mCashMember(cash);
 				this.matchservice.insertM_Cash(cash);

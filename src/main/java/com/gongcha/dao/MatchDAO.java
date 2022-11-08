@@ -52,4 +52,6 @@ public interface MatchDAO {
 
 	public void insertP_Cash(CashDTO cash);
 
+	public void insert_social_history(Social_matchDTO sm);
+
 }

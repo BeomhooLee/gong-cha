@@ -99,7 +99,7 @@
   </select>
   
   <!-- 소셜 매치 아이디 기준 검색 -->
-  <select id="getsocial_his" resultType="social_match">
+  <select id="getsocial_his" resultType="history">
   	select match_no from social_history where mem_id=#{id}
   </select>
   

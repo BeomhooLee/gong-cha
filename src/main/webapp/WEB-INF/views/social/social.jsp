@@ -290,18 +290,36 @@
 				<c:choose>
 					<c:when test="${(sm_dto.player_num - sm_dto.current_count) <= 0}">
 						<button id="pay_btn_disabled" disabled>
-							<span>지난매치입니다</span>
+							<span>마감되었습니다.</span>
 						</button>
 					</c:when>
 					<c:when test="${(sm_dto.player_num - sm_dto.current_count) > 3}">
-						<a href="social/social_order?no=${sm_dto.match_no}"><button id="pay_btn_available">
-							<span>신청가능</span>
-						</button></a>
+						<c:choose>
+							<c:when test="${contains}">
+								<button id="pay_btn_disabled" disabled>
+									<span>이미 신청했습니다.</span>
+								</button>
+							</c:when>
+							<c:otherwise>
+								<a href="social/social_order?no=${sm_dto.match_no}"><button id="pay_btn_available">
+									<span>신청가능</span>
+								</button></a>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:when test="${((sm_dto.player_num-sm_dto.current_count) <= 3) && ((sm_dto.player_num-sm_dto.current_count) > 0)}">
-						<a href="social/social_order?no=${sm_dto.match_no}"><button id="pay_btn_almost">
-							<span>마감임박!!</span>
-						</button></a>
+						<c:choose>
+							<c:when test="${contains}">
+								<button id="pay_btn_disabled" disabled>
+									<span>이미 신청했습니다.</span>
+								</button>
+							</c:when>
+							<c:otherwise>
+								<a href="social/social_order?no=${sm_dto.match_no}"><button id="pay_btn_almost">
+									<span>마감임박!!</span>
+								</button></a>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
 			</div>

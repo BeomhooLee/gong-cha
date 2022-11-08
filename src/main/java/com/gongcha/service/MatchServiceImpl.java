@@ -125,4 +125,9 @@ public class MatchServiceImpl implements MatchService {
 		
 	}
 
+	@Override
+	public void insert_social_history(Social_matchDTO sm) {
+		matchDAO.insert_social_history(sm);
+	}
+
 }
