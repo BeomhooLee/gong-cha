@@ -218,7 +218,7 @@ function edit_check(){
 						<div class="phone">
 							<select name="phone01" id="phone01">
 								<option selected>010</option>
-								<option>011</option>
+<!-- 								<option>011</option> -->
 							</select> <input type="number" name="phone02" value="${m.phone02}"
 								placeholder="휴대폰 번호" id="phone02" style="margin-left: 10px;">
 						</div>

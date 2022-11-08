@@ -9,4 +9,6 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+
 }
