@@ -2,6 +2,7 @@ package com.gongcha.dao;
 
 import java.util.List;
 
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
@@ -34,4 +35,16 @@ public interface MemberDAO {
 	List<Stadium_matchDTO> getstadiumList(String id);
 
 	Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO);
+
+	void delHistory(int match_no);
+
+	void updateSocial_match(int match_no);
+
+	void updateStadium_match(int stadium_match_no);
+
+	void insertCash_social(CashDTO cash);
+
+	void insertCash_stadium(CashDTO cash);
+
+	void updateMemCash(CashDTO cash);
 }

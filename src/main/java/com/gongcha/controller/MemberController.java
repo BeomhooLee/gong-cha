@@ -475,15 +475,17 @@ public class MemberController {
 		}else {
 			List<Social_historyDTO> social_historyList = this.memberService.getSocialhistory(id);		
 			List<Stadium_matchDTO> stadium_matchList = this.memberService.getstadiumList(id);
-			List<Integer> social_no = new ArrayList<>();
+			List<Social_matchDTO> smList = new ArrayList<>();
 		
 			for(int i=0; i<social_historyList.size(); i++) {
-				 Social_matchDTO smdto  = memberService.getSocialNo(social_historyList.get(i));
-				 
-				 social_no.add(smdto.getMatch_no());
+				//System.out.println(social_historyList.get(i));
+				Social_matchDTO smdto = memberService.getSocialNo(social_historyList.get(i));	
+				
+				smList.add(smdto);
 			}
-			
-			m.addAttribute("social_hisotry", social_no);
+			//System.out.println(smdto);
+			m.addAttribute("social_history", smList);
+			System.out.println(smList);
 			m.addAttribute("sh_size", social_historyList.size());
 			m.addAttribute("stadium_matchList", stadium_matchList);
 			m.addAttribute("st_size", stadium_matchList.size());
@@ -494,27 +496,24 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="/historyDel", method=RequestMethod.POST,produces = "application/text; charset=utf8")
-	public String historyDel(@RequestBody Map<String,String> map) {
+	public String historyDel(@RequestBody Map<String,String> map,HttpSession session,CashDTO cash) {
 	
-		int stadium_match_no=Integer.parseInt(map.get("stadium_match_no"));
-		
+		int stadium_match_no=Integer.parseInt(map.get("stadium_match_no"));	
 		int match_no=Integer.parseInt(map.get("match_no"));
-		System.out.println(stadium_match_no);
-		System.out.println(match_no);
-		List<Social_historyDTO> social_historyList = new ArrayList<>();
-		List<Social_matchDTO> social_List = new ArrayList<>();
-		List<Stadium_matchDTO> stadium_matchList = new ArrayList<>();
+		
+		cash.setId((String)session.getAttribute("id"));
+		cash.setPayment(Integer.parseInt(map.get("price")));
 		
 		if(stadium_match_no == 0 && match_no != 0) {
-			social_historyList = memberService.delHistory(match_no);
-			social_List = memberService.updateSocial_match(match_no);
+			memberService.delHistory(match_no);
+			memberService.updateSocial_match(match_no);
+			memberService.insertCash_social(cash);
 		}else if(stadium_match_no != 0 && match_no == 0) {	
-			stadium_matchList = memberService.updateStadium_match(stadium_match_no);	
-		}else {	
-			social_historyList = memberService.delHistory(match_no);
-			social_List = memberService.updateSocial_match(match_no);
-			stadium_matchList = memberService.updateStadium_match(stadium_match_no);
+			memberService.updateStadium_match(stadium_match_no);
+			memberService.insertCash_stadium(cash);
 		}
+		
+		memberService.updateMemCash(cash);
 		
 		return "예약이 취소 되었습니다.";
 	}

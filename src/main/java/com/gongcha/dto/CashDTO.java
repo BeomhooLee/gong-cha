@@ -14,4 +14,5 @@ public class CashDTO {
 	private int stadium_match_no;
 	private int social_match_no;
 	private int payment;
+	private String id;
 }

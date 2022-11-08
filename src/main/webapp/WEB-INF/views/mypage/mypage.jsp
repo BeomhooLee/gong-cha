@@ -63,7 +63,7 @@ function font1(){
 							<div>
 								<p style="font-size: 12px; margin-bottom: 0rem;">나의 캐시</p>
 								<p style="font-size: 20px; font-weight: 700; margin-bottom: 0rem;"><fmt:formatNumber value="${m.cash}" pattern="#,###"/>원</p>
-							</div> <a href="#" style="text-decoration: none;">
+							</div> <a href="/member/cash" style="text-decoration: none;">
 								<div id="my_cash">
 									<span>충전하기</span>
 								</div>

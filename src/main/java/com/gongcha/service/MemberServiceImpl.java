@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.MemberDAO;
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
@@ -81,6 +82,37 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO) {
 		return memberDao.getSocialNo(social_historyDTO);
+	}
+
+	@Override
+	public void delHistory(int match_no) {
+		memberDao.delHistory(match_no);
+	}
+
+	@Override
+	public void updateSocial_match(int match_no) {
+		memberDao.updateSocial_match(match_no);
+		
+	}
+
+	@Override
+	public void updateStadium_match(int stadium_match_no) {
+		memberDao.updateStadium_match(stadium_match_no);
+	}
+
+	@Override
+	public void insertCash_social(CashDTO cash) {
+		memberDao.insertCash_social(cash);
+	}
+
+	@Override
+	public void insertCash_stadium(CashDTO cash) {
+		memberDao.insertCash_stadium(cash);		
+	}
+
+	@Override
+	public void updateMemCash(CashDTO cash) {
+		memberDao.updateMemCash(cash);
 	}
 
 }

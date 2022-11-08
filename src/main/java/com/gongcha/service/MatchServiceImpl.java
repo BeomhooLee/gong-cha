@@ -89,7 +89,7 @@ public class MatchServiceImpl implements MatchService {
 	public List<Stadium_matchDTO> getStadium_matchList_date(String date) {
 		return matchDAO.getStadium_matchList_date(date);
 	}
-	
+	@Override
 	public MemberDTO getMember(String id) {
 		return matchDAO.getMember(id);
 	}

@@ -8,20 +8,12 @@
 <title></title>
 <link rel="stylesheet" type="text/css" href="/resources/css/my_history.css" />
 <script>
-function reset(){
+function cancel1(){
 	var reset = confirm('정말 취소 하시겠습니까?');
-	var smNo = $('input[type="hidden"][name="smNo"]').val();		
-	var stNo = $('input[type="hidden"][name="stNo"]').val();
-	if (smNo != null && stNo != null){
-		var sendData = {"stadium_match_no" : stNo,"match_no" : smNo}
-	}else if(smNo != null && stNo == null){
-		var sendData = {"stadium_match_no" : 0,"match_no" : smNo}		
-	}else if(smNo == null && stNo != null){		
-		var sendData = {"stadium_match_no" : stNo,"match_no" : 0}
-	}
-	console.log(stNo);
-	console.log(smNo);
-	console.log(sendData);
+	var smNo = $('p[id="sm"]').data('value');		
+	var stNo = 0;
+	var price = $('p[id="sm"]').data('price');
+	var sendData = {"stadium_match_no" : stNo,"match_no" : smNo , "price" : price}
 	
 	if(reset == true){
 		$.ajax({
@@ -32,6 +24,29 @@ function reset(){
 			dataTye : "text",
 			success : function(data) {
 				alert(data);
+				window.self.location = "/mypage/my_history";
+			}
+		});
+	}
+}
+
+function cancel2(){
+	var reset = confirm('정말 취소 하시겠습니까?');
+	var smNo = 0;		
+	var stNo = $('p[id="st"]').data('value');
+	var price = $('p[id="st"]').data('price');
+	var sendData = {"stadium_match_no" : stNo, "match_no" : smNo, "price" : price}
+	
+	if(reset == true){
+		$.ajax({
+			url : "/historyDel",
+			method : 'POST',
+			data : JSON.stringify(sendData),
+			contentType : 'application/json; charset=UTF-8',
+			dataTye : "text",
+			success : function(data) {
+				alert(data);
+				window.self.location = "/mypage/my_history";
 			}
 		});
 	}
@@ -72,14 +87,13 @@ function reset(){
           <!-- 소셜매치 있을때  -->
           <c:if test="${sh_size > 0}">
            <div class="match_list">
-       <svg style="width:20px; height:20px;"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M177.1 228.6L207.9 320h96.5l29.62-91.38L256 172.1L177.1 228.6zM255.1 0C114.6 0 .0001 114.6 .0001 256S114.6 512 256 512s255.1-114.6 255.1-255.1S397.4 0 255.1 0zM435.2 361.1l-103.9-1.578l-30.67 99.52C286.2 462.2 271.3 464 256 464s-30.19-1.773-44.56-4.93L180.8 359.6L76.83 361.1c-14.93-25.35-24.79-54.01-27.8-84.72L134.3 216.4L100.7 118.1c19.85-22.34 44.32-40.45 72.04-52.62L256 128l83.29-62.47c27.72 12.17 52.19 30.27 72.04 52.62L377.7 216.4l85.23 59.97C459.1 307.1 450.1 335.8 435.2 361.1z"/></svg>
-       <p class="match_title">매치 현황</p>
+ 
        </div>
-          <c:forEach var="sm" items="${social_hisotry}">
+          <c:forEach var="sm" items="${social_history}">
           <div id="list">
 				<ul>
 					<li class="item">
-						<a href="social" style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
+						<a style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
 							<div class="time">
 								<p>${fn:substring(sm.match_date,0,10)}</p>
 							</div>
@@ -97,8 +111,8 @@ function reset(){
 									<p style="margin: 0px;">구장정보</p>
 								</div>
 								<div class="cancel">
-								   <p style="margin:0px;" onclick="reset()">신청취소</p>
-								   <input type="hidden" name="smNo" value="${sm.match_no}">
+								   <p id="sm" style="margin:0px;" onclick="cancel1();" data-value="${sm.match_no}" data-price="${sm.price}">신청취소</p>
+								   
 								</div>
 							</div>
 						</a>
@@ -140,13 +154,12 @@ function reset(){
 									<span class="isMix">${st.start_time} ~ ${st.end_time}</span>
 								</div> 
 							</div>
-							<input type="hidden" value="${st.stadium_match_no}" name="stNo">
 							<div class="reserv_option">
 								<div class="st_info" onclick="location='/rental/detail?stadium=${st.stadium_name}'" >
 									<p style="margin: 0px;">구장정보</p>
 								</div>
 								<div class="cancel">
-								   <p style="margin:0px;" onclick="reset()" style="cursor:pointer;">신청취소</p>
+								   <p id="st"style="margin:0px;" onclick="cancel2()" style="cursor: pointer;" data-value="${st.stadium_match_no}" data-price="${st.price}">신청취소</p>
 								</div>
 							</div>
 					</a>
@@ -154,7 +167,7 @@ function reset(){
 				</ul>
 			</div>
 			</c:forEach>
-			</c:if>
+		</c:if>
   </div>
 </div>
        </div>

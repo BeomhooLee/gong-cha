@@ -100,16 +100,42 @@
   
   <!-- 소셜 매치 아이디 기준 검색 -->
   <select id="getsocial_his" resultType="history">
-  	select match_no from social_history where mem_id=#{id}
+  	select * from social_history where mem_id=#{id}
   </select>
   
   <!-- 스타디움 매치 아이디 기준 검색 -->
   <select id="getstadium_matchList" resultType="stadium_match">
- 	 select * from stadium_match where mem_id=#{id}
+ 	 select * from stadium_match where mem_id=#{id} order by match_date desc
   </select>
   
   <!-- 소셜 매치 소셜히스토리번호 기준 검색 -->
-  <select id="getSocialNo" resultType="stadium_match">
- 	 select * from socia_match where match_no=#{match_no}
+  <select id="getSocialNo" resultType="social_match">
+ 	 select * from social_match where match_no=#{match_no} order by match_date desc
   </select>
+  
+  <!-- 캐쉬내역 삭제 -->
+  <delete id="del_his">
+  	delete social_history where match_no=#{matchNo}
+  </delete>
+  
+  <!-- 소셜매치 신청취소 -->
+  <update id="social_edit">
+  	update social_match set current_count=current_count-1 where match_no=#{match_no}
+  </update>
+  <insert id="in_cash_social">
+  	insert into cash values(cash_no_seq.nextval,#{id},#{payment},null,sysdate,'소셜매치 환불')
+  </insert>
+  
+  <!-- 스타디움 매치 신청 취소 -->
+  <update id="stadiumMatch_edit">
+  	update stadium_match set available=1, mem_id=null where stadium_match_no=#{stadium_match_no}
+  </update>
+  <insert id="in_cash_stadium">
+ 	 insert into cash values(cash_no_seq.nextval,#{id},#{payment},null,sysdate,'구장예약 환불')
+  </insert>
+  
+  <!-- 캐쉬 환불 -->
+  <update id="edit_memCash">
+  	update member set cash=cash+#{payment} where mem_id=#{id}
+  </update>
 </mapper>

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
@@ -80,6 +81,38 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public Social_matchDTO getSocialNo(Social_historyDTO social_historyDTO) {
 		return sqlSession.selectOne("Member.getSocialNo", social_historyDTO);
+	}
+
+	@Override
+	public void delHistory(int matchNo) {
+		sqlSession.delete("Member.del_his", matchNo);
+	}
+
+	@Override
+	public void updateSocial_match(int match_no) {
+		sqlSession.update("Member.social_edit", match_no);
+		System.out.println(match_no);
+	}
+
+	@Override
+	public void updateStadium_match(int stadium_match_no) {
+		sqlSession.update("Member.stadiumMatch_edit",stadium_match_no);
+		System.out.println(stadium_match_no);
+	}
+
+	@Override
+	public void insertCash_social(CashDTO cash) {
+		sqlSession.insert("Member.in_cash_social",cash);
+	}
+
+	@Override
+	public void insertCash_stadium(CashDTO cash) {
+		sqlSession.insert("Member.in_cash_stadium", cash);
+	}
+
+	@Override
+	public void updateMemCash(CashDTO cash) {
+		sqlSession.update("Member.edit_memCash",cash);
 	}
 
 }
