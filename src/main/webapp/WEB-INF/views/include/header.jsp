@@ -23,14 +23,13 @@
 <link rel="stylesheet" type="text/css"
 	href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script type="text/javascript"
-	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+	src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>	
+	
 <script type="text/javascript">
 	$('.up').on('click',function(){
 		$('html').scrollTop(0);
 	});
 </script>
-	
 </head>
 <body>
 	<div id="container">

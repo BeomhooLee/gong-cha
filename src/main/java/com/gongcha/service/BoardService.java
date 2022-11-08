@@ -3,6 +3,8 @@ package com.gongcha.service;
 import java.util.List;
 
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.StadiumDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 
 public interface BoardService {
 
@@ -31,5 +33,7 @@ public interface BoardService {
 	void delRecruit(BoardDTO de);
 
 	List<BoardDTO> getRecruitList_region(String region);
+
+	Stadium_matchDTO getStadium_time(BoardDTO i);
 	
 }

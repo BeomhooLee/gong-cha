@@ -36,8 +36,8 @@ function check(){
  }
  
 $(function(){
- 	$("#stadium_match_no").hide();
-	$('#match_level').hide();
+ 	/* $("#stadium_match_no").hide();
+	$('#match_level').hide(); */
 	
 	$("#stadium_name").change(function(){
 		if($("#stadium_name").val() == ''){
@@ -66,7 +66,7 @@ $(function(){
 					for(var i=0; i<obj.sn.length; i++){
 						console.log(obj.sn[i].stadium_match_no);
 						stn.append(
-								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+" / "+obj.sn[i].end_time+
+								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+"~"+obj.sn[i].end_time+
 								"</option>"
 							);
 				
@@ -103,14 +103,27 @@ $(function(){
 			<div id="select_contain">
 				<span>내 경기 선택</span>&nbsp;&nbsp;
 				 <select name="stadium_name" id="stadium_name">
-					<option value=''>경기장 선택</option>
+					<option selected>${re.stadium_name}</option>
+					<option value=''>--경기장 선택--</option>
 					<c:forEach var="m" items="${my}">
 						<option value="${m.stadium_name}">${m.stadium_name}</option>
 					</c:forEach>
 				</select> 
-				<select name="stadium_match_no" id="stadium_match_no"></select> 
+				<select name="stadium_match_no" id="stadium_match_no">
+					<option  value="${sta.stadium_match_no}" selected>${fn:substring(sta.match_date,0,10)}/${sta.start_time}~${sta.end_time}</option>
+					<option value=''>-----------선택-----------</option>
+				</select> 
 				<select name="match_level" id="match_level">
-					<option value=''>실력 선택</option>
+					<c:if test="${re.match_level == 1}">
+					<option selected>초보</option>
+					</c:if>
+					<c:if test="${re.match_level == 2}">
+					<option selected>중수</option>
+					</c:if>
+					<c:if test="${re.match_level == 3}">
+					<option selected>고수</option>
+					</c:if>
+					<option value=''>--선택--</option>
 					<option value="1">초보</option>
 					<option value="2">중수</option>
 					<option value="3">고수</option>

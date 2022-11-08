@@ -107,9 +107,6 @@
 			alert('이미 예약된 구장입니다.');
 		}
  	</script>
- 	
- 	
-	
 	<script>
 		/* 지역 선택 버튼, 다른곳 클릭시 collapse */
 		$('html').click(function(e){
@@ -176,12 +173,6 @@
 					<input type="hidden" id="date" name="date" value="${today}">
 					<input type="hidden" id="region" name="region" value="전체">
 				</div>
-				
-				
-				
-				
-				
-				
 				<div id="rental_match_container" class="ajax_result">
 					<c:forEach items="${stadium}" var="s">
 						<ul>
@@ -208,26 +199,26 @@
 														<c:if test="${stadium_name eq stadium_match_name}" var="b">
 															<c:choose>
 																<c:when test="${st.available eq 1}">
-																	<a href="/rental/order?no=${st.stadium_match_no}">
 																		<li class="rental" data-date="${fn:substring(st.match_date,8,10)}">
-																			<p class="rTime">
-																				<c:out value="${st.start_time}" />
-																				~<br>
-																				<c:out value="${st.end_time}" />
-																			</p>
+																			<a href="/rental/order?no=${st.stadium_match_no}">
+																				<p class="rTime">
+																					<c:out value="${st.start_time}" />
+																					~<br>
+																					<c:out value="${st.end_time}" />
+																				</p>
+																			</a>
 																		</li>
-																	</a>
-																</c:when>
+																	</c:when>
 																<c:otherwise>
-																	<a onclick="checked();">
 																		<li class="rental soldout" data-date="${fn:substring(st.match_date,8,10)}">
-																			<p class="rTime">
-																				<c:out value="${st.start_time}" />
-																				~<br>
-																				<c:out value="${st.end_time}" />
-																			</p>
+																			<a onclick="checked();">
+																				<p class="rTime">
+																					<c:out value="${st.start_time}" />
+																					~<br>
+																					<c:out value="${st.end_time}" />
+																				</p>
+																			</a>
 																		</li>
-																	</a>
 																</c:otherwise>
 															</c:choose>
 														</c:if>
@@ -241,16 +232,6 @@
 						</ul>
 					</c:forEach>
 				</div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			</div>
 		</div>
 	</article>
