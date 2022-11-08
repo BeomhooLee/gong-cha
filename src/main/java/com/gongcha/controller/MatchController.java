@@ -227,11 +227,9 @@ public class MatchController {
 			out.println("</script>");
 		} else {
 			sm = this.matchservice.getStadiummatchList(no);
-			CashDTO cash = this.matchservice.getCash(id);
 			MemberDTO member = this.matchservice.getMember(id);
 
 			m.addAttribute("s", sm);
-			m.addAttribute("c", cash);
 			m.addAttribute("m", member);
 					
 			return "/rental/order";
@@ -240,7 +238,7 @@ public class MatchController {
 		return null;
 	}
 	
-	@RequestMapping("/rental/social_order")
+	@RequestMapping("/social/social_order")
 	public String social_order(HttpSession session,HttpServletResponse response, HttpServletRequest request,
 			Social_matchDTO sm, Model m,@RequestParam("no") String no) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -255,14 +253,12 @@ public class MatchController {
 			out.println("</script>");
 		} else {
 			sm = matchservice.get_sm_dto(no);
-			CashDTO cash = this.matchservice.getCash(id);
 			MemberDTO member = this.matchservice.getMember(id);
 
 			m.addAttribute("s", sm);
-			m.addAttribute("c", cash);
 			m.addAttribute("m", member);
 					
-			return "/rental/social_order";
+			return "/social/social_order";
 		}
 
 		return null;
@@ -332,10 +328,11 @@ public class MatchController {
 		String id = (String)session.getAttribute("id");
 		
 		int payment = Integer.parseInt(request.getParameter("payment"));
-	//	int pcash = Integer.parseInt(request.getParameter("pcash"));
-	//	int mcash = Integer.parseInt(request.getParameter("mcash"));
 		int member_cash= Integer.parseInt(request.getParameter("membercash"));
-		int no= Integer.parseInt(request.getParameter("no"));
+		String stadium_no= request.getParameter("stadium_no");
+		String social_no= request.getParameter("social_no");
+		cash.setMem_id(id);
+		cash.setPayment(payment);
 	
 		if(member_cash < payment) {
 			out.println("<script>");
@@ -343,24 +340,34 @@ public class MatchController {
 			out.println("location='/member/cash';");
 			out.println("</script>");
 		}else {
-			cash.setMem_id(id);
-			cash.setStadium_match_no(no);
-			cash.setPayment(payment);
-			this.matchservice.insertStadium_Match(cash);
-			this.matchservice.updateMember(cash);
-			this.matchservice.insertM_Cash(cash);
+			if(social_no == null) {
+				int stadium_no_int = Integer.parseInt(stadium_no);
+				cash.setStadium_match_no(stadium_no_int);
+				this.matchservice.insertStadium_Match(cash);
+				this.matchservice.mCashMember(cash);
+				this.matchservice.insertM_Cash(cash);
+				
+				out.println("<script>");
+				out.println("alert('구장예약이 완료되었습니다.');");
+				out.println("location='/mypage/my_history';");
+				out.println("</script>");
+			}else {
+				int social_no_int = Integer.parseInt(social_no);
+				cash.setSocial_match_no(social_no_int);
+				this.matchservice.insertSocial_Match(cash);
+				this.matchservice.mCashMember(cash);
+				this.matchservice.insertM_Cash(cash);
+				
+				out.println("<script>");
+				out.println("alert('소셜매치 예약이 완료되었습니다.');");
+				out.println("location='/mypage/my_history';");
+				out.println("</script>");
+			}
 			
-			out.println("<script>");
-			out.println("alert('구장예약이 완료되었습니다.');");
-			out.println("location='/member/my_history';");
-			out.println("</script>");
 		}
 	}
 	
-	@RequestMapping("/member/cash")
-	public String cash() {
-		return "/member/cash";
-	}
+	
 	@RequestMapping("/mypage/my_history")
 	public String my_history() {
 		return "/mypage/my_history";

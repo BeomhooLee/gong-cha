@@ -52,10 +52,10 @@
 
 				<div id="join">
 				  <c:if test="${empty id}">
-					<a href="login"><img src="/resources/images/my.svg"></a>
+					<a href="/login"><img src="/resources/images/my.svg"></a>
 				  </c:if>
 				  <c:if test="${!empty id}">
-					<a href="mypage"><img src="/resources/images/my.svg"></a>
+					<a href="/mypage"><img src="/resources/images/my.svg"></a>
 				  </c:if>
 				</div>
 

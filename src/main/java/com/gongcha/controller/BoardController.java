@@ -1,10 +1,8 @@
 package com.gongcha.controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
-import com.gongcha.dto.ReplyDTO;
 import com.gongcha.service.BoardService;
 import com.gongcha.service.ReplyService;
 import com.google.gson.Gson;

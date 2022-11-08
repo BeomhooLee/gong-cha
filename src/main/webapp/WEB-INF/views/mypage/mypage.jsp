@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mypage.css" />
@@ -61,7 +63,7 @@ function font1(){
 							<div>
 								<p style="font-size: 12px; margin-bottom: 0rem;">나의 캐시</p>
 								<p
-									style="font-size: 20px; font-weight: 700; margin-bottom: 0rem;">${m.cash}원</p>
+									style="font-size: 20px; font-weight: 700; margin-bottom: 0rem;"><fmt:formatNumber value="${m.cash}" pattern="#,###"/>원</p>
 							</div> <a href="#" style="text-decoration: none;">
 								<div id="my_cash">
 									<span>충전하기</span>

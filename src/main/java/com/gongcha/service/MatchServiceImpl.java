@@ -98,15 +98,30 @@ public class MatchServiceImpl implements MatchService {
 	public void insertStadium_Match(CashDTO cash) {
 		matchDAO.insertStadium_Match(cash);
 	}
+	
+	@Override
+	public void insertSocial_Match(CashDTO cash) {
+		matchDAO.insertStadium_Match(cash);
+	}
 
 	@Override
-	public void updateMember(CashDTO cash) {
-		matchDAO.updateMember(cash);
+	public void pCashMember(CashDTO cash) {
+		matchDAO.pCashMember(cash);
+	}
+	
+	@Override
+	public void mCashMember(CashDTO cash) {
+		matchDAO.mCashMember(cash);
 	}
 
 	@Override
 	public void insertM_Cash(CashDTO cash) {
 		matchDAO.insertM_Cash(cash);
+	}
+
+	@Override
+	public void insertP_Cash(CashDTO cash) {
+		matchDAO.insertP_Cash(cash);
 	}
 
 }

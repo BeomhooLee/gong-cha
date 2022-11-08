@@ -1,20 +1,25 @@
 package com.gongcha.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
+import com.gongcha.service.MatchService;
 import com.gongcha.service.MemberService;
 
 import pwdconv.PwdChange;
@@ -24,6 +29,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MatchService matchService;
 
 	@RequestMapping("/login")
 	public String login() {
@@ -158,8 +166,8 @@ public class MemberController {
 			out.println("</script>");
 
 		}else{
-//			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
-			if(!md.getMem_pwd().equals(mem_pwd)) {
+			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
+			//if(!md.getMem_pwd().equals(mem_pwd)) {
 				out.println("<script>");
 				out.println("alert('비밀번호가 다릅니다!');");
 				out.println("history.back();");
@@ -397,5 +405,51 @@ public class MemberController {
 		}
 		return null;
 	}//el_ok()
+	
+	@RequestMapping("/member/cash")
+	public String cash() {
+		return "/member/cash";
+	}
+	
+	@RequestMapping("/charge")
+	public String charge(HttpSession session, HttpServletResponse response, HttpServletRequest request, Model m, CashDTO cash) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String id = (String) session.getAttribute("id");
+		
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('먼저 로그인 해주세요!');");
+			out.println("location='/login';");
+			out.println("</script>");
+		} else {
+			if(request.getParameter("amount_form") != null) {
+				int pcash = Integer.parseInt(request.getParameter("amount_form"));
+				cash.setPayment(pcash);
+				cash.setMem_id(id);
+				matchService.pCashMember(cash);
+				matchService.insertP_Cash(cash);
+				
+				out.println("<script>");
+				out.println("alert('충전이 완료되었습니다.');");
+				out.println("window.history.go(-2);");
+				out.println("</script>");
+			}else {
+				int pcash = Integer.parseInt(request.getParameter("options-outlined"));
+				cash.setPayment(pcash);
+				cash.setMem_id(id);
+				matchService.pCashMember(cash);
+				matchService.insertP_Cash(cash);
+				
+				out.println("<script>");
+				out.println("alert('충전이 완료되었습니다.');");
+				out.println("window.history.go(-2);");
+				out.println("</script>");
+			}
+		}
+
+		return null;
+	}
 
 }

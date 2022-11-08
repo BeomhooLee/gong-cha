@@ -173,16 +173,28 @@
 		select * from member where mem_id=#{id}
 	</select>
 	
-	<update id="edit_sm">
+	<update id="edit_stm">
 		update stadium_match set mem_id=#{mem_id}, available=0 where stadium_match_no = #{stadium_match_no}
 	</update>
 	
-	<update id="edit_mem">
+	<update id="edit_sm">
+		update social_match set current_count = current_count + 1 where match_no = #{stadium_match_no}
+	</update>
+	
+	<update id="mCashMember">
 		update member set cash=cash-#{payment} where mem_id=#{mem_id}
+	</update>
+	
+	<update id="pCashMember">
+		update member set cash=cash+#{payment} where mem_id=#{mem_id}
 	</update>
 	
 	<insert id="insert_mcash">
 		insert into cash values(cash_no_seq.nextval,#{mem_id},null,#{payment},sysdate)
+	</insert>
+	
+	<insert id="insert_pcash">
+		insert into cash values(cash_no_seq.nextval,#{mem_id},#{payment},null,sysdate)
 	</insert>
 
 </mapper>

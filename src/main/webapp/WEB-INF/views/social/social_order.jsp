@@ -7,7 +7,7 @@
 <form method="post" action="/order_ok">
 <article>
 	<div id="content">
-		<input type="hidden" value="${s.match_no}" name="no" id="no">
+		<input type="hidden" value="${s.match_no}" name="social_no" id="no">
 		<div id="content_wrap">
 			<div id="content_header">
 				<div id="header_base">
@@ -51,11 +51,11 @@
 								</ul>
 								<div class="payment">
 									<div class="list_label">추가 결제 금액</div>
-									<c:if test="${s.price <= (c.p_cash - c.m_cash)}">
+									<c:if test="${s.price <= m.cash}">
 									<div class="list_value"><strong>0원</strong></div>
 									</c:if>
-									<c:if test="${s.price > (c.p_cash - c.m_cash)}">
-									<div class="list_value"><strong >-<fmt:formatNumber value="${s.price-(c.p_cash - c.m_cash)}" pattern="#,###"/>원</strong></div>
+									<c:if test="${s.price > m.cash}">
+									<div class="list_value"><strong >-<fmt:formatNumber value="${s.price-m.cash}" pattern="#,###"/>원</strong></div>
 									</c:if>
 								</div>
 							</div>

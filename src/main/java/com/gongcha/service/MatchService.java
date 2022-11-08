@@ -41,9 +41,15 @@ public interface MatchService {
 	public MemberDTO getMember(String id);
 
 	public void insertStadium_Match(CashDTO cash);
+	
+	public void insertSocial_Match(CashDTO cash);
 
-	public void updateMember(CashDTO cash);
+	public void pCashMember(CashDTO cash);
+	
+	public void mCashMember(CashDTO cash);
 
 	public void insertM_Cash(CashDTO cash);
+
+	public void insertP_Cash(CashDTO cash);
 
 }

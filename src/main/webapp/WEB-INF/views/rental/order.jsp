@@ -7,7 +7,7 @@
 <form method="post" action="/order_ok">
 <article>
 	<div id="content">
-		<input type="hidden" value="${s.stadium_match_no}" name="no" id="no">
+		<input type="hidden" value="${s.stadium_match_no}" name="stadium_no" id="no">
 		<div id="content_wrap">
 			<div id="content_header">
 				<div id="header_base">

@@ -12,5 +12,6 @@ public class CashDTO {
 	private String redate;
 	
 	private int stadium_match_no;
+	private int social_match_no;
 	private int payment;
 }

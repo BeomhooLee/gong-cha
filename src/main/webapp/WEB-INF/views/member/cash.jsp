@@ -6,11 +6,11 @@
 <script type="text/javascript">
 	$(function(){	
 		$("input:radio[name=options-outlined]").click(function(){
-			if($("input:radio[name=options-outlined]:checked").val()=='direct_attack'){
-				$('#amout_form').attr("disabled",false);
+			if($("input:radio[name=options-outlined]:checked").attr("id")=='direct_attack'){
+				$('#amount_form').attr("disabled",false);
 			}else{
-				$('#amout_form').attr("disabled",true);
-				$('#amout_form').val('');
+				$('#amount_form').attr("disabled",true);
+				$('#amount_form').val('');
 			}
 		});
 	});
@@ -21,7 +21,7 @@
 	    $('button').prop('disabled', true);
 	    
 	    if($("input:radio[name=options-outlined]:checked").val()=='direct_attack'){
-	    	if ($('#amout_form').val() != '' && $('#deposit_name').val() != '' && $('#deposit_method').is(":checked") && $('#deposit_check').is(":checked")) {
+	    	if ($('#amount_form').val() != '' && $('#deposit_name').val() != '' && $('#deposit_method').is(":checked") && $('#deposit_check').is(":checked")) {
 	            $('button').prop('disabled', false);
 	            $('button').removeClass('btn__disabled');
 	        }
@@ -48,11 +48,11 @@
 <script type="text/javascript">
  $(document).ready(function(){
  
-   $("#amout_form").on("keyup", function() {
+   $("#amount_form").on("keyup", function() {
 	   var num = /^[0-9]+$/;
 	   
-	   if(!num.test($('#amout_form').val())){
-		   $('#amout_form').val('');
+	   if(!num.test($('#amount_form').val())){
+		   $('#amount_form').val('');
 		   alert('숫자만 입력하세요');
 	   }
    });
@@ -82,7 +82,7 @@
    });
  });
  </script>
-
+	<form action="/charge" method="post">
 		<div class="select_amount" style="margin: 20px 200px;">
 			<p>충전할 금액
 			<div class="select_amount_box">
@@ -123,7 +123,7 @@
 				</div>
 				
 				<div class="amount_input">
-					<input id=amout_form class="form-control" type="text" disabled numberOnly onchange="select_now();">
+					<input id=amount_form name="amount_form" class="form-control" type="text" disabled numberOnly onchange="select_now();">
 				</div>
 				
 			</div>
@@ -132,7 +132,7 @@
 		<div class="select_amount" style="margin: 20px 200px;">
 			<p>입금자명
 			<div class="amount_deposit">
-				<input id="deposit_name" class="form-control form-control-lg" type="text" placeholder="한글 6글자, 영어 18글자 이내로 입력해주세요" aria-label=".form-control-lg example" 
+				<input id="deposit_name" name="deposit_name" class="form-control form-control-lg" type="text" placeholder="한글 6글자, 영어 18글자 이내로 입력해주세요" aria-label=".form-control-lg example" 
 				onchange="select_now();">
 			</div>
 		</div>
@@ -156,5 +156,6 @@
 		<div class="select_amount" style="margin: 20px 200px;">
 			<button class="btn__disabled">충전 신청</button>
 		</div>
+	</form>
 		
 <jsp:include page="../include/footer.jsp"></jsp:include>

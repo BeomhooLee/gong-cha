@@ -96,18 +96,33 @@ public class MatchDAOImpl implements MatchDAO {
 
 	@Override
 	public void insertStadium_Match(CashDTO cash) {
+		sqlSession.update("match.edit_stm",cash);
+	}
+	
+	@Override
+	public void insertSocial_Match(CashDTO cash) {
 		sqlSession.update("match.edit_sm",cash);
 	}
 
 	@Override
-	public void updateMember(CashDTO cash) {
-		sqlSession.update("match.edit_mem",cash);
+	public void pCashMember(CashDTO cash) {
+		sqlSession.update("match.pCashMember",cash);
+	}
+	
+	@Override
+	public void mCashMember(CashDTO cash) {
+		sqlSession.update("match.mCashMember",cash);
 	}
 
 	@Override
 	public void insertM_Cash(CashDTO cash) {
 		sqlSession.insert("match.insert_mcash",cash);
 
+	}
+
+	@Override
+	public void insertP_Cash(CashDTO cash) {
+		sqlSession.insert("match.insert_pcash",cash);
 	}
 
 }
