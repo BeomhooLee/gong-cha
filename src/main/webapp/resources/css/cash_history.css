@@ -61,6 +61,37 @@ article{
 	font-size: 18px;
 	font-weight: bold;
 }
+
+.cash > .minus{
+	color:#25316D;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.cash > .plus{
+	color:red;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.cash > .note_minus{
+	border: 1px solid white;
+	border-radius: 5px;
+	background-color: rgba( 37, 49, 109, 0.5 );
+	color:#25316D;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.cash > .note_plus{
+	border: 1px solid white;
+	border-radius: 5px;
+	background-color: rgba(255, 0, 0, 0.5);
+	color:red;
+	font-size: 18px;
+	font-weight: bold;
+}
+
 .totalCash{
 	display:flex;
 	justify-content:flex-end;

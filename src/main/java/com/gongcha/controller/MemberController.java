@@ -430,10 +430,14 @@ public class MemberController {
 		System.out.println(social_no);
 		String query_str = null;
 		
-		if(social_no.equals("null")) {
-			query_str = "/rental/order?no="+stadium_no;
+		if(social_no.equals("null") && stadium_no.equals("null")) {
+			query_str = "mypage";
 		}else {
-			query_str = "/social/social_order?no="+social_no;
+			if(social_no.equals("null")) {
+				query_str = "/rental/order?no="+stadium_no;
+			}else{
+				query_str = "/social/social_order?no="+social_no;
+			}
 		}
 		
 		if (id == null) {

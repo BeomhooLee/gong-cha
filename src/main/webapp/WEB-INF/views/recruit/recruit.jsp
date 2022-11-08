@@ -8,19 +8,56 @@
 <title>용병모집</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/recruit.css" />
 <script type="text/javascript" src="/resources/js/jquery.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#location').children('button').click(function(){
-			$(this).attr('class', 'blue');
-			$(this).siblings('button').attr('class', 'normal');
+<script>
+		/* 지역 선택 버튼, 다른곳 클릭시 collapse */
+		$('html').click(function(e){
+			var button = $('#location').children('button')
+			var button_bool = $(e.target).is(button)
+			var location = $(e.target).is('#location')
+	    	if(!(button_bool || location)){
+	        	$('#location').attr("class", "collapse")
+	        }
+	    });
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$('#location').children('button').click(function() {
+				$(this).attr('class', 'blue');
+				$(this).siblings('button').attr('class', 'normal');
+			});
 		});
-	});
-	
-	$(function() {
-		$('#left').children('div').click(function(){
-			$(this).toggleClass("on");
+ 	</script>
+ 	<script type="text/javascript">
+	$(document).on("click", 'button[type="button"]',function() {
+				var selectedBtns = document.querySelectorAll('button[class="blue"]');
+				$('input[type="hidden"][id="date"]').attr("value",$(this).children('p').data('caldate'));
+				//  구장 상세 설정 필터링
+				selectedBtns.forEach(function(v) {
+					$('input[type="hidden"][id="region"]').attr("value", v.innerText);
+				});
+				
+				
+				filter();
+			});
+	</script>
+	<script type="text/javascript">
+	function filter() {
+		
+		var region = $('input[type="hidden"][id="region"]').attr("value");
+		var sendData = {"region" : region}
+		
+		$.ajax({
+			url : "/recruit_filter",
+			method : 'POST',
+			data : JSON.stringify(sendData),
+			contentType : 'application/json; charset=UTF-8',
+			dataTye : "html",
+			success : function(data) {
+				$('.ajax_result').html(data);
+			}
 		});
-	});
+
+	};
 </script>
 </head>
 <body>
@@ -40,33 +77,35 @@
 
 	<article>
 		<div id="recruitFilter">
-			<div id="filterBox">
-				<div id="left">
-					<div class="locationBtn" id="locationBtn" role="button" data-bs-toggle="collapse"
+			<div id="rFilter">
+				<div id="filter_wrapper">
+					<div class="filterBtn" role="button" data-bs-toggle="collapse"
 						data-bs-target="#location" aria-expanded="false"
-						aria-controls="location">지역선택</div>
+						aria-controls="location">
+						<span>지역선택</span>
+					</div>
 
-					<div class="calendarBtn" id="calendarBtn" data-bs-toggle="collapse"
+					<!-- <div class="calendarBtn" id="calendarBtn" data-bs-toggle="collapse"
 						data-bs-target="#cal" role="button" aria-expanded="false"
-						aria-controls="cal">날짜선택</div>
+						aria-controls="cal">날짜선택</div> -->
 				</div>
-				<div id="right">
+				<!-- <div id="right">
 					<div id="sortBox">
 						<div id="sortBox_1">날짜순</div>
 						<div id="sortBox_2">등록순</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div id="collapse_wrap">
 			<div class="collapse" id="location">
-				<button name="local" value="all" class="blue">전체</button>
-				<button name="local" value="seoul" class="normal">서울</button>
-				<button name="local" value="gyeonggi" class="normal">경기</button>
-				<button name="local" value="busan" class="normal">부산</button>
-				<button name="local" value="daegu" class="normal">대구</button>
-			</div>
-			<div class="collapse" id="cal">
+					<button type="button" data-class="region" name="local" value="전체" class="blue">전체</button>
+					<button type="button" data-class="region" name="local" value="서울특별시" class="normal">서울</button>
+					<button type="button" data-class="region" name="local" value="경기도" class="normal">경기</button>
+					<button type="button" data-class="region" name="local" value="부산광역시" class="normal">부산</button>
+					<input type="hidden" id="region" name="region" value="전체">
+				</div>
+			<!-- <div class="collapse" id="cal">
 				<div class="calendar-container">
 					<h2 class="month-year">9월 2022</h2>
 
@@ -140,14 +179,14 @@
 					<a class="button">OK</a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<form action="recruit_detail" method="get">
 		<div id="recruitList">
 		  <div class="inf">
 			<div style="width:15%;">경기 날짜</div><div style="width:62%;">제목</div><div>글쓴이</div><div>작성일</div>	
 		  </div>
-			<ul>
+			<ul class="ajax_result">
 			  <c:if test="${!empty list}">
 		<c:forEach var="t" items="${list}">			
 
@@ -176,7 +215,7 @@
 						</div>
 						
 						<div class="mem">
-						  <h3>${fn:substring(t.regdate,11,16) }</h3>
+						  <h3>${fn:substring(t.regdate,5,10) }</h3>
 						</div>
 				</a></li>
 			  </c:forEach>
@@ -207,6 +246,6 @@
 	</article>
 
 	<jsp:include page="../include/footer.jsp" />
-	<script type="text/javascript" src="/resources/js/cal.js"></script>
+	<!-- <script type="text/javascript" src="/resources/js/cal.js"></script> -->
 </body>
 </html>

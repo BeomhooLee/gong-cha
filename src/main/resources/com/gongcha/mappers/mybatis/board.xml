@@ -17,6 +17,13 @@
 		 b.match_date, b.price, b.start_time, b.end_time, c.address from recruit a, stadium_match b, stadium c 
 		 where a.stadium_match_no = b.stadium_match_no and b.stadium_name = c.stadium_name order by recruit_no desc
 	</select>
+	
+	<!-- 용병 모집 필터링-->
+	<select id="getRecruitList_region" resultType="board">
+		select a.recruit_no, a.stadium_name, a.title, a.recruit_content, a.mem_id ,a.regdate, a.match_level, b.stadium_match_no,
+		 b.match_date, b.price, b.start_time, b.end_time, c.address from recruit a, stadium_match b, stadium c 
+		 where a.stadium_match_no = b.stadium_match_no and b.stadium_name = c.stadium_name and c.city like #{region} order by recruit_no desc
+	</select>
 
 	<!-- 게시글 보기 -->
 <!-- 	<select id="get_cont" resultType="board"> -->

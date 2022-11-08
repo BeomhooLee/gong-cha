@@ -75,6 +75,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.delRecruit(de);
 	}
 
+	@Override
+	public List<BoardDTO> getRecruitList_region(String region) {
+		return boardDao.getRecruitList_region(region);
+	}
+
 
 
 }

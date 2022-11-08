@@ -3,20 +3,26 @@ package com.gongcha.controller;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.StadiumDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.BoardService;
 import com.gongcha.service.ReplyService;
 import com.google.gson.Gson;
@@ -42,6 +48,22 @@ public class BoardController {
 		ma.setViewName("recruit/recruit");
 
 		return ma;
+	}
+	
+	@RequestMapping(value = "/recruit_filter", method = RequestMethod.POST)
+	public String filter(@RequestBody Map<String, String> map, HttpServletResponse response, Stadium_matchDTO stm, Model m, BoardDTO r)throws Exception {
+
+		String region = "%"+map.get("region")+"%";
+		if(region.equals("%전체%")) {
+			List<BoardDTO> rList=boardService.getRecruit(r);
+			m.addAttribute("list", rList);
+		}else {
+			List<BoardDTO> recruit_region_list = boardService.getRecruitList_region(region);
+			m.addAttribute("list_region", recruit_region_list);
+			System.out.println(recruit_region_list);
+		}
+		
+		return "/recruit/recruit_filtered";
 	}
 
 	@RequestMapping("/recruit_regi")

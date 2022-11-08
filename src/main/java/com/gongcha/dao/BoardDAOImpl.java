@@ -75,4 +75,9 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.delete("del_recruit",de);
 	}
 
+	@Override
+	public List<BoardDTO> getRecruitList_region(String region) {
+		return sqlSession.selectList("getRecruitList_region", region);
+	}
+
 }

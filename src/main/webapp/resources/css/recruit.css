@@ -12,44 +12,54 @@
 	margin: auto;
 }
 
-#filterBox {
+#rFilter{
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 16px;
-	max-width: 1024px;
-	width: 100%;
-	margin: auto;
+    justify-content: space-between;
+    padding-top: 10px;
 }
-#left div.on{
-	background-color: #1570FF;
-    border: 1px solid #1570FF;
-    border-radius: 20px;
-    color: white;
+
+#filter_wrapper {
+	width:100%;
+	position: relative;
+    box-sizing: content-box;
+    white-space: nowrap;
+    padding: 0;
+    max-width: 1024px;
 }
-#left {
-	display: flex;
-	height: 100%;
-	align-items: center;
+
+#filter_wrapper div:first-child {
+    margin-left: 20px;
 }
-#left div{
-	font-size: 13px;
+#filter_wrapper div{
+    display: inline-grid;
+    font-size: 14px;
     margin-left: 5px;
-    padding: 6px 12px;
+    padding: 5px 12px;
     position: relative;
     cursor: pointer;
     border: 1px solid  rgb(0, 128, 255);
     border-radius: 20px;
-    height:30px;
-    
+    outline: none;
 }
-.locationBtn {
-	display: flex;
-	align-items: center;
-	padding: 5px;
+
+.filterBtn{
+	padding-right: 12px;
+}
+
+.on{
+	background-color: #1570FF;
+    border: 1px solid #1570FF;
+    border-radius: 20px;
+}
+.on span{
+    color: white !important;
+}
+
+.filterBtn span{
+	padding: 3px;
     border: none;
     color:  rgb(0, 128, 255);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 14px;
 }
 
@@ -136,7 +146,7 @@
 	border-radius: 20px;
 	padding: 5px;
 	margin-top:5px;
-	margin-left:22px;
+	margin-left:28px;
 	box-shadow:
     0 0.0625em 0.25em rgba(0,20,50,0.2),
     0 0.5em 0.5em 0.125em rgba(0,20,50,0.1);

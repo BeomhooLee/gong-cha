@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -26,7 +27,7 @@
 							<p style="font-size: 20px; font-weight: 700;"><fmt:formatNumber value="${member.cash}" pattern="#,###"/>원</p>
 						</div>
 
-						<a href="cash">
+						<a href="/member/cash">
 							<div class="cashCharge">
 								<span>캐시 충전</span>
 							</div>
@@ -50,20 +51,24 @@
 									<li>
 										<div class="cashHistory">
 										<div class="date">
-											<span>${ca.regdate}</span>
+											<span>${fn:substring(ca.regdate,0,10)}</span>
 										</div>
 										<div class="cash">
-											<span>${ca.p_cash}</span>원
+											<c:choose>
+												<c:when test="${ca.p_cash == 0}">
+													<span class="minus">-${ca.m_cash}</span>원
+													<span class="note_minus">${ca.note}</span>
+												</c:when>
+												<c:otherwise>
+													<span class="plus">${ca.p_cash}</span>원
+													<span class="note_plus">${ca.note}</span>
+												</c:otherwise>
+											</c:choose>
 										</div>
 										</div>
 									</li>
 								</ul>
 							</c:forEach>
-						<div class="totalCash">
-							총 금액 :
-							<c:out value="${total}" />
-							원
-						</div>
 						</c:otherwise>
 					</c:choose>
 				</div>

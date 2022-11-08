@@ -29,5 +29,7 @@ public interface BoardService {
 	List<BoardDTO> getInfo(BoardDTO a);
 
 	void delRecruit(BoardDTO de);
+
+	List<BoardDTO> getRecruitList_region(String region);
 	
 }

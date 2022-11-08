@@ -30,4 +30,6 @@ public interface BoardDAO {
 
 	void delRecruit(BoardDTO de);
 
+	List<BoardDTO> getRecruitList_region(String region);
+
 }
