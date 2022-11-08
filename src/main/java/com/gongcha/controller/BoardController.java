@@ -59,7 +59,7 @@ public class BoardController {
 			m.addAttribute("list", rList);
 		}else {
 			List<BoardDTO> recruit_region_list = boardService.getRecruitList_region(region);
-			m.addAttribute("list_region", recruit_region_list);
+			m.addAttribute("list", recruit_region_list);
 			System.out.println(recruit_region_list);
 		}
 		

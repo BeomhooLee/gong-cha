@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:if test="${!empty list_region}">
-		<c:forEach var="t" items="${list_region}">			
+<c:if test="${!empty list}">
+		<c:forEach var="t" items="${list}">			
 
 				<li class="item"><a
 					style="outline: none; color: #222836; text-decoration: none; cursor: pointer;" role="button" href="recruit_detail?recruit_no=${t.recruit_no }">
