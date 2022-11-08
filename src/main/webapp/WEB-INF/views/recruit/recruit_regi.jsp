@@ -65,7 +65,7 @@ $(function(){
 					for(var i=0; i<obj.sn.length; i++){
 						console.log(obj.sn[i].stadium_match_no);
 						$('#stadium_match_no').append(
-								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+" / "+obj.sn[i].end_time+
+								"<option value='"+obj.sn[i].stadium_match_no+"'>"+obj.sn[i].match_date+" / "+obj.sn[i].start_time+"~"+obj.sn[i].end_time+
 								"</option>"
 							);
 				
@@ -102,14 +102,14 @@ $(function(){
 			<div id="select_contain">
 				<span>내 경기 선택</span>&nbsp;&nbsp;
 				 <select name="stadium_name" id="stadium_name">
-					<option value=''>경기장 선택</option>
+					<option value=''>--경기장 선택--</option>
 					<c:forEach var="m" items="${my}">
 						<option value="${m.stadium_name}">${m.stadium_name}</option>
 					</c:forEach>
 				</select> 
 				<select name="stadium_match_no" id="stadium_match_no"></select> 
 				<select name="match_level" id="match_level">
-					<option value=''>실력 선택</option>
+					<option value=''>--선택--</option>
 					<option value="1">초보</option>
 					<option value="2">중수</option>
 					<option value="3">고수</option>

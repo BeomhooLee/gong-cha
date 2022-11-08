@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.BoardDAO;
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -73,6 +74,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delRecruit(BoardDTO de) {
 		boardDao.delRecruit(de);
+	}
+
+	@Override
+	public Stadium_matchDTO getStadium_time(BoardDTO i) {
+		return boardDao.getStadium_time(i);
 	}
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -73,6 +74,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void delRecruit(BoardDTO de) {
 		sqlSession.delete("del_recruit",de);
+	}
+
+	@Override
+	public Stadium_matchDTO getStadium_time(BoardDTO i) {
+		return sqlSession.selectOne("get_stadiumtime", i);
 	}
 
 }

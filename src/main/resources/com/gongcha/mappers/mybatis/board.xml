@@ -73,4 +73,9 @@
 	<delete id="del_recruit">
 		delete from recruit where recruit_no=#{recruit_no} and mem_id=#{mem_id}
 	</delete>
+	
+	<!-- 스타디움 타임 확인 -->
+	<select id="get_stadiumtime" resultType="stadium_match">
+		select * from stadium_match where stadium_match_no = #{stadium_match_no}
+	</select>
 </mapper>

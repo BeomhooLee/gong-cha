@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
+import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.BoardService;
 import com.gongcha.service.ReplyService;
 import com.google.gson.Gson;
@@ -207,12 +208,15 @@ public class BoardController {
 					String cont=i.getRecruit_content().replace("\n","<br/>");
 					
 					List<BoardDTO> my=boardService.getStadium(stadium_name);
+					Stadium_matchDTO sta = boardService.getStadium_time(i);
 					
 					ModelAndView f=new ModelAndView();
+					System.out.println(sta);
 					
 					f.addObject("my",my);
 					f.addObject("re",i);
 					f.addObject("cont",cont);
+					f.addObject("sta",sta);
 
 					f.setViewName("/recruit/recruit_edit");
 
