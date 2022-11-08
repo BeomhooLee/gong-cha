@@ -124,6 +124,10 @@ form label.checkLabel {
 	line-height: 18px;
 	margin: 20px 0;
 }
+.btn.del:hover{
+	background-color: #c6c6c6 !important;
+	border-color: #c6c6c6 !important;
+}
 .btn.submit {
 	background-color: #25316D;
 	width: 100px;
@@ -244,8 +248,8 @@ form label {
     border-color: #25316d;
 }
 .btn:hover{
-	background-color: #25316d;
-    border-color: #25316d;
+	background-color: #25316d !important;
+    border-color: #25316d !important;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

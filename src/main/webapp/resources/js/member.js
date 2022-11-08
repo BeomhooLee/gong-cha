@@ -15,12 +15,12 @@ function join_check(){
 
 	if($mem_pwd == ""){
 		alert("비밀번호를 입력해주세요!");
-		$("#mem_pwd").val("").focus();
+		$("#mem_pwd").val().focus();
 		return false;
 	}
 	if($mem_pwd2 == ""){
 		alert("비밀번호 확인을 입력해주세요!");
-		$("#mem_pwd2").val("").focus();
+		$("#mem_pwd2").val().focus();
 		return false;
 	}
 	if($mem_pwd != $mem_pwd2){
@@ -96,16 +96,33 @@ function join_check(){
 			return false;
 	}
 		
-	if($.trim($("#email_domain").val())=="none"){
-		alert("도메인을 선택해 주세요!");		
-		return false;
+	if($.trim($("#email_domain").val())=="none" && $("#email_domain_text").val()==""){
+			alert("도메인을 선택해 주세요!");
+			$("#email_domain").focus();
+			return false;
+	}
+	
+	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
+		$("#email_domain").val("");
+	}
+	
+	$domain = $.trim($("#email_domain_text").val());
+	$("#domain_check").hide();
+	let domain_check = /^(?:\w+\.)+\w+$/g; //도메인 정규식
+	if (!(domain_check.test($domain))) {
+			$emailchecktext = '<font color="red" size="2">도메인을 다시 확인해주세요.</font>';
+			$("#email_check").text('');
+			$("#email_check").show();
+			$("#email_check").append($emailchecktext);
+			$("#email_domain_text").val().focus();
+			return false;
 	}
 	
 	$birth = $.trim($("#mem_birth").val());
 	
-	if($birth == ""){
+	if($.trim($("#mem_birth").val()) == ""){
 		alert("생년월일을 입력해주세요!");
-		$("#mem_birth").val("").focus();
+		$("#mem_birth").val('').focus();
 		return false;
 	}
 	
@@ -113,6 +130,15 @@ function join_check(){
 	$("#birthcheck").hide();
 	
 	if ($birth.length < 8) {
+		$birthtext = '<font color="red" size="2">생년월일는 8자 이어야 합니다. ex) 19980312</font>';
+		$("#birthcheck").text('');
+		$("#birthcheck").show();
+		$("#birthcheck").append($birthtext);
+		$("#mem_birth").val('').focus();
+		return false;
+	}
+	
+	if ($birth.length > 8) {
 		$birthtext = '<font color="red" size="2">생년월일는 8자 이어야 합니다. ex) 19980312</font>';
 		$("#birthcheck").text('');
 		$("#birthcheck").show();
@@ -143,6 +169,15 @@ function join_check(){
 		return false;
 	}
 	
+	if ($phone.length > 8) {
+		$phonetext = '<font color="red" size="2">휴대폰 번호 8자리 입력해주세요!</font>';
+		$("#phonecheck").text('');
+		$("#phonecheck").show();
+		$("#phonecheck").append($phonetext);
+		$("#phone02").val('').focus();
+		return false;
+	}
+	
 	if($.trim($("#postcode").val())==""){
 		alert("우편번호를 입력해주세요!");		
 		return false;
@@ -153,17 +188,15 @@ function join_check(){
 		return false;
 	}
 	
-	if($("input[name='id_check']").val()==''){
+	if($("input[name='id_checked']").val()==''){
         alert('아이디중복 확인을 해주세요.');
-        $("input[name='id_check']").eq(0).focus();
+        $("input[name='id_checked']").eq(0).focus();
         return false;
-    	}
+    }
 }
 //중복아이디 검색
 function id_check(){
- 
- 	$("input[name=id_check]").val('y');
- 
+ 	$("input[name=id_checked]").val('y');
 	$("#idcheck").hide();
 	//아이디 영역을 숨김
 	$mem_id=$.trim($("#mem_id").val());
