@@ -394,24 +394,26 @@
 								</div>
 
 								<div class="schedule">
-									<c:if
-										test="${((sm.player_num-sm.current_count) <= 3) && ((sm.player_num-sm.current_count)>0)}">
-										<div class="Hurry">
-											<p style="margin: 0px;">마감임박!</p>
-										</div>
-									</c:if>
-
-									<c:if test="${(sm.player_num - sm.current_count) == 0}">
-										<div class="isFull">
-											<p style="margin: 0px;">마감</p>
-										</div>
-									</c:if>
-
-									<c:if test="${(sm.player_num-sm.current_count) >= 3}">
-										<div class="isOpen">
-											<p style="margin: 0px;">신청가능</p>
-										</div>
-									</c:if>
+									<c:choose>
+										<c:when
+											test="${((sm.player_num-sm.current_count) <= 3) && ((sm.player_num-sm.current_count)>0)}">
+											<div class="Hurry">
+												<p style="margin: 0px;">마감임박!</p>
+											</div>
+										</c:when>
+	
+										<c:when test="${(sm.player_num - sm.current_count) == 0}">
+											<div class="isFull">
+												<p style="margin: 0px;">마감</p>
+											</div>
+										</c:when>
+	
+										<c:when test="${(sm.player_num-sm.current_count) > 3}">
+											<div class="isOpen">
+												<p style="margin: 0px;">신청가능</p>
+											</div>
+										</c:when>
+									</c:choose>
 								</div>
 
 						</a></li>

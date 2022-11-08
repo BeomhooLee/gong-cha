@@ -106,7 +106,7 @@ function font1(){
 										<p>신청 내역</p>
 									</div>
 							</a></li>
-							<li><a href="#">
+							<li><a href="/cash_history">
 									<div class="my_list_label">
 										<img
 											src="https://plab-football.s3.amazonaws.com/static/img/ic_point_color.svg"

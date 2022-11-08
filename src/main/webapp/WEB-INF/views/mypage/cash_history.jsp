@@ -1,18 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%
-	int[] cashlist = { 10000, 20000, 30000, 40000, 20000, 20000, 10000 };
-int cash = 10000;
-Date date = new Date();
-SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd E");
-request.setAttribute("cashlist", cashlist);
-request.setAttribute("cash", cash);
-request.setAttribute("id", "userid");
-request.setAttribute("date", date);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +23,7 @@ request.setAttribute("date", date);
 					<div class="cashBox">
 						<div class="right">
 							<p style="font-size: 12px;">캐시</p>
-							<p style="font-size: 20px; font-weight: 700;">${cash}원</p>
+							<p style="font-size: 20px; font-weight: 700;"><fmt:formatNumber value="${member.cash}" pattern="#,###"/>원</p>
 						</div>
 
 						<a href="cash">
@@ -44,36 +35,37 @@ request.setAttribute("date", date);
 				</div>
 
 				<div class="chargelsit" style="padding-top: 30px;">
-					<c:if test="${cash == 0}">
-						<ul>
-							<li style="list-style: none;">
-								<p>아직 충전 내역이 없습니다.</p>
-							</li>
-						</ul>
-					</c:if>
-					<c:if test="${cash != 0}">
-						<p><span style="color: #25316D;">${id}</span>님의충전내역</p>
-						<c:forEach var="ca" items="${cashlist}">
+					<c:choose>
+						<c:when test="${empty cash_list}">
 							<ul>
-								<li>
-									<div class="cashHistory">
-										<div class="date">
-											<span><%=sf.format(date)%></span>
-										</div>
-										<div class="cash">
-											<span>${ca}</span>원
-											<c:set var="total" value="${total +ca}" />
-										</div>
-									</div>
+								<li style="list-style: none;">
+									<p>아직 충전 내역이 없습니다.</p>
 								</li>
 							</ul>
-						</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p><span style="color: #25316D;">${member.mem_id}</span>님의충전내역</p>
+							<c:forEach var="ca" items="${cash_list}">
+								<ul>
+									<li>
+										<div class="cashHistory">
+										<div class="date">
+											<span>${ca.regdate}</span>
+										</div>
+										<div class="cash">
+											<span>${ca.p_cash}</span>원
+										</div>
+										</div>
+									</li>
+								</ul>
+							</c:forEach>
 						<div class="totalCash">
 							총 금액 :
 							<c:out value="${total}" />
 							원
 						</div>
-					</c:if>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

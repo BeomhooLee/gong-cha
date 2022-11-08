@@ -110,6 +110,6 @@
   
   <!-- 소셜 매치 소셜히스토리번호 기준 검색 -->
   <select id="getSocialNo" resultType="stadium_match">
- 	 select * from socia_match where match_no=#{match_no}
+ 	 select * from social_match where match_no=#{match_no}
   </select>
 </mapper>

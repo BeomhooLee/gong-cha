@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,19 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
-import com.gongcha.service.MatchService;
 import com.gongcha.dto.Social_historyDTO;
 import com.gongcha.dto.Social_matchDTO;
 import com.gongcha.dto.Stadium_matchDTO;
+import com.gongcha.service.MatchService;
 import com.gongcha.service.MemberService;
 
 import pwdconv.PwdChange;
@@ -424,6 +421,17 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 
 		String id = (String) session.getAttribute("id");
+		String social_no = request.getParameter("social_no");
+		String stadium_no = request.getParameter("stadium_no");
+		System.out.println(stadium_no);
+		System.out.println(social_no);
+		String query_str = null;
+		
+		if(social_no.equals("null")) {
+			query_str = "/rental/order?no="+stadium_no;
+		}else {
+			query_str = "/social/social_order?no="+social_no;
+		}
 		
 		if (id == null) {
 			out.println("<script>");
@@ -440,7 +448,7 @@ public class MemberController {
 				
 				out.println("<script>");
 				out.println("alert('충전이 완료되었습니다.');");
-				out.println("window.history.go(-2);");
+				out.println("location='"+query_str+"';");
 				out.println("</script>");
 			}else {
 				int pcash = Integer.parseInt(request.getParameter("options-outlined"));
@@ -451,7 +459,7 @@ public class MemberController {
 				
 				out.println("<script>");
 				out.println("alert('충전이 완료되었습니다.');");
-				out.println("window.history.go(-2);");
+				out.println("location='"+query_str+"';");
 				out.println("</script>");
 			}
 		}
@@ -492,32 +500,57 @@ public class MemberController {
 		return null;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/historyDel", method=RequestMethod.POST,produces = "application/text; charset=utf8")
-	public String historyDel(@RequestBody Map<String,String> map) {
+//	@ResponseBody
+//	@RequestMapping(value="/historyDel", method=RequestMethod.POST,produces = "application/text; charset=utf8")
+//	public String historyDel(@RequestBody Map<String,String> map) {
+//	
+//		int stadium_match_no=Integer.parseInt(map.get("stadium_match_no"));
+//		
+//		int match_no=Integer.parseInt(map.get("match_no"));
+//		System.out.println(stadium_match_no);
+//		System.out.println(match_no);
+//		List<Social_historyDTO> social_historyList = new ArrayList<>();
+//		List<Social_matchDTO> social_List = new ArrayList<>();
+//		List<Stadium_matchDTO> stadium_matchList = new ArrayList<>();
+//		
+//		if(stadium_match_no == 0 && match_no != 0) {
+//			social_historyList = memberService.delHistory(match_no);
+//			social_List = memberService.updateSocial_match(match_no);
+//		}else if(stadium_match_no != 0 && match_no == 0) {	
+//			stadium_matchList = memberService.updateStadium_match(stadium_match_no);	
+//		}else {	
+//			social_historyList = memberService.delHistory(match_no);
+//			social_List = memberService.updateSocial_match(match_no);
+//			stadium_matchList = memberService.updateStadium_match(stadium_match_no);
+//		}
+//		
+//		return "예약이 취소 되었습니다.";
+//	}
 	
-		int stadium_match_no=Integer.parseInt(map.get("stadium_match_no"));
+	@RequestMapping("/cash_history")
+	public String cash_history(HttpSession session, HttpServletResponse response, CashDTO cash, Model m) throws IOException {
 		
-		int match_no=Integer.parseInt(map.get("match_no"));
-		System.out.println(stadium_match_no);
-		System.out.println(match_no);
-		List<Social_historyDTO> social_historyList = new ArrayList<>();
-		List<Social_matchDTO> social_List = new ArrayList<>();
-		List<Stadium_matchDTO> stadium_matchList = new ArrayList<>();
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
 		
-		if(stadium_match_no == 0 && match_no != 0) {
-			social_historyList = memberService.delHistory(match_no);
-			social_List = memberService.updateSocial_match(match_no);
-		}else if(stadium_match_no != 0 && match_no == 0) {	
-			stadium_matchList = memberService.updateStadium_match(stadium_match_no);	
-		}else {	
-			social_historyList = memberService.delHistory(match_no);
-			social_List = memberService.updateSocial_match(match_no);
-			stadium_matchList = memberService.updateStadium_match(stadium_match_no);
+		String id=(String)session.getAttribute("id");//세션 아이디값을 구함
+
+		if(id==null) {
+			out.println("<script>");
+			out.println("alert('로그인 해주세요!');");
+			out.println("location='login';");
+			out.println("</script>");
+		}else {
+			List<CashDTO> cash_list = matchService.getCash(id);
+			MemberDTO member = matchService.getMember(id);
+			
+			m.addAttribute("member", member);
+			m.addAttribute("cash_list", cash_list);
 		}
 		
-		return "예약이 취소 되었습니다.";
+		return "/mypage/cash_history";
 	}
+	
 	
 
 

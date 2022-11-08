@@ -178,7 +178,7 @@
 	</update>
 	
 	<update id="edit_sm">
-		update social_match set current_count = current_count + 1 where match_no = #{stadium_match_no}
+		update social_match set current_count = current_count+1 where match_no = #{social_match_no}
 	</update>
 	
 	<update id="mCashMember">

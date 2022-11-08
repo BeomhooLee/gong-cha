@@ -90,13 +90,14 @@ public class MatchServiceImpl implements MatchService {
 		return matchDAO.getStadium_matchList_date(date);
 	}
 	
+	@Override
 	public MemberDTO getMember(String id) {
 		return matchDAO.getMember(id);
 	}
 	
 	@Override
 	public void insertSocial_Match(CashDTO cash) {
-		matchDAO.insertStadium_Match(cash);
+		matchDAO.insertSocial_Match(cash);
 	}
 
 	@Override
