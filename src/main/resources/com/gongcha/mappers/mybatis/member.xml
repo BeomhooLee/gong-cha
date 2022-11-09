@@ -58,7 +58,7 @@
     update member set 
     	mem_name=#{mem_name},
     	email_id=#{email_id},
-    	email_domain=#{email_domain},
+    	email_domain=#{email_domain,jdbcType=VARCHAR},
 		mem_birth=#{mem_birth},
 		mem_gender=#{mem_gender},
 		phone02=#{phone02},

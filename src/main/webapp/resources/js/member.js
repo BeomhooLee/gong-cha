@@ -97,14 +97,20 @@ function join_check(){
    }
       
    if($.trim($("#email_domain").val())=="none" && $("#email_domain_text").val()==""){
-         alert("도메인을 선택해 주세요!");
-         $("#email_domain").focus();
-         return false;
-   }
-   
-   if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
-      $("#email_domain").val("");
-   }
+		alert("이메일 주소를 선택해 주세요!");
+		$("#email_domain").focus();
+		return false;
+	}
+
+	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
+		$("#email_domain").remove();
+		return true;
+	}
+	
+	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
+		$("#email_domain_text").remove();
+		return true;
+	}
    
    $domain = $.trim($("#email_domain_text").val());
    $("#domain_check").hide();
