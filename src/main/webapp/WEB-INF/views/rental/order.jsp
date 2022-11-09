@@ -4,7 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/resources/css/order.css" />
-<form method="post" action="/order_ok">
+<script>
+function ck_box(){
+	
+	  const checkbox = document.getElementById('confirmNotice');
+
+	  const is_checked = checkbox.checked;
+		
+	  if(!is_checked){
+		  alert('약관에 동의해 주세요.');
+		  return false;
+	  }
+	
+}
+</script>
+<form method="post" action="/order_ok" onsubmit="return ck_box();">
 <article>
 	<div id="content">
 		<input type="hidden" value="${s.stadium_match_no}" name="stadium_no" id="no">
@@ -157,7 +171,7 @@
 							</div>
 
 							<li class="checkbox_list"><input type="checkbox"
-								id="confirmNotice" name="#" /> <label for="confirmNotice">
+								id="confirmNotice" name="confirmNotice" /> <label for="confirmNotice">
 									<span class="checkbox"></span>
 									<p>네, 위 내용을 보고 동의해요.</p>
 							</label></li>
@@ -169,7 +183,7 @@
 
 			<div id="content_footer">
 				<div id="btn_wrap">
-					<button class="con_btn"><fmt:formatNumber value="${s.price}" pattern="#,###"/>원 결제하기</button>
+					<button type="submit" class="con_btn"><fmt:formatNumber value="${s.price}" pattern="#,###"/>원 결제하기</button>
 					<input type="hidden" value="${s.price}" name="payment" id="payment">
 				</div>
 			</div>

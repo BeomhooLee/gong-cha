@@ -67,9 +67,9 @@
 	<div id="nav">
 		<span id="nav_a"> <a href="/">소셜매치&nbsp;&nbsp;<img
 				src="/resources/images/social.svg"></a>
-		</span> <span id="nav_b"> <a href="/rental/rental">구장예약&nbsp;&nbsp;<img
+		</span> <span id="nav_b"> <a href="/rental">구장예약&nbsp;&nbsp;<img
 				src="/resources/images/reservation.svg"></a>
-		</span> <span id="selected"> <a href="/recruit/recruit">용병모집&nbsp;&nbsp;<img
+		</span> <span id="selected"> <a href="/recruit">용병모집&nbsp;&nbsp;<img
 				src="/resources/images/personplus.svg"></a>
 		</span>
 	</div>
