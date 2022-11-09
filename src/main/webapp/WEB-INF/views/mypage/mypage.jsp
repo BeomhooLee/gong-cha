@@ -49,7 +49,7 @@ function font1(){
 			<div id="content_body_left">
 				<section id="se_le">
 					<div id="my_profile">
-						<img id="profile_img" src="/resources/images/gg.jpg" alt="지지" />
+						<img id="profile_img" src="/resources/images/ball.png" alt="지지" />
 						<div
 							style="display: flex; align-items: center; justify-content: center;">
 							<h1 id="my_name">${id}</h1>

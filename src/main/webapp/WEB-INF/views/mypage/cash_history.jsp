@@ -56,11 +56,11 @@
 										<div class="cash">
 											<c:choose>
 												<c:when test="${ca.p_cash == 0}">
-													<span class="minus">-${ca.m_cash}</span>원
+													<span class="minus">-<fmt:formatNumber value="${ca.m_cash}" pattern="#,###"/>원</span>원
 													<span class="note_minus">${ca.note}</span>
 												</c:when>
 												<c:otherwise>
-													<span class="plus">${ca.p_cash}</span>원
+													<span class="plus"><fmt:formatNumber value="${ca.p_cash}" pattern="#,###"/>원</span>원
 													<span class="note_plus">${ca.note}</span>
 												</c:otherwise>
 											</c:choose>
