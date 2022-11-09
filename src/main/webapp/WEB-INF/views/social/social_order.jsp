@@ -5,9 +5,19 @@
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/resources/css/order.css" />
 <script>
+function ck_box(){
+	
+	  const checkbox = document.getElementById('confirmNotice');
 
+	  const is_checked = checkbox.checked;
+		
+	  if(!is_checked){
+		  alert('약관에 동의해 주세요.');
+		  return false;
+	  }
+}
 </script>
-<form method="post" action="/order_ok">
+<form method="post" action="/order_ok" onsubmit="return ck_box();">
 <article>
 	<div id="content">
 		<input type="hidden" value="${s.match_no}" name="social_no" id="no">
@@ -174,7 +184,7 @@
 
 			<div id="content_footer">
 				<div id="btn_wrap">
-					<button class="con_btn"><fmt:formatNumber value="${s.price}" pattern="#,###"/>원 결제하기</button>
+					<button type="submit" class="con_btn"><fmt:formatNumber value="${s.price}" pattern="#,###"/>원 결제하기</button>
 					<input type="hidden" value="${s.price}" name="payment" id="payment">
 				</div>
 			</div>
