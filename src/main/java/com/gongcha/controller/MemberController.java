@@ -360,7 +360,7 @@ public class MemberController {
 			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
-			return "/mypage/member_del";
+			return "/member/member_del";
 		}
 		return null;
 

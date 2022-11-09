@@ -101,8 +101,16 @@ function edit_check(){
 
 	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
 		$("#email_domain").val("");
+		return true;
+	}
+	
+	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
+		$("#email_domain_text").remove();
+		return true;
 	}
 
+	
+	
 	$domain = $.trim($("#email_domain_text").val());
 	$("#domain_check").hide();
 	let domain_check = /^(?:\w+\.)+\w+$/g;
@@ -198,7 +206,7 @@ function edit_check(){
 $(function(){	
 
 	$(document).ready(function(){
-
+		$("#email_domain_text").attr("readonly", true);
 		$('select[name=email_domain]').change(function() {
 
 			if($(this).val()=="none"){

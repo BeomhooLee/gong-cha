@@ -39,7 +39,7 @@ function check() {
     <div class="headMessage">
       <h2>회원 탈퇴</h2>
     </div>
-    <form action="/mypage/del_ok" method="post" onsubmit="return check();">
+    <form action="/member/del_ok" method="post" onsubmit="return check();">
       <div class="inner_wrap">
         
           <label for="mem_id">아이디</label>
