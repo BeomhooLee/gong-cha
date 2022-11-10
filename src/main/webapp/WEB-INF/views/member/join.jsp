@@ -169,8 +169,7 @@
 						</div>
 						<span id="email_check"></span>
 						<label>생년월일</label> <input type="number" name="mem_birth" id="mem_birth"
-							 style="width: 49%;" maxlength="8"
-							placeholder="ex)19900101"><br>
+							 style="width: 49%;" placeholder="ex)19900101" /><br>
 							<span id="birthcheck"></span>
 					</div>
 					<div class="inputWrapB">

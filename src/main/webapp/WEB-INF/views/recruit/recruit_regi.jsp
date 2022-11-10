@@ -123,7 +123,7 @@ $(function(){
 
 			<div class="form-floating" style="margin-top: 30px;">
 				<textarea class="form-control" placeholder="Leave a comment here"
-					id="recruit_content" style="height: 500px" name="recruit_content"></textarea>
+					id="recruit_content" style="height: 500px; resize: none;" name="recruit_content"></textarea>
 				<label for="recruit_content">내용을 입력해주세요</label>
 			</div>
 

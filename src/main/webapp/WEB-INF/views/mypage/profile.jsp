@@ -98,18 +98,6 @@ function edit_check(){
 		$("#email_domain").focus();
 		return false;
 	}
-
-	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
-		$("#email_domain").val("");
-		return true;
-	}
-	
-	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
-		$("#email_domain_text").remove();
-		return true;
-	}
-
-	
 	
 	$domain = $.trim($("#email_domain_text").val());
 	$("#domain_check").hide();
@@ -122,7 +110,7 @@ function edit_check(){
 			$("#email_domain_text").val('').focus();
 			return false;
 	}
-
+	
 	$birth = $.trim($("#mem_birth").val())
 
 	if ($birth == "") {
@@ -188,6 +176,16 @@ function edit_check(){
 		return false;
 	}
 	
+	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
+		$("#email_domain").remove();
+		return $("#email_domain_text").val();
+	}
+	
+	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
+		$("#email_domain_text").remove();
+		return $("#email_domain").val();
+	}
+	
 	$owner = $.trim($("#bank_owner").val());
 	$("#owner_check").hide();
 	let owner_check = /^[가-힣]{2,10}$/;
@@ -201,12 +199,17 @@ function edit_check(){
 			return false;
 	}
 	}
+	
 }
 
 $(function(){	
 
 	$(document).ready(function(){
-		$("#email_domain_text").attr("readonly", true);
+		if($("#email_domain").val()=="none"){
+		$("#email_domain_text").attr("readonly", false);
+		}else{
+			$("#email_domain_text").attr("readonly", true);
+		}
 		$('select[name=email_domain]').change(function() {
 
 			if($(this).val()=="none"){
