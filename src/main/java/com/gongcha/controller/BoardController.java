@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
-import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.BoardService;
 import com.gongcha.service.ReplyService;

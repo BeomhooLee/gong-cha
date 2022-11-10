@@ -174,8 +174,8 @@ public class MemberController {
 			out.println("</script>");
 
 		}else{
-//			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
-			if(!md.getMem_pwd().equals(md.getMem_pwd())){
+			if(!md.getMem_pwd().equals(PwdChange.getPassWordToXEMD5String(mem_pwd))) {
+//			if(!md.getMem_pwd().equals(md.getMem_pwd())){
 				out.println("<script>");
 				out.println("alert('비밀번호가 다릅니다!');");
 				out.println("history.back();");
