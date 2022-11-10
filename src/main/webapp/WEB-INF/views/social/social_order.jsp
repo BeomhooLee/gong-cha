@@ -68,7 +68,7 @@ function ck_box(){
 									<div class="list_value"><strong>0원</strong></div>
 									</c:if>
 									<c:if test="${s.price > m.cash}">
-									<div class="list_value"><strong >-<fmt:formatNumber value="${s.price-m.cash}" pattern="#,###"/>원</strong></div>
+									<div class="list_value"><strong ><fmt:formatNumber value="${s.price-m.cash}" pattern="#,###"/>원</strong></div>
 									</c:if>
 								</div>
 							</div>
