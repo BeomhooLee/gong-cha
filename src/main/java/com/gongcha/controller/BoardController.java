@@ -60,7 +60,6 @@ public class BoardController {
 		}else {
 			List<BoardDTO> recruit_region_list = boardService.getRecruitList_region(region);
 			m.addAttribute("list", recruit_region_list);
-			System.out.println(recruit_region_list);
 		}
 		
 		return "/recruit/recruit_filtered";
@@ -232,7 +231,6 @@ public class BoardController {
 					Stadium_matchDTO sta = boardService.getStadium_time(i);
 					
 					ModelAndView f=new ModelAndView();
-					System.out.println(sta);
 					
 					f.addObject("my",my);
 					f.addObject("re",i);

@@ -69,8 +69,8 @@ function join_check(){
    }
    
    $("#mem_check").hide();
-   let id_check = /^[가-힣]{2,10}$/;
-   if (!(id_check.test($mem_name))) {
+   let name_check = /^[가-힣]{2,10}$/;
+   if (!(name_check.test($mem_name))) {
          $namechecktext = '<font color="red" size="2">이름은 2~10자 까지 한글로 입력 가능합니다.</font>';
          $("#name_check").text('');
          $("#name_check").show();
@@ -102,31 +102,21 @@ function join_check(){
 		return false;
 	}
 
-	if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
-		$("#email_domain").remove();
-		return true;
-	}
-	
-	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
-		$("#email_domain_text").remove();
-		return true;
-	}
-   
-   $domain = $.trim($("#email_domain_text").val());
-   $("#domain_check").hide();
-   let domain_check = /^(?:\w+\.)+\w+$/g; //도메인 정규식
-   if (!(domain_check.test($domain))) {
+	$domain = $.trim($("#email_domain_text").val());
+   	$("#domain_check").hide();
+   	let domain_check = /^(?:\w+\.)+\w+$/g; //도메인 정규식
+   	if (!(domain_check.test($domain))) {
          $emailchecktext = '<font color="red" size="2">도메인을 다시 확인해주세요.</font>';
          $("#email_check").text('');
          $("#email_check").show();
          $("#email_check").append($emailchecktext);
-         $("#email_domain_text").val().focus();
+         $("#email_domain_text").val('').focus();
          return false;
    }
    
    $birth = $.trim($("#mem_birth").val());
    
-   if($.trim($("#mem_birth").val()) == ""){
+   if($birth == ''){
       alert("생년월일을 입력해주세요!");
       $("#mem_birth").val('').focus();
       return false;
@@ -199,6 +189,17 @@ function join_check(){
         $("input[name='id_checked']").eq(0).focus();
         return false;
     }
+    
+    if($.trim($("#email_domain").val())=="none" && !($("#email_domain_text").val()=="")){
+		$("#email_domain").remove();
+		return $("#email_domain_text").val();
+	}
+	
+	if(!($.trim($("#email_domain").val())=="none") && !($("#email_domain_text").val()=="")){
+		$("#email_domain_text").remove();
+		return $("#email_domain").val();
+	}
+    
 }
 //중복아이디 검색
 function id_check(){

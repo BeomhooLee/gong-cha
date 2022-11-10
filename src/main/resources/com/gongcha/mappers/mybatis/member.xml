@@ -31,7 +31,7 @@
 	   , #{mem_pwd}
 	   , #{mem_name}
 	   , #{email_id}
-	   , #{email_domain}
+	   , #{email_domain,jdbcType=VARCHAR}
 	   , #{mem_birth}
 	   , #{mem_gender} 
 	   , #{phone01}

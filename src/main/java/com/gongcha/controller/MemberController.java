@@ -386,7 +386,7 @@ public class MemberController {
 			out.println("location='/member/login';");
 			out.println("</script>");
 		}else {
-			if(pm == null) {
+			if(pm == null || !(pm.getMem_id().equals(id))) {
 				out.println("<script>");
 				out.println("alert('회원정보를 찾을 수 없습니다!\\n아이디를 다시 입력해주세요!');");
 				out.println("history.back();");
@@ -427,8 +427,7 @@ public class MemberController {
 		String id = (String) session.getAttribute("id");
 		String social_no = request.getParameter("social_no");
 		String stadium_no = request.getParameter("stadium_no");
-		System.out.println(stadium_no);
-		System.out.println(social_no);
+
 		String query_str = null;
 		
 		if(social_no.equals("null") && stadium_no.equals("null")) {
@@ -494,14 +493,12 @@ public class MemberController {
 			List<Social_matchDTO> smList = new ArrayList<>();
 		
 			for(int i=0; i<social_historyList.size(); i++) {
-				//System.out.println(social_historyList.get(i));
 				Social_matchDTO smdto = memberService.getSocialNo(social_historyList.get(i));	
 				
 				smList.add(smdto);
 			}
-			//System.out.println(smdto);
+
 			m.addAttribute("social_history", smList);
-			System.out.println(smList);
 			m.addAttribute("sh_size", social_historyList.size());
 			m.addAttribute("stadium_matchList", stadium_matchList);
 			m.addAttribute("st_size", stadium_matchList.size());

@@ -60,7 +60,6 @@ public class MatchController {
 
 		// 소셜매치 리스트 뽑기
 		List<Social_matchDTO> social_matchList = matchservice.getJoin_list(sm);
-		// System.out.println("그냥"+social_matchList);
 
 		m.addAttribute("social_match", social_matchList);
 
@@ -329,11 +328,8 @@ public class MatchController {
 		String selectedDate = map.get("selectedDate");
 		sm.setSelectdate(selectedDate);
 		sm.setStadium(stadium);
-		// System.out.println(stadium);
-		// System.out.println(selectedDate);
 
 		List<Stadium_matchDTO> sm_list = this.matchservice.getStadium_matchList(sm);
-		// System.out.println(sm_list);
 
 		m.addAttribute("s_list", sm_list);
 

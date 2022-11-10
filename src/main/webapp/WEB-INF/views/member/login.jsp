@@ -47,7 +47,7 @@ function login_check(){
         <fieldset>
             
             <div class="inputWrap" style="display: initial;">
-              <input type="text" name="mem_id" autofocus required id="mem_id" placeholder="아이디 또는 이메일">
+              <input type="text" name="mem_id" autofocus required id="mem_id" placeholder="아이디">
             </div>
             
             <div class="inputWrap" style="display: initial;">
