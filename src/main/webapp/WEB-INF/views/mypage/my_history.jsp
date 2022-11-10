@@ -93,7 +93,7 @@ function cancel2(){
           <div id="list">
 				<ul>
 					<li class="item">
-						<a style="outline: none; color: #222836; text-decoration: none; cursor: pointer;">
+						<a style="outline: none; color: #222836; text-decoration: none; cursor: default;">
 							<div class="time">
 								<p>${fn:substring(sm.match_date,0,10)}</p>
 							</div>
@@ -107,10 +107,10 @@ function cancel2(){
 							</div>
 	
 							<div class="reserv_option">
-								<div class="st_info" onclick="lodcation='/social?match_no=${sm.match_no}'">
+								<div style="cursor:pointer" class="st_info" onclick="lodcation='/social?match_no=${sm.match_no}'">
 									<p style="margin: 0px;">구장정보</p>
 								</div>
-								<div class="cancel">
+								<div style="cursor:pointer" class="cancel">
 								   <p id="sm" style="margin:0px;" onclick="cancel1();" data-value="${sm.match_no}" data-price="${sm.price}">신청취소</p>
 								   
 								</div>
@@ -155,10 +155,10 @@ function cancel2(){
 								</div> 
 							</div>
 							<div class="reserv_option">
-								<div class="st_info" onclick="location='/rental/detail?stadium=${st.stadium_name}'" >
+								<div style="cursor:pointer" class="st_info" onclick="location='/rental/detail?stadium=${st.stadium_name}'" >
 									<p style="margin: 0px;">구장정보</p>
 								</div>
-								<div class="cancel">
+								<div style="cursor:pointer" class="cancel">
 								   <p id="st"style="margin:0px;" onclick="cancel2()" style="cursor: pointer;" data-value="${st.stadium_match_no}" data-price="${st.price}">신청취소</p>
 								</div>
 							</div>
