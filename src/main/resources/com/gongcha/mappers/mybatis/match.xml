@@ -201,4 +201,7 @@
 		insert into social_history values(social_history_seq.nextval,#{member},#{match_no})
 	</insert>
 
+	<select id="search" resultType="stadium">
+		select * from stadium where stadium_name like #{stadium_name} or city like #{city}
+	</select>
 </mapper>

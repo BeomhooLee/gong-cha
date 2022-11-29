@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.MatchDAO;
+import com.gongcha.dto.BoardDTO;
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
@@ -129,6 +130,11 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public void insert_social_history(Social_matchDTO sm) {
 		matchDAO.insert_social_history(sm);
+	}
+
+	@Override
+	public List<BoardDTO> search(StadiumDTO s) {
+		return matchDAO.search(s);
 	}
 
 }
