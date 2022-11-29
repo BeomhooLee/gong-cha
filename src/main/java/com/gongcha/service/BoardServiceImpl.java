@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gongcha.dao.BoardDAO;
+import com.gongcha.dto.Black_listDTO;
 import com.gongcha.dto.BoardDTO;
 import com.gongcha.dto.Stadium_matchDTO;
 
@@ -86,7 +87,35 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getStadium_time(i);
 	}
 
+	@Override
+	public List<BoardDTO> getBack_list(Black_listDTO b) {
+		return this.boardDao.getBack_list(b);
+	}
 
+	@Override
+	public void insertRegi(Black_listDTO b) {
+		boardDao.insertRegi(b);
+	}
+
+	@Override
+	public Black_listDTO getBlack_lsit_cont(int no) {
+		return boardDao.getBlack_lsit_cont(no);
+	}
+
+	@Override
+	public Black_listDTO idCheck(Black_listDTO i) {
+		return boardDao.idCheck(i);
+	}
+
+	@Override
+	public void edit(Black_listDTO j) {
+		boardDao.edit(j);
+	}
+
+	@Override
+	public void delBlack_list(Black_listDTO de) {
+		boardDao.delBlack_list(de);
+	}
 
 }
 

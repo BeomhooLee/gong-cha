@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+.blackList {
+	max-width: 1024px;
+	width: 100%;
+	margin: auto;
+}
+.blck_list_t{
+    margin: 20px;
+    padding: 15px 30px;
+    border-radius: 100px 100px 100px 0;
+    background-color: #25316D;
+    color: white;
+    width: 50%;
+}
+.b_title{
+	display: block;
+    font-size: 30px;
+    font-weight: bolder;
+    padding-top: 5px;
+    width: 100%;
+}
+.black_lsit {
+	clear:both;
+	max-width: 1024px;
+	width: 100%;
+	margin: auto;
+}
+.board_insert {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-weight:bold;
+	color: #fff;
+	padding: 5px;
+	font-size: 18px;
+	max-width:1024px;
+	width:50%;
+	height: 40px;
+	background-color: #25316d;
+	border-radius: 20px;
+	margin: 15px auto;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box
+}
+
+.item {
+	margin:15px auto;
+}
+
+
+p{
+	margin-bottom:0rem !important;
+}
+.mem h3{
+	font-size: 14px;
+    font-weight: 400;
+    word-break: keep-all;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.empty{
+	text-align: center;
+	color: #25316d;
+	margin: 20px 0px;
+	
+}
+.inf{
+	border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 15px 15px;
+    text-align:center;
+}
+
+ul{
+	padding-left: 0rem !important;
+}
+
+/* black_list_regi */
+
+.h5{
+	color: #3E5463;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 150%;
+}
+
+span{
+	color: #3E5463;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 150%;
+}
+
+.list_form{
+	border-top: solid 2px;
+	padding-top: 20px;
+}
+
+.btn_contain{
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.btn_list{
+	margin-right: 7px;
+	background-color: #C1CCD6;
+}
+
+button {
+    background-color: #25316D;
+    border-radius: 12px;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    font-size: 16px;
+    color: white;
+}
+

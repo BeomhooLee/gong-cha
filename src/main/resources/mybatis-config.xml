@@ -12,6 +12,7 @@
 		<typeAlias type="com.gongcha.dto.BoardDTO" alias="board" />
 		<typeAlias type="com.gongcha.dto.CashDTO" alias="cash" />
 		<typeAlias type="com.gongcha.dto.Social_historyDTO" alias="history" />
+		<typeAlias type="com.gongcha.dto.Black_listDTO" alias="black_list" />
 	</typeAliases>
 	
 </configuration>
