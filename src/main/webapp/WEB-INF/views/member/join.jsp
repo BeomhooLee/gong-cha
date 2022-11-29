@@ -245,7 +245,7 @@
 
 				<div style="display: flex; justify-content: flex-end;;">
 					<button type="submit" class="btn submit">가입하기</button>
-					<button type="button" class="btn del">취소하기</button>
+					<button type="button" class="btn del" onclick="location='/member/login';">취소하기</button>
 				</div>
 			</form>
 		</div>

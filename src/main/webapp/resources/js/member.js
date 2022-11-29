@@ -15,12 +15,12 @@ function join_check(){
 
    if($mem_pwd == ""){
       alert("비밀번호를 입력해주세요!");
-      $("#mem_pwd").val().focus();
+      $("#mem_pwd").val('').focus();
       return false;
    }
    if($mem_pwd2 == ""){
       alert("비밀번호 확인을 입력해주세요!");
-      $("#mem_pwd2").val().focus();
+      $("#mem_pwd2").val('').focus();
       return false;
    }
    if($mem_pwd != $mem_pwd2){
@@ -232,7 +232,7 @@ function id_check(){
    };
    //2.입력글자 확인
    if(!(validate_userid($mem_id))){
-      $idchecktext='<font color="red" size="3"><b>아이디는 영문소문자,숫자 조합만 가능합니다.</b></font>';
+      $idchecktext='<font color="red" size="3"><b>아이디는 영문자로 시작하는 영문자 또는 숫자 4~12자만 가능합니다.</b></font>';
       $("#idcheck").text('');
       $("#idcheck").show();
       $("#idcheck").append($idchecktext);
@@ -283,13 +283,12 @@ function id_check(){
 
 //정규표현식
 function validate_userid($mem_id){
-  var pattern= new RegExp(/[a-zA-Z0-9]/g);//아이디를 영문소문
+  var pattern= new RegExp(/^[a-z]+[a-z0-9]{3,11}$/g);//영문자로 시작하는 영문자 또는 숫자 4~12자 
   //자와 숫자 조합으로 처리
   return pattern.test($mem_id);
 }
 
 function validate_userid2($mem_id){
-  //var pattern2= new RegExp(/\s/g);//공백 확인
   var regExp = /\s/g;
   return regExp.test($mem_id);
 }
