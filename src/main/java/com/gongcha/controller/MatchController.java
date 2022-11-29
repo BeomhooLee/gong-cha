@@ -24,12 +24,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.gongcha.dto.BoardDTO;
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_historyDTO;
@@ -64,6 +67,27 @@ public class MatchController {
 		m.addAttribute("social_match", social_matchList);
 
 		return "index";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/search_check", produces="application/text; charset=utf8")
+	public String search_check(@RequestParam("searchTxt") String stadium_name, @RequestParam("searchTxt") String city, StadiumDTO s,
+			HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+
+		Gson gson=new Gson();
+		HashMap<String,Object> map =new HashMap<>();
+
+		s.setStadium_name("%"+stadium_name+"%");
+		s.setCity("%"+city+"%");
+		List<BoardDTO> search_list = matchservice.search(s);
+		
+		map.put("search_list",search_list);
+
+		String json=gson.toJson(map);
+		
+		return json;
+
 	}
 	
 	@RequestMapping("/rental")
