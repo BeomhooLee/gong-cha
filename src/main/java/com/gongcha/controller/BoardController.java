@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gongcha.dto.BoardDTO;
-import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
 import com.gongcha.service.BoardService;
 import com.gongcha.service.ReplyService;
@@ -295,11 +294,6 @@ public class BoardController {
 	@RequestMapping("/side_menu/notice")
 	public String notice() {
 		return "/side_menu/notice";
-	}
-	
-	@RequestMapping("/side_menu/q&a")
-	public String qNa() {
-		return "/side_menu/q&a";
 	}
 	
 }

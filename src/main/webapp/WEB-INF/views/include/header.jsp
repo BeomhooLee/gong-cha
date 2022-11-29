@@ -78,7 +78,7 @@
 							</div>
 
 							<div id="side_a">
-								<a href="/side_menu/q&a">Q&A</a>
+								<a href="/q&a/q&a">Q&A</a>
 							</div>
 
 							<div id="side_a">

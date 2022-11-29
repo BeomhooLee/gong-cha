@@ -122,15 +122,34 @@ article{
 	font-weight: bold;
 	border: 1px solid #25316D;
 }
-#notice_list h3{
-	font-size: 20px;
-	text-align:center;
-	padding-top: 10px;
-	color: white;
+
+#notice_list h1 a:hover{
+	text-decoration: none;
+	color: #25316D;
+	font-weight: bold;
+	border-bottom: 1px solid #25316D;
+}
+
+#notice_list h1{
+	font-size: 30px;
+    border-bottom: 1px solid #ddd;
+    color: #3534AB;
+    padding-left: 21px;
+    padding-top: 14px;
     margin-bottom: 10px;
-   	background-color: #25316D;
-   	border-radius:100px 100px 100px 0;
+    padding-bottom: 50px;
     display: inline-block;
-    width: 155px;
-    height: 45px; 
+    width: 100%;
+    height: 50px;
+}
+
+pre {
+    margin-left: 15px;
+}
+
+#qna_title h3{
+	font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
 }

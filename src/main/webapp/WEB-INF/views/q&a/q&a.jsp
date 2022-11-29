@@ -34,20 +34,20 @@
 			<div id="qAnda_menu">
 				<h3>카테고리</h3>
 				<ul>
-					<li><a href="#"><div>매치 취소</div></a></li>
-					<li><a href="#"><div>매치 진행</div></a></li>
-					<li><a href="#"><div>매치 신청</div></a></li>
-					<li><a href="#"><div>서비스</div></a></li>
-					<li><a href="#"><div>포인트</div></a></li>
-					<li><a href="#"><div>매너/제재</div></a></li>
+					<li><a href="/q&a/q&a_1"><div>매치 취소</div></a></li>
+					<li><a href="/q&a/q&a_2"><div>매치 진행</div></a></li>
+					<li><a href="/q&a/q&a_3"><div>매치 신청</div></a></li>
+					<li><a href="/q&a/q&a_4"><div>구장 예약</div></a></li>
+					<li><a href="/q&a/q&a_5"><div>캐시</div></a></li>
+					<li><a href="/q&a/q&a_6"><div>매너/제재</div></a></li>
 				</ul>
 			</div>
 
 			<div id="notice_list">
 				<h3>자주묻는 질문</h3>
-				<a href="#" id="notice_name"><h4>포인트를 계좌로 환불 할 수 없을까요?</h4></a>
-				<a href="#" id="notice_name"><h4>비회원으로 구장예약을 하고 싶어요.</h4></a>
-				<a href="#" id="notice_name"><h4>매니저로 근무하고 싶은데 어떻게 해야하나요?</h4></a>
+				<a href="#" class="notice_name"><h4>포인트를 계좌로 환불 할 수 없을까요?</h4></a>
+				<a href="#" class="notice_name"><h4>비회원으로 구장예약을 하고 싶어요.</h4></a>
+				<a href="#" class="notice_name"><h4>매니저로 근무하고 싶은데 어떻게 해야하나요?</h4></a>
 			</div>
 		</div>
 	</article>
