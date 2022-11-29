@@ -2,6 +2,7 @@ package com.gongcha.dao;
 
 import java.util.List;
 
+import com.gongcha.dto.Black_listDTO;
 import com.gongcha.dto.BoardDTO;
 import com.gongcha.dto.StadiumDTO;
 import com.gongcha.dto.Stadium_matchDTO;
@@ -35,5 +36,18 @@ public interface BoardDAO {
 	List<BoardDTO> getRecruitList_region(String region);
 
 	Stadium_matchDTO getStadium_time(BoardDTO i);
+
+	List<BoardDTO> getBack_list(Black_listDTO b);
+
+	void insertRegi(Black_listDTO b);
+
+	Black_listDTO getBlack_lsit_cont(int no);
+
+	Black_listDTO idCheck(Black_listDTO i);
+
+	void edit(Black_listDTO j);
+
+	void delBlack_list(Black_listDTO de);
+
 
 }

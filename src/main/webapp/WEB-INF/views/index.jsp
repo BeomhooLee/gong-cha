@@ -208,7 +208,7 @@
 							</div>
 
 							<div id="side_a">
-								<a href="#">블랙리스트 신고</a>
+								<a href="/side_menu/black_list">블랙리스트 신고</a>
 							</div>
 
 							<div id="side_b">

@@ -82,4 +82,35 @@
 	<select id="get_stadiumtime" resultType="stadium_match">
 		select * from stadium_match where stadium_match_no = #{stadium_match_no}
 	</select>
+	
+	<!-- 블랙리스트 목록 -->
+	<select id="get_black" resultType="black_list">
+		select * from black_list order by black_list_no desc
+	</select>
+	
+	<!-- 블랙리스트 저장 -->
+	<insert id="black_in">
+		insert into black_list values(black_list_no_seq.nextval,#{black_list_title},#{black_list_content},#{mem_id},sysdate) 
+	</insert>
+	
+	<!-- 블랙리스트 내용보기 -->
+	<select id="getBlack_cont" resultType="black_list">
+		select * from black_list where black_list_no=#{no}
+	</select>
+	
+	<!-- 블랙리스트에서 아이디 확인 -->
+	<select id="get_black_id" resultType="black_list">
+		select * from black_list where black_list_no=#{black_list_no} and mem_id=#{mem_id}
+	</select>
+	
+	<!-- 블랙리스트 글수정 -->
+	<update id="edit_black">
+		update black_list set black_list_title=#{black_list_title}, black_list_content=#{black_list_content},
+		regdate=sysdate where black_list_no=#{black_list_no} and mem_id=#{mem_id}
+	</update>
+	
+	<!-- 블랙리스트 삭제 -->
+	<delete id="del_black">
+		delete from black_list where black_list_no=#{black_list_no} and mem_id=#{mem_id}
+	</delete>
 </mapper>
