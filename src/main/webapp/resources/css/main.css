@@ -83,7 +83,7 @@ header{
    	 	background: none;
   	  	border: none;
     	vertical-align: super;
-    	width: calc(100% - 60px);
+    	width: 360px;
    		padding: 0px;
     	line-height: 24px;
 	}
@@ -92,6 +92,90 @@ header{
 		margin: 0;
 		
 	}
+}
+.search{
+	position: relative;
+    border-radius: 0;
+    transform: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background-color: #fff;
+    z-index: 5;
+}
+.search_nav{
+	border: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1010;
+}
+section{
+	border: 1px solid #f7f7f7;
+    border-top: none;
+    max-height: 500px;
+    padding: 0px;
+    margin-left: 12px;
+    overflow-y: scroll;
+    position: absolute;
+    top: 100%;
+    width: 97%;
+}
+.search_list{
+	max-height: 400px;
+}
+.search_list ul{
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	padding-inline-start: 0px;
+}
+.search_list ul li{
+	padding: 15px;
+    border-bottom: 1px solid #f2f5f7;
+    cursor: pointer;
+    background-color: white;
+}
+.search_list ul li img{
+	margin-right:10px;
+}
+.area p{
+	display: inline-block;
+}
+.stadium img{
+	margin-right:10px;
+	vertical-align: baseline;
+}
+.st_info{
+	display: inline-block;
+    width: calc(100% - 40px);
+}
+.name{
+	font-size:15px;
+}
+.address{
+	font-size:12px;
+}
+.no_result{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: auto;
+    text-align: center;
+}
+.no_result img{
+	margin-bottom: 10px;
+}
+.no_result p{
+	font-size:15px;
 }
 #mainTap{
 	display:flex;

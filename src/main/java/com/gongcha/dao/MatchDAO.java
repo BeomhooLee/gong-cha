@@ -2,6 +2,7 @@ package com.gongcha.dao;
 
 import java.util.List;
 
+import com.gongcha.dto.BoardDTO;
 import com.gongcha.dto.CashDTO;
 import com.gongcha.dto.MemberDTO;
 import com.gongcha.dto.Social_matchDTO;
@@ -53,5 +54,7 @@ public interface MatchDAO {
 	public void insertP_Cash(CashDTO cash);
 
 	public void insert_social_history(Social_matchDTO sm);
+
+	public List<BoardDTO> search(StadiumDTO s);
 
 }

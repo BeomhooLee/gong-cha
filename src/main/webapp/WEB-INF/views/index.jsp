@@ -3,7 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -156,6 +157,53 @@
 <script type="text/javascript">
 	var selected_date = $(this).children('p').text().replace('일', '')
 </script>
+<script>
+$(document).keydown(function(e){   
+    if($.trim($("#searchTxt").val()) == ""){       
+        if(e.keyCode === 8){   
+        return false;
+        }
+    }
+});
+
+	function search(target){
+		var searchTxt=target.value;
+		
+		$.ajax({
+			url:"search_check",
+			type:"GET",
+			contentType : 'charset=UTF-8',
+			data:{
+				"searchTxt":searchTxt
+			},
+			success:function(data){
+				var obj = JSON.parse(data);
+			
+				console.log(obj);
+				$('#section').children().remove();
+				if(obj.search_list.length == 0){
+					$('#section').append("<div class='no_result'><img src='/resources/images/no_result.png' width='30' height='30' />"
+							    +"<p>검색어를 바꿔 다시 찾아 보세요!</p>"+"<p>시, 또는 구장 이름으로 검색할 수 있습니다.</p></div>");
+					
+				}else{
+					$('#section').append(
+							"<div class='search_list'><ul><li class='area'><img src='resources/images/search.svg' width='24' height='24' />"
+							+"<p><strong>test</strong>의 매치 모두 보기</p></li></div>"
+					);
+					for(var i=0; i<obj.search_list.length; i++){
+						$('.area').append(
+								"<li class='stadium'><img src='/resources/images/soccer-field.png' width='24' height='24' /><div class='st_info'>"
+								+"<p class='name'><strong>test</strong> stadium name</p><p class='address'><strong>city</strong> address</p>"
+								+"</div></li></ul>"
+						);
+					}
+				}
+			}
+		
+		
+		});
+	}
+</script>
 </head>
 <body>
 	<div id="container">
@@ -169,12 +217,36 @@
 			<div id="mainTap">
 				<img id="search_img" src="/resources/images/search.svg" width="24"
 					height="24" />
+				<div class="search">
+				<div class="search_nav">
 				<div id="search_bar">
 					<img src="/resources/images/search.svg" width="24" height="24" />
 					<input id="searchTxt" type="search" placeholder="지역, 구장 이름으로 찾기"
-						maxlength="100" autocomplete="off" size="33" />
+						maxlength="100" autocomplete="off" size="33" onkeyup="search(this);"/></div>
 				</div>
-
+				<section id="section">
+					<!--<div class="search_list">
+					  <ul>
+					    <li class="area"><img src="/resources/images/search.svg" width="24" height="24" />
+					    <p><strong>test</strong>의 매치 모두 보기</p></li>
+					    <li class="stadium">
+					      <img src="/resources/images/soccer-field.png" width="24" height="24" />
+					      <div class="st_info">
+					      <p class="name"><strong>test</strong> stadium name</p>
+					      <p class="address"><strong>city</strong> address</p>
+					      </div>
+					    </li>
+					  </ul>
+					</div>-->
+				</section>
+				<!--<section>
+				  <div class="no_result">
+				    <img src="/resources/images/no_result.png" width="30" height="30" />
+				    <p>검색어를 바꿔 다시 찾아 보세요!</p>
+				    <p>시, 또는 구장 이름으로 검색할 수 있습니다.</p>
+				  </div>
+				</section> -->
+				</div>
 				<div id="join">
 					<c:if test="${empty id}">
 						<a href="/member/login"><img src="/resources/images/my.svg"></a>
