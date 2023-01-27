@@ -143,6 +143,9 @@
 	margin-bottom: 20px;
     background-color: white;
 }
+section{
+	position: unset; 
+}
 .section_title{
 	margin-bottom: 10px;
 }

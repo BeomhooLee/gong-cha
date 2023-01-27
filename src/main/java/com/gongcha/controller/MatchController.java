@@ -274,7 +274,7 @@ public class MatchController {
 
 			m.addAttribute("s", sm);
 			m.addAttribute("m", member);
-					
+			
 			return "/rental/order";
 		}
 

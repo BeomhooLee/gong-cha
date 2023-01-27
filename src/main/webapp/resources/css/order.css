@@ -69,6 +69,7 @@ article{
 section{
 	margin-bottom:20px;
 	background-color:white;
+	position:unset !important;
 	padding:40px;
 }
 .list_menu{

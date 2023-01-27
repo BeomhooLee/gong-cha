@@ -9,6 +9,7 @@
 	padding: 40px;
 	margin-bottom: 20px;
     background-color: white;
+    position: unset;
 }
 .section_title{
 	display:flex;
