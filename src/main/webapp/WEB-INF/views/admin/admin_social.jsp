@@ -9,6 +9,7 @@
 <title>소셜 매치 관리</title>
 </head>
 <body>
+<div>main | 소셜 매치 관리 | 구장 예약 관리 | 회원 관리 | 사이드 메뉴 관리</div>
 <h2>소셜 매치 관리</h2>
 	<table border="1">
 		<tr>
